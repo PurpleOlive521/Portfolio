@@ -1,0 +1,29 @@
+/* ----- Variabler ----- */ 
+:root
+{
+    --bg: #fefcf8;
+    --bg-card: #c8e2f0;
+    --bg-card-highlight: #1d1d27;
+    --bg-panel: #c5b4fc;
+    --contact-icon: #000000;
+
+    --steam-card: #1d2f44;
+    --steam-text-primary: #107cac;
+    
+    --text-primary: #37373b;
+    --text-primary-hover: #1d1d27;
+
+    --font: 'Quicksand', system-ui, -apple-system, sans-serif;
+
+    --radius: 12px;
+    --radius-sm: 6px;
+    
+    --header-shadow: 0 4px 2px #a797dd;
+    --footer-shadow: 0 -4px 2px #a797dd;
+    --card-shadow: 2px 2px 6px #585874;
+    --card-shadow-alt: 5px 5px 1px #87b5cd;
+
+    --contact-radius: 50px;
+    --contact-outline-width: 2px;
+}
+

@@ -1,0 +1,100 @@
+@import url('properties.css');
+
+@media(max-width: 1100px)
+{
+
+    .Nameplate h1
+    {
+        font-size: 1.2rem;
+    }
+
+    .Nameplate h2
+    {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 800px)
+{ 
+    .Projects
+    {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* ----- Nameplate ----- */
+
+    .Nameplate
+    {
+        flex-grow: 1;
+    }
+
+    /* ----- Intro Card ----- */
+
+    .IntroCard h1
+    {
+        font-size: 1.5rem;
+    }
+
+    .IntroCard p
+    {
+        font-size: 1rem;
+    }
+
+    /* ----- About Me ----- */
+
+    .AboutMeBanner
+    {
+        padding: 1rem;
+    }
+
+    .AboutMeCard
+    {
+        width: 90%;
+    }
+
+    .AboutMeContent
+    {
+        margin: 1rem;
+    }
+
+    .AboutMeDescription
+    {
+        padding: 0.25rem;
+    }
+
+    /* ----- Navigation ----- */
+
+    .Navigation
+    {
+        display: none;
+    }
+
+    .NavItem
+    {
+        width: 100%;
+    }
+
+    .Contacts ul 
+    {
+        margin: 0.5rem;
+        padding: 0;
+    }
+
+    .Contacts
+    {
+        display: none;
+    }
+
+    /* ----- Mobile ----- */
+
+    .Dropdown
+    {
+        display: block;
+    }
+
+    .MobileSpacer
+    {
+        display: block;
+    }
+}
