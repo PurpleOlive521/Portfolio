@@ -15,52 +15,133 @@
 
         <link rel="stylesheet" href="CSS/style.css">    
         <link rel="stylesheet" href="CSS/queries.css">    
+        <link rel="stylesheet" href="Prism/prism.css">
+
         <script src="Javascript/index.js" type = "module"></script> 
+        <script src="Prism/prism.js"></script>
     </head>
 
     <body>
         <div id = "HeaderTarget"></div>
 
         <main>  
-            <section class = "ContentSwitcher" id = "uno">
-                <article class = "Switcher">
-                    <button class = "Switch active" data-tab="first">First</button>
-                    <button class = "Switch" data-tab="second">Second</button>
-                    <button class = "Switch" data-tab="third">Third</button>
-                </article>
-                
-                <article class = "SwitcherContent active" id = "first">
-                    <h1>I am first</h1>
-                </article>
 
-                <article class = "SwitcherContent" id = "second">
-                    <h1>I am second</h1>
-                </article>
+            <div class = "FieldContent">
+                <section class = "ContentSwitcher" id = "uno">
+                    <article class = "Switcher">
+                        <button class = "Switch active" data-tab="first">First</button>
+                        <button class = "Switch" data-tab="second">Second</button>
+                        <button class = "Switch" data-tab="third">Third</button>
+                    </article>
+                    
+                    <article class = "SwitcherContent active" id = "first">
+                        <!-- Code -->
+                        <pre class = "line-numbers"><code class = "lang-cpp"><!--void FEditorAttributeCustomization::CustomizeChildren(TSharedRef<IPropertyHandle> InStructPropertyHandle, IDetailChildrenBuilder& ChildBuilder, IPropertyTypeCustomizationUtils& StructCustomizationUtils) 
+{
+	TSharedPtr<IPropertyHandle> TypePropertyHandle = InStructPropertyHandle->GetChildHandle(GET_MEMBER_NAME_CHECKED(FEditorAttribute, Type));
+	TSharedPtr<IPropertyHandle> BaseValuePropertyHandle = InStructPropertyHandle->GetChildHandle(GET_MEMBER_NAME_CHECKED(FEditorAttribute, BaseValue));
 
-                <article class = "SwitcherContent" id = "third">
-                    <h1>I am third</h1>
-                </article>
-            </section>
+	check(TypePropertyHandle && BaseValuePropertyHandle);
 
-            <section class = "ContentSwitcher" id = "dos">
-                <article class = "Switcher">
-                    <button class = "Switch active" data-tab="first">First</button>
-                    <button class = "Switch" data-tab="second">Second</button>
-                    <button class = "Switch" data-tab="third">Third</button>
-                </article>
-                
-                <article class = "SwitcherContent active" id = "first">
-                    <h1>I am first</h1>
-                </article>
+	TArray<void*> RawData;
+	TypePropertyHandle->AccessRawData(RawData);
 
-                <article class = "SwitcherContent" id = "second">
-                    <h1>I am second</h1>
-                </article>
+	EAttributeType AttributeType = EAttributeType::EAT_NONE;
+	if (RawData.Num() > 0)
+	{
+		AttributeType = *static_cast<EAttributeType*>(RawData[0]);
+	}
 
-                <article class = "SwitcherContent" id = "third">
-                    <h1>I am third</h1>
-                </article>
-            </section>
+	const FText FinalRowName = FText::AsCultureInvariant(INVTEXT("Attribute: ").ToString() + UGameplaySystemBlueprintLibrary::ConvertAttributeToDisplayName(AttributeType));
+
+	ChildBuilder.AddCustomRow(INVTEXT("EditorAttribute: "))
+		.NameContent()
+		[
+			SNew(STextBlock)
+				.Text(FinalRowName)
+				.Font(StructCustomizationUtils.GetRegularFont())
+		]
+		.ValueContent()
+		[
+			SNew(SHorizontalBox)
+			+SHorizontalBox::Slot()
+			.AutoWidth()
+			.Padding(5.0f, 3.0f)
+			[
+				SNew(SBox)
+				.MinDesiredWidth(250.0f)
+				.VAlign(EVerticalAlignment::VAlign_Center)
+				[
+					SNew(SVerticalBox)
+					+ SVerticalBox::Slot()
+					.AutoHeight()
+					[
+						TypePropertyHandle->CreatePropertyNameWidget()
+					]
+					+ SVerticalBox::Slot()
+					.AutoHeight()
+					[
+						TypePropertyHandle->CreatePropertyValueWidget()
+					]
+				]
+			]
+
+			+SHorizontalBox::Slot()
+			.AutoWidth()
+			.Padding(5.0f, 3.0f)
+			[
+				SNew(SBox)
+				.MinDesiredWidth(250.0f)
+				.VAlign(EVerticalAlignment::VAlign_Center)
+				[
+					SNew(SVerticalBox)
+					+ SVerticalBox::Slot()
+					.AutoHeight()
+					[
+						BaseValuePropertyHandle->CreatePropertyNameWidget()
+					]
+					+ SVerticalBox::Slot()
+					.AutoHeight()
+					[
+						BaseValuePropertyHandle->CreatePropertyValueWidget()
+					]
+				]
+			]
+		];
+		
+}
+--></code></pre>
+                    </article>
+
+                    <article class = "SwitcherContent" id = "second">
+                        <h1>I am second</h1>
+                    </article>
+
+                    <article class = "SwitcherContent" id = "third">
+                        <h1>I am third</h1>
+                    </article>
+                </section>
+
+                <section class = "ContentSwitcher" id = "dos">
+                    <article class = "Switcher">
+                        <button class = "Switch active" data-tab="first">First</button>
+                        <button class = "Switch" data-tab="second">Second</button>
+                        <button class = "Switch" data-tab="third">Third</button>
+                    </article>
+                    
+                    <article class = "SwitcherContent active" id = "first">
+                        <h1>I am first</h1>
+                    </article>
+
+                    <article class = "SwitcherContent" id = "second">
+                        <h1>I am second</h1>
+                    </article>
+
+                    <article class = "SwitcherContent" id = "third">
+                        <h1>I am third</h1>
+                    </article>
+                </section>
+            </div>
         </main>
 
         <div id = "FooterTarget"></div>

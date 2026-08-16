@@ -1,0 +1,16 @@
+.code-toolbar
+{
+    top: -7px;
+    height: 730px;
+    overflow: auto;
+
+    scrollbar-color: #949393 #272822;
+}
+
+.code-toolbar::-moz-scrollbar-button:decrement,
+.code-toolbar::-moz-scrollbar-button:increment,
+.code-toolbar::-webkit-scrollbar-button:decrement,
+.code-toolbar::-webkit-scrollbar-button:increment 
+{
+    display: none;
+}
