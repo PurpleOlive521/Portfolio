@@ -17,6 +17,9 @@
 
     --steam-card: #1d2f44;
     --steam-text-primary: #107cac;
+
+    --close-button: var(--bg);
+    --close-button-hover: #a0a09f;
     
     --text-primary: #37373b;
     --text-primary-hover: #1d1d27;

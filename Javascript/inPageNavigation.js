@@ -32,7 +32,7 @@ export function BindToNavigationPoints()
 
         button.addEventListener('click', OnNavigationClicked.bind(target));
 
-        navigationPoints.set(element, new NavigationPoint(target));
+        navigationPoints.set(button, new NavigationPoint(target));
         navigationRoot.appendChild(element);
     }
 
@@ -45,7 +45,8 @@ export function BindToNavigationPoints()
 
 function OnNavigationClicked(event)
 {
-    event.target.scrollIntoView('smooth');
+    let scrollTarget = navigationPoints.get(event.target).target;
+    scrollTarget.scrollIntoView({behavior: "smooth", block: "start"});
 }
 
 function CalculateNavigationPoints()
@@ -76,13 +77,13 @@ function HandleScroll()
     }
 
     // Add active to new navigationPoint element
-    if (!currentPoint.children[0].classList.contains('active')) 
+    if (!currentPoint.classList.contains('active')) 
     {
         for(const [element, navigationPoint] of navigationPoints)
         {
-            element.children[0].classList.remove('active');
+            element.classList.remove('active');
         }
 
-        currentPoint.children[0].classList.add('active');
+        currentPoint.classList.add('active');
     }
 }

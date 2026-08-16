@@ -8,7 +8,6 @@
 html
 {
     font-size: 100%;
-    scroll-behavior: smooth;
     min-height: 100%;
 }
 
@@ -626,6 +625,10 @@ footer p
     background-color: var(--switcher);
     box-shadow: var(--switcher-shadow);
 
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+
     z-index: 1;
 }
 
@@ -642,11 +645,13 @@ footer p
 .Switch:hover 
 {
     background: var(--switcher-hover);
+    color: var(--text-primary-hover);
 }
 
 .Switch.active 
 {
     background: var(--switcher-active);
+    color: var(--text-primary-hover);
 }
 
 .SwitcherContent 
@@ -690,12 +695,13 @@ footer p
     color: var(--in-page-navigation-text);
 
     font-weight: 600;
+
+    transition: 0.5s linear;
 }
 
 .SideNavButton.active
 {
     text-decoration: none;
-    transition: color 0.5s ease-in-out;
     color: var(--in-page-navigation-text-active);
 }
 
@@ -712,4 +718,77 @@ footer p
     background-color: var(--bg-card);
     border-radius: 30px;
     padding: 1rem;
+}
+
+/* =====================
+    Image Modal
+   ===================== */
+
+.ExpandableImage
+{
+    cursor: pointer;
+}
+
+.ImageModal
+{
+    display: none; 
+    position: fixed;
+
+    z-index: 10000; /* The header is an equally large index, so here we are with a even larger index*/
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    padding-top: 100px;
+
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    overflow: hidden;
+}
+
+.ModalBackground
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    z-index: 0;
+
+    width: 100%;
+    height: 100%;
+}
+
+.ModalCloseButton
+{
+    position: absolute;
+    top: 15px;
+    right: 75px;
+    color: var(--close-button);
+    font-size: 4rem;
+    font-weight: bold;
+    transition: 0.3s;
+
+    z-index: 1;
+
+}
+
+.ModalCloseButton:hover,
+.ModalCloseButton:focus 
+{
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--close-button-hover);
+}
+
+.ModalImage
+{
+    margin: auto;
+    display: block;
+    width: 70%;
+    z-index: 1;
+
+
+    pointer-events: none;
 }
