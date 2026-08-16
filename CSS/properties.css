@@ -21,6 +21,9 @@
     --text-primary: #37373b;
     --text-primary-hover: #1d1d27;
 
+    --in-page-navigation-text: #88878a;
+    --in-page-navigation-text-active: #4743c5;
+
     --font: 'Quicksand', system-ui, -apple-system, sans-serif;
 
     --radius: 12px;

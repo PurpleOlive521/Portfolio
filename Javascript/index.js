@@ -2,6 +2,7 @@ import * as contentLoader from './contentLoader.js'
 import * as navigation from './navigation.js'
 import * as dropdown from './dropdown.js'
 import * as contentSwitcher from './contentSwitcher.js'
+import * as inPageNavigation from './inPageNavigation.js'
 
 window.addEventListener('load', main);
 
@@ -16,5 +17,6 @@ function main()
         navigation.SetActiveItem();
         dropdown.ListenForDropdownPressed();
         dropdown.ListenForDisplaySizeChanged();
+        inPageNavigation.BindToNavigationPoints();
     });
 }

@@ -26,8 +26,10 @@
 
         <main>  
 
+            <div id = "InPageNavigationTarget"></div>
+
             <div class = "FieldContent">
-                <section class = "ContentSwitcher" id = "uno">
+                <section class = "ContentSwitcher InPageNavigationTarget" data-name="First" " id = "uno">
                     <article class = "Switcher">
                         <button class = "Switch active" data-tab="first">First</button>
                         <button class = "Switch" data-tab="second">Second</button>
@@ -122,7 +124,27 @@
                     </article>
                 </section>
 
-                <section class = "ContentSwitcher" id = "dos">
+                <section class = "ContentSwitcher InPageNavigationTarget" data-name="Second" id = "dos">
+                    <article class = "Switcher">
+                        <button class = "Switch active" data-tab="first">First</button>
+                        <button class = "Switch" data-tab="second">Second</button>
+                        <button class = "Switch" data-tab="third">Third</button>
+                    </article>
+                    
+                    <article class = "SwitcherContent active" id = "first">
+                        <h1>I am first</h1>
+                    </article>
+
+                    <article class = "SwitcherContent" id = "second">
+                        <h1>I am second</h1>
+                    </article>
+
+                    <article class = "SwitcherContent" id = "third">
+                        <h1>I am third</h1>
+                    </article>
+                </section>
+				
+                <section class = "ContentSwitcher InPageNavigationTarget" data-name="Third" id = "dos">
                     <article class = "Switcher">
                         <button class = "Switch active" data-tab="first">First</button>
                         <button class = "Switch" data-tab="second">Second</button>

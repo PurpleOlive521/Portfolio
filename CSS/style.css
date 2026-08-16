@@ -661,9 +661,47 @@ footer p
 }
 
 /* =====================
-    Content
+    In-page Navigation
    ===================== */
 
+.InPageNavigation
+{
+    position:fixed;
+    top: 35%;
+    right: 0px;
+}
+
+.InPageNavigation ul
+{
+    list-style-type: circle;
+    direction: rtl;
+    text-align: right;
+    font-size: 2rem;
+}
+
+.SideNavButton
+{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    background-color: unset;
+    border: 0;
+    cursor: pointer;
+    color: var(--in-page-navigation-text);
+
+    font-weight: 600;
+}
+
+.SideNavButton.active
+{
+    text-decoration: none;
+    transition: color 0.5s ease-in-out;
+    color: var(--in-page-navigation-text-active);
+}
+
+/* =====================
+    Content
+   ===================== */
 .FieldContent
 {
     width: 70%;
