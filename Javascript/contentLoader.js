@@ -1,22 +1,18 @@
-
-const HEADER_TARGET = document.querySelector('#HeaderTarget');
-const FOOTER_TARGET = document.querySelector('#FooterTarget');
-const IN_PAGE_NAVIGATION_TARGET = document.querySelector('#InPageNavigationTarget');
-const IMAGE_MODAL_TARGET = document.querySelector('#ImageModalTarget');
-
 // Adds the Header and Footer html elements to the page
 export function InsertPageElements()
 {
     return Promise.all([
-        InsertPageElement(HEADER_TARGET, 'header.html'),
-        InsertPageElement(FOOTER_TARGET, 'footer.html'),
-        InsertPageElement(IN_PAGE_NAVIGATION_TARGET, 'inPageNavigation.html'),
-        InsertPageElement(IMAGE_MODAL_TARGET, 'imagemodal.html')
+        InsertPageElement("#HeaderTarget", 'header.html'),
+        InsertPageElement("#FooterTarget", 'footer.html'),
+        InsertPageElement("#InPageNavigationTarget", 'inPageNavigation.html'),
+        InsertPageElement("#ImageModalTarget", 'imagemodal.html')
     ]);
 }
 
-function InsertPageElement(target, content) 
+function InsertPageElement(id, content) 
 {
+    const target = document.querySelector(id);
+
     if(target)
     {
         return fetch(content)

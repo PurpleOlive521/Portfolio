@@ -1,0 +1,335 @@
+/* ====================================================================================
+    Mobile dropdown
+   ==================================================================================== */
+
+.MobileSpacer,
+.Dropdown
+{
+    display: none;
+    width: 50px;
+    height: 50px;
+
+    margin: 0.5rem;
+}
+
+.NavWrapper
+{
+    position: relative;
+    display: none;
+}
+
+.MobileNavigation
+{
+    position: fixed;
+    width: 100%;
+    top: 68px;
+}
+
+.MobileNavigation ul
+{
+    position: relative;
+    flex-direction: column;
+    width: 100%;
+
+    align-items: center;
+
+    margin: 0;
+    background-color: var(--bg-panel);
+}
+
+.MobileContacts ul
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+/* ====================================================================================
+    Content Switcher
+   ==================================================================================== */
+
+.ContentSwitcher
+{
+    max-width: 100%;
+    height: 700px;
+    
+    margin: 1rem 6rem;
+    background-color: var(--content-switcher);
+    border: 5px solid var(--content-switcher-outline);
+    box-shadow: var(--content-switcher-shadow);
+
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.Switcher
+{
+    display: flex;
+}
+
+.Switch
+{
+    flex: 1;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    border: none;
+
+    background-color: var(--switcher);
+    box-shadow: var(--switcher-shadow);
+
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+
+    z-index: 1;
+}
+
+.Switch:first-child
+{
+    border-radius: 4px 0px 0px 0px; 
+}
+
+.Switch:last-child
+{
+    border-radius: 0px 4px 0px 0px; 
+}
+
+.Switch:hover 
+{
+    background: var(--switcher-hover);
+    color: var(--text-primary-hover);
+    box-shadow: var(--switcher-active-shadow);
+}
+
+.Switch.active 
+{
+    background: var(--switcher-active);
+    color: var(--text-primary-hover);
+    box-shadow: var(--switcher-active-shadow);
+    text-decoration: none;
+}
+
+.SwitcherContent 
+{
+    display: none;
+}
+
+.SwitcherContent.active 
+{
+    display: block;
+    text-decoration: none;
+    height: 95%;
+
+    overflow: hidden;
+}
+
+.SwitcherContent video
+{
+    width: 100%;
+    height: 100%;    
+
+    background-color: black;
+}
+
+/* Expands in width, with auto height */
+.SwitcherHorizontalImage
+{
+    background-color: black;
+}
+
+.SwitcherHorizontalImage img
+{
+    width: 100%;
+    height: auto;
+
+    margin: auto;
+}
+
+/* Expands in height, with auto width */
+.SwitcherVerticalImage
+{
+    background-color: black;
+
+}
+
+.SwitcherVerticalImage img
+{
+    width: auto;
+    height: 100%;
+
+    margin: auto;
+}
+
+/* ====================================================================================
+    In-page Navigation
+   ==================================================================================== */
+
+.InPageNavigation
+{
+    position:fixed;
+    top: 35%;
+    right: 0px;
+}
+
+.InPageNavigation ul
+{
+    list-style-type: circle;
+    direction: rtl;
+    text-align: right;
+    font-size: 2rem;
+}
+
+.SideNavButton
+{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    background-color: unset;
+    border: 0;
+    cursor: pointer;
+    color: var(--in-page-navigation-text);
+
+    font-weight: 600;
+
+    transition: 0.5s linear;
+}
+
+.SideNavButton.active
+{
+    text-decoration: none;
+    color: var(--in-page-navigation-text-active);
+}
+
+/* ====================================================================================
+    Image Modal
+   ==================================================================================== */
+
+.ExpandableImage
+{
+    cursor: pointer;
+}
+
+.ImageModal
+{
+    display: none; 
+    position: fixed;
+
+    /* The header is an already large index, so here we are with a even larger index*/
+    z-index: 10000;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    padding-top: 100px;
+
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow: hidden;
+}
+
+.ModalBackground
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    z-index: 0;
+
+    width: 100%;
+    height: 100%;
+}
+
+.ModalCloseButton
+{
+    position: absolute;
+    top: 15px;
+    right: 75px;
+    color: var(--close-button);
+    font-size: 4rem;
+    font-weight: bold;
+    transition: 0.3s;
+
+    z-index: 1;
+}
+
+.ModalCloseButton:hover,
+.ModalCloseButton:focus 
+{
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--close-button-hover);
+}
+
+.ModalImage
+{
+    margin: auto;
+    display: block;
+
+    width: 70%;
+    height: auto;
+
+    z-index: 1;
+
+    pointer-events: none;
+
+    padding: 1rem;
+    background-color: black;
+    border: 3px solid var(--bg-panel-shadow);
+    border-radius: 15px;
+}
+
+.ModalImageVertical
+{
+    width: auto;
+    height: 90%;
+}
+
+/* ====================================================================================
+    Github Tab
+   ==================================================================================== */
+
+.GithubSideTabContainer
+{
+    position: absolute;
+    left: 0;
+
+    height: calc(100% - 100px);
+    width: 100%;
+
+    margin: auto;
+    z-index: -1;
+}
+
+.GithubSideTab
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;    
+
+    position: sticky;
+    top: 200px;
+
+    margin-left: calc(100%);
+
+    width: 140px;
+    height: 120px;
+
+    background-color: var(--bg-panel);
+    border-radius: 0px 20px 20px 0px;
+
+    box-shadow: var(--github-tab-shadow);
+    border-left: 5px solid var(--bg-panel-shadow);    
+
+    cursor: pointer;
+}
+
+.GithubSideTab img
+{
+    height: 100%;
+    padding: 0.5rem;
+
+    width: auto;
+}
