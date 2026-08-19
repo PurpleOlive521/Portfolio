@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>UI | Oliver Österlund Stare</title>  
+
+        <!-- Fonts --> 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap">
+
+        <link rel="stylesheet" href="CSS/style.css">    
+        <link rel="stylesheet" href="CSS/queries.css">    
+        <link rel="stylesheet" href="Prism/prism.css">
+
+        <script src="Javascript/index.js" type = "module"></script> 
+        <script src="Prism/prism.js"></script>
+    </head>
+
+    <body>
+        <div id = "HeaderTarget"></div>
+
+        <main>  
+
+            <div id = "InPageNavigationTarget"></div>
+
+            <div id = "ImageModalTarget"></div>
+
+            <div class = "FieldContent InPageNavigationTarget" data-name="Loading Screen" id = "LoadingScreen">
+                <h1>Smooth Loading Screen</h1>
+
+                <div>
+                    <video class = "StandaloneVideo" src = "Content/Videos/LoadingScreen.mp4" type="video/mp4" controls muted autoplay loop>
+                </div>
+
+                <h2>What is it?</h2>
+                <p>
+                    A subsystem that handles the creation and managing of loading screens during gameplay, allows for UMG animations and transition rules.
+                    Hides level transitions and texture streaming.
+                </p>
+
+                <h2>How did I make it?</h2>
+                <section class = "ContentSwitcher">
+                    <article class = "Switcher">
+                        <button class = "Switch active" data-tab="Usage">Usage</button>
+                        <button class = "Switch" data-tab="Settings">Settings Page</button>
+                        <button class = "Switch" data-tab="Header">LoadingScreen.h</button>
+                        <button class = "Switch" data-tab="Cpp">LoadingScreen.cpp</button>
+                    </article>
+
+                    <article class = "SwitcherContent active" id = "Usage">
+                        <iframe src="https://blueprintue.com/render/onw07s6s/" scrolling="no" allowfullscreen></iframe>
+                    </article>
+
+                    <article class = "SwitcherContent" id = "Settings">
+                        <img class = "ExpandableImage" src="Content/LoadingScreenSettings.png">
+                    </article>
+
+                    <article class = "SwitcherContent" id = "Header">
+                        <!-- Code -->
+                        <pre class = "line-numbers"><code class = "lang-cpp"><!--DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHoldTimeTriggeredSignature, float, HoldTime);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnVisibilityChangedSignature, bool, Visiblity);
+
+/*
+* Handles displaying a loading screen during level transitions, or explicitly when requested by game code.
+* Inspired by Lyra's LoadingScreenManager.
+*/
+UCLASS()
+class VERTICALSLICE_API ULoadingScreenSubsystem : public UGameInstanceSubsystem, public FTickableGameObject
+{
+	GENERATED_BODY()
+
+public:
+	
+	// --- Begin USubsystem Interface
+	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
+	virtual void Deinitialize() override;
+	virtual bool ShouldCreateSubsystem(UObject* Outer) const override;
+	// --- End USubsystem Interface
+
+	// --- Begin FTickableObject Interface
+	virtual void Tick(float DeltaTime) override;
+	virtual ETickableTickType GetTickableTickType() const override;
+	virtual bool IsTickable() const override;
+	virtual TStatId GetStatId() const override;
+	virtual UWorld* GetTickableGameObjectWorld() const override;
+	virtual bool IsTickableWhenPaused() const override;
+	// --- End FTickableObject Interface
+
+	UFUNCTION(BlueprintCallable)
+	void GameInitialize();
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	bool HasBeenGameInitialized() const;
+
+	// Gets the display state. Returns true if the loading screen is displayed, false if not.
+	UFUNCTION(BlueprintCallable)
+	bool IsLoadingScreenDisplayed() const;
+
+	// Forces the loading screen to be displayed or hidden. Intended for use by game logic to predisplay the loading screen, or keep it on for a bit longer.
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Force Loading Screen Visibility"))
+	void ForceDisplayStateByGameLogic(bool Visibility, FString Reason);
+
+	// Returns true if the loading screen is currently waiting for HoldLoadingScreenAdditionalSecs to pass.
+	UFUNCTION(BlueprintCallable)
+	bool IsWaitingForAdditionalTime() const;
+
+	// Calculates the HoldLoadingScreenAdditionalSecs remaining before the loading screen is removed. 
+	// Will be undefined if not active!
+	UFUNCTION(BlueprintCallable)
+	float GetAdditionalTimeRemaining() const;
+
+	UFUNCTION(BlueprintCallable)
+	void BroadcastVisibilityChanged(bool bInVisible);
+
+private:
+	// CoreUObject hookups
+	void HandlePreLoadMap(const FWorldContext& WorldContext, const FString& MapName);
+	void HandlePostLoadMap(UWorld* World);
+
+	// Does multiple checks to determine if a loading screen is needed. 
+	bool CheckForDisplayReason();
+
+	void UpdateLoadingScreen();
+
+	// Checks if the widget should be removed because of loading being done.
+	bool ShouldShowLoadingScreen();
+
+	// Displays the loading screen and sets up the widget containing the dynamic content.
+	void ShowLoadingScreen();
+
+	// Hides the loading screeen if displayed by destroying it.
+	void HideLoadingScreen();
+
+	// Removes the widget from the viewport.
+	void RemoveWidget();
+
+	// Does some performance optimisations during the loading screen, such as stopping geometry from being drawn on screen.
+	void ChangePerformanceSettings(bool bEnabingLoadingScreen);
+
+	// The displayed widget if any. Used to update the widget manually. Do not confuse with the class that the widget is created from!
+	TSharedPtr<SWidget> LoadingScreenWidget;
+
+	TWeakObjectPtr<UUserWidget> LoadingScreenWidgetInstance = nullptr;
+
+	bool bIsDisplayingLoadingScreen = false;
+
+	bool bIsWidgetVisible = false;
+
+	// The reason for the latest change in the loading screens visibility state. Used for debugging purposes only!
+	FString LoadingScreenStateReason;
+
+	double LoadingScreenLastDismissedTimestamp = -1.0;
+
+	bool bIsDisplayedByGameLogic = false;
+
+	bool bTriggeredTransitionTime = false;
+
+	// Set by user when calling ForceDisplayStateByGameLogic
+	FString UserSpecifiedLoadingScreenReason;
+
+	bool bHasBeenGameInitialized = false;
+
+public: 
+
+	// Called when the loading screen is waiting for HoldLoadingScreenAdditionalSecs to pass. Passes said value.
+	UPROPERTY(BlueprintAssignable)
+	FOnHoldTimeTriggeredSignature OnHoldTimeTriggeredDelegate;
+
+	// Called when the loading screens visibility is changed, passing the new state.
+	// Refers to the visibility of the widget itself, does not indicate if the loading screen is added to the viewport or not.
+	UPROPERTY(BlueprintAssignable)
+	FOnVisibilityChangedSignature OnVisibilityChangedDelegate;
+};
+--></code></pre>
+                    </article>
+
+                    <article class = "SwitcherContent" id = "Cpp">
+                        <!-- Code -->
+                        <pre class = "line-numbers"><code class = "lang-cpp"><!--// USubsystem Begin
+void ULoadingScreenSubsystem::Initialize(FSubsystemCollectionBase& Collection)
+{
+    // Always initialize fully since we could be playing anywhere in the Editor
+#if WITH_EDITOR
+    GameInitialize();
+#endif // WITH_EDITOR
+
+}
+
+void ULoadingScreenSubsystem::Deinitialize()
+{
+    RemoveWidget();
+
+    FCoreUObjectDelegates::PreLoadMap.RemoveAll(this);
+    FCoreUObjectDelegates::PostLoadMapWithWorld.RemoveAll(this);
+}
+
+bool ULoadingScreenSubsystem::ShouldCreateSubsystem(UObject* Outer) const
+{
+    // Prevents servers or other instances from initializing this subsystem
+    const UGameInstance* GameInstance = CastChecked<UGameInstance>(Outer);
+    const bool bIsServerWorld = GameInstance->IsDedicatedServerInstance();
+    return !bIsServerWorld;
+}
+// USubsystem End
+
+
+// FTickableObject Begin
+
+void ULoadingScreenSubsystem::Tick(float DeltaTime)
+{
+    UpdateLoadingScreen();
+}
+
+ETickableTickType ULoadingScreenSubsystem::GetTickableTickType() const
+{
+    // Set to Conditional to ensure that CDO is not marked for ticking
+    return ETickableTickType::Conditional;
+}
+
+bool ULoadingScreenSubsystem::IsTickable() const
+{
+    // No ticking for CDO
+    return !HasAnyFlags(RF_ClassDefaultObject);
+}
+
+TStatId ULoadingScreenSubsystem::GetStatId() const
+{
+    RETURN_QUICK_DECLARE_CYCLE_STAT(ULoadingScreenSubsystem, STATGROUP_Tickables);
+}
+
+UWorld* ULoadingScreenSubsystem::GetTickableGameObjectWorld() const
+{
+    return GetGameInstance()->GetWorld();
+}
+
+bool ULoadingScreenSubsystem::IsTickableWhenPaused() const
+{
+    // We want the subsystem to check for loading screen reasons even when in a pause screens or similar situations
+    return true;
+}
+
+//FTickableObject End
+
+void ULoadingScreenSubsystem::GameInitialize()
+{
+    if (HasBeenGameInitialized())
+    {
+        return;
+    }
+
+    bHasBeenGameInitialized = true;
+
+    FCoreUObjectDelegates::PreLoadMapWithContext.AddUObject(this, &ThisClass::HandlePreLoadMap);
+    FCoreUObjectDelegates::PostLoadMapWithWorld.AddUObject(this, &ThisClass::HandlePostLoadMap);
+
+    const UGameInstance* LocalGameInstance = GetGameInstance();
+
+    if (!LocalGameInstance)
+    {
+        UE_LOG(VSLog, Error, TEXT("Could not get GameInstance on GameInitialize."));
+    }
+}
+
+bool ULoadingScreenSubsystem::HasBeenGameInitialized() const
+{
+    return bHasBeenGameInitialized;
+}
+
+bool ULoadingScreenSubsystem::IsLoadingScreenDisplayed() const
+{
+    return bIsDisplayingLoadingScreen;
+}
+
+void ULoadingScreenSubsystem::ForceDisplayStateByGameLogic(bool Visibility, FString Reason)
+{
+    UserSpecifiedLoadingScreenReason = Reason;
+	bIsDisplayedByGameLogic = Visibility;
+}
+
+bool ULoadingScreenSubsystem::IsWaitingForAdditionalTime() const
+{
+    // Loading screen isnt even displayed
+    if (bIsDisplayingLoadingScreen == false)
+    {
+        return false;
+    }
+
+    // No additional time specified
+    const ULoadingScreenSettings* Settings = GetDefault<ULoadingScreenSettings>();
+    if (Settings->HoldLoadingScreenAdditionalSecs <= 0.0)
+    {
+        return false;
+    }
+   
+    // Timestamp is set and valid, we can assume we are waiting for the additional time
+    if (LoadingScreenLastDismissedTimestamp > 0.0)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+float ULoadingScreenSubsystem::GetAdditionalTimeRemaining() const
+{
+    const ULoadingScreenSettings* Settings = GetDefault<ULoadingScreenSettings>();
+
+    const double CurrentTime = FPlatformTime::Seconds();
+
+    const double TimeSinceScreenDismissed = CurrentTime - LoadingScreenLastDismissedTimestamp;
+
+    return Settings->HoldLoadingScreenAdditionalSecs - TimeSinceScreenDismissed;
+}
+
+void ULoadingScreenSubsystem::BroadcastVisibilityChanged(bool bInVisible)
+{
+    if (bIsWidgetVisible == bInVisible)
+    {
+        return;
+    }
+
+    bIsWidgetVisible = bInVisible;
+
+    ChangePerformanceSettings(/* bEnabingLoadingScreen */ bIsWidgetVisible);
+
+    OnVisibilityChangedDelegate.Broadcast(bInVisible);
+}
+
+void ULoadingScreenSubsystem::HandlePreLoadMap(const FWorldContext& WorldContext, const FString& MapName)
+{
+    // Immediately update the loading screen once to initialize logic.
+    if (GEngine->IsInitialized())
+    {
+        UpdateLoadingScreen();
+    }
+}
+
+void ULoadingScreenSubsystem::HandlePostLoadMap(UWorld* World)
+{
+}
+
+bool ULoadingScreenSubsystem::CheckForDisplayReason()
+{
+    const ULoadingScreenSettings* Settings = GetDefault<ULoadingScreenSettings>();
+
+    // Forced in settings. Show loading screen!
+    if (Settings->bForceDisplayLoadingScreen == true)
+    {
+        LoadingScreenStateReason = FString(TEXT("ForceDisplayLoadingScreen in settings is true"));
+        return true;
+    }
+
+    const UGameInstance* LocalGameInstance = GetGameInstance();
+
+    // No world context, probably no level. Show loading screen!
+    const FWorldContext* Context = LocalGameInstance->GetWorldContext();
+    if (!Context)
+    {
+        LoadingScreenStateReason = FString(TEXT("The game instance has a null WorldContext"));
+        return true;
+    }
+
+	// No world, show loading screen!
+    UWorld* World = Context->World();
+    if (World == nullptr)
+    {
+        LoadingScreenStateReason = FString(TEXT("We have no world is null, FWorldContext's World()"));
+        return true;
+    }
+
+	// World isnt ready, show loading screen!
+    if (!World->HasBegunPlay())
+    {
+        LoadingScreenStateReason = FString(TEXT("World hasn't begun play"));
+        return true;
+    }
+
+    // Game logic has requested the loading screen, show it!
+    if (bIsDisplayedByGameLogic == true)
+    {
+        if (UserSpecifiedLoadingScreenReason.IsEmpty())
+        {
+		    LoadingScreenStateReason = FString(TEXT("Reason not specified in ForceDisplayStateByGameLogic. Assumed gameplay logic."));
+        }
+        else
+        {
+            LoadingScreenStateReason = UserSpecifiedLoadingScreenReason;
+        }
+
+		return true;
+    }
+
+    // No checks returned true, no reason to show
+    LoadingScreenStateReason = FString(TEXT("No reason to display."));
+    return false;
+}
+
+void ULoadingScreenSubsystem::UpdateLoadingScreen()
+{
+    if (ShouldShowLoadingScreen())
+    {
+		ShowLoadingScreen();
+	}
+    else
+    {
+        HideLoadingScreen();
+    }
+
+    const ULoadingScreenSettings* Settings = GetDefault<ULoadingScreenSettings>();
+    
+    if (Settings->bLogLoadingScreenReason == true)
+    {
+        UE_LOG(VSLog, Log, TEXT("Loading screen display status: %d. Reason: %s"), bIsDisplayingLoadingScreen ? 1 : 0, *LoadingScreenStateReason);
+    }
+}
+
+bool ULoadingScreenSubsystem::ShouldShowLoadingScreen()
+{
+    const ULoadingScreenSettings* Settings = GetDefault<ULoadingScreenSettings>();
+
+    // Loading screen can be forced on bc of minimum on-times or other requirements.
+    bool bForcedToShowLoadingScreen = false;
+
+    const bool bNeedToShowLoadingScreen = CheckForDisplayReason();
+    if (bNeedToShowLoadingScreen)
+    {
+        // Still need to show it for other reasons, dont update
+        LoadingScreenLastDismissedTimestamp = -1.0;
+        bTriggeredTransitionTime = false;
+    }
+    else
+    {
+        const double CurrentTime = FPlatformTime::Seconds();
+        double HoldLoadingScreenTime = Settings->HoldLoadingScreenAdditionalSecs;
+
+        // If in editor and with waiting turned off, skip the additional time entirely
+        if (GIsEditor && Settings->bShowLoadingScreenAdditionalSecsInEditor == false)
+        {
+            HoldLoadingScreenTime = 0.0;
+        }
+
+        // Setup the timestamp the first time this is hit
+        if (LoadingScreenLastDismissedTimestamp < 0.0)
+        {
+            LoadingScreenLastDismissedTimestamp = CurrentTime;
+            OnHoldTimeTriggeredDelegate.Broadcast(HoldLoadingScreenTime);
+        }
+
+        const double TimeSinceScreenDismissed = CurrentTime - LoadingScreenLastDismissedTimestamp;
+
+        if (not bTriggeredTransitionTime)
+        {
+            const double TimeForTransition = Settings->TransitionOutTime;
+            const double TimeLeft = HoldLoadingScreenTime - TimeSinceScreenDismissed;
+
+            // Not enough time left for the transition, skip it
+            if (TimeLeft <= 0.0)
+            {
+                bTriggeredTransitionTime = true;
+            }
+            
+            // Let the widget know that it will soon be removed from the viewport
+            if (TimeLeft <= TimeForTransition)
+            {
+                if (ULoadingScreenWidget* Widget = Cast<ULoadingScreenWidget>(LoadingScreenWidgetInstance.Get()))
+                {
+                    Widget->OnTransitionTimeOutTriggered();
+                }
+
+                bTriggeredTransitionTime = true;
+            }
+        }
+
+        // Hold for an extra X seconds, to cover up geometry loading
+        if ((HoldLoadingScreenTime > 0.0) && (TimeSinceScreenDismissed < HoldLoadingScreenTime))
+        {
+            // Make sure we're rendering the world at this point, so that textures will actually stream in
+            UGameViewportClient* GameViewportClient = GetGameInstance()->GetGameViewportClient();
+            GameViewportClient->bDisableWorldRendering = false;
+
+            LoadingScreenStateReason = FString::Printf(TEXT("Keeping loading screen up for an additional %.2f seconds to allow texture streaming"), Settings->HoldLoadingScreenAdditionalSecs);
+            bForcedToShowLoadingScreen = true;
+        }
+    }
+
+    return bNeedToShowLoadingScreen || bForcedToShowLoadingScreen;
+}
+
+void ULoadingScreenSubsystem::ShowLoadingScreen()
+{
+    // Already onscreen
+    if (bIsDisplayingLoadingScreen)
+    {
+        return;
+    }
+    
+    // Note: We let the widget itself broadcast OnVisibilityChangedDelegate when it is covering the screen properly, as otherwise transitions won't be covered if the widget animates into view
+
+    bIsDisplayingLoadingScreen = true;
+
+    UGameInstance* LocalGameInstance = GetGameInstance();
+
+    const ULoadingScreenSettings* Settings = GetDefault<ULoadingScreenSettings>();
+
+    // Create and show widget
+    TSubclassOf<UUserWidget> LoadingScreenWidgetClass = Settings->LoadingScreenWidget.LoadSynchronous();
+    if (UUserWidget* UserWidget = UUserWidget::CreateWidgetInstance(*LocalGameInstance, LoadingScreenWidgetClass, NAME_None))
+    {
+        LoadingScreenWidget = UserWidget->TakeWidget();
+        LoadingScreenWidgetInstance = MakeWeakObjectPtr(UserWidget);
+    }
+    else
+    {
+        UE_LOG(VSLog, Error, TEXT("Failed to load the loading screen widget '%s', falling back to placeholder."), *Settings->LoadingScreenWidget.ToString());
+        LoadingScreenWidget = SNew(SThrobber);
+    }
+
+    // Add to the viewport at a high ZOrder to make sure it is on top of most things
+    UGameViewportClient* GameViewportClient = LocalGameInstance->GetGameViewportClient();
+    GameViewportClient->AddViewportWidgetContent(LoadingScreenWidget.ToSharedRef(), Settings->ZOrder);
+
+    // Tick Slate to make sure the loading screen is displayed immediately
+    FSlateApplication::Get().Tick();
+}
+
+void ULoadingScreenSubsystem::HideLoadingScreen()
+{
+    // Already offscreen
+    if (!bIsDisplayingLoadingScreen)
+    {
+        return;
+    }
+
+    bIsDisplayingLoadingScreen = false;
+
+    GEngine->ForceGarbageCollection(true);
+
+    RemoveWidget();
+
+    OnVisibilityChangedDelegate.Broadcast(bIsDisplayingLoadingScreen);
+}
+
+void ULoadingScreenSubsystem::RemoveWidget()
+{
+    // Gets the widget if the sharedptr is valid, before resetting it and destroying the object
+    UGameInstance* LocalGameInstance = GetGameInstance();
+    if (LoadingScreenWidget.IsValid())
+    {
+        if (UGameViewportClient* GameViewportClient = LocalGameInstance->GetGameViewportClient())
+        {
+            GameViewportClient->RemoveViewportWidgetContent(LoadingScreenWidget.ToSharedRef());
+        }
+        LoadingScreenWidget.Reset();
+    }
+}
+
+void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScreen)
+{
+    UGameInstance* LocalGameInstance = GetGameInstance();
+    UGameViewportClient* GameViewportClient = LocalGameInstance->GetGameViewportClient();
+
+    // Could later look into changing the ShaderPipelineCaching to toggle between Fast and Background for even quicker loading.
+
+    // Don't bother drawing the 3D world while we're loading
+    GameViewportClient->bDisableWorldRendering = bEnabingLoadingScreen;
+
+    // Make sure to prioritize streaming in levels if the loading screen is up
+    if (UWorld* ViewportWorld = GameViewportClient->GetWorld())
+    {
+        if (AWorldSettings* WorldSettings = ViewportWorld->GetWorldSettings(false, false))
+        {
+            WorldSettings->bHighPriorityLoadingLocal = bEnabingLoadingScreen;
+        }
+    }
+}
+--></code></pre>
+                    </article>
+                </section>
+                
+                <p>
+                    By hooking into Core delegates provided by Unreal, we can be alerted when the Engine starts switching levels. 
+                    When this happens, we create the specified widget that is then added to the viewport and registered for updates.
+                </p>
+				
+                <h2>Takeaways</h2>
+                <p>
+                    The project was an amazing opportunity for working in 3D, where I learned to work with developing AI, designing and creating the exciting player combat and create the overall systems required for UI and level design to be created by my team with ease. 
+                    Working with an engine like Unreal that's designed to invite other designers like graphics and level design taught me the importance of designing and creating with the team in mind, so that I can create systems and tools that are intuitive and usable for others too.
+                </p>
+            </div>
+
+            <div class = "FieldContent InPageNavigationTarget" data-name="Multilayer UI" id = "MultilayerUI">
+                <h1>Multilayer Game UI</h1>
+
+                <div>
+                    <video class = "StandaloneVideo" src = "Content/Videos/MainMenuUI.mp4" type="video/mp4" controls muted autoplay loop>
+                </div>
+
+                <h2>What is it?</h2>
+                <p>
+                    A subsystem that handles the creation and managing of loading screens during gameplay, allows for UMG animations and transition rules.
+                    Hides level transitions and texture streaming.
+                </p>
+
+                <h2>How did I make it?</h2>
+                <section class = "ContentSwitcher">
+                    <article class = "Switcher">
+                        <button class = "Switch active" data-tab="TerminalMenu">Terminal Menu</button>
+                        <button class = "Switch" data-tab="SkillTree">Skill Tree</button>
+                        <button class = "Switch" data-tab="Dialogue">Dialogue</button>
+                    </article>
+
+                    <article class = "SwitcherContent active" id = "TerminalMenu">
+                        <video src = "Content/Videos/TerminalMenuUI.mp4" type="video/mp4" controls muted>
+                    </article>
+
+                    <article class = "SwitcherContent" id = "SkillTree">
+                        <video src = "Content/Videos/SkillTreeUI.mp4" type="video/mp4" controls muted>
+                    </article>
+
+                    <article class = "SwitcherContent" id = "Dialogue">
+                        <video src = "Content/Videos/DialogueUI.mp4" type="video/mp4" controls muted>
+                    </article>
+                </section>
+
+                <p>
+                    I worked on the many widgets and menus used for Access Acquired, both smaller ones present in world such as interaction widgets and HUD elements, and more complex menus like settings and save screens. 
+                    I was also responsible for creating the framework that allowed multi-layered widgets in the form of game HUD, menus and modals such as confirmation popups.
+                    <br><br>I worked together with our artists concepts and layouts, which I then translated into Unreals to make it work on different screen sizes and resolutions, since the game is targeted at both typical desktops and Steamdeck.
+                </p>
+				
+                <h2>Takeaways</h2>
+                <p>
+                    The project was an amazing opportunity for working in 3D, where I learned to work with developing AI, designing and creating the exciting player combat and create the overall systems required for UI and level design to be created by my team with ease. 
+                    Working with an engine like Unreal that's designed to invite other designers like graphics and level design taught me the importance of designing and creating with the team in mind, so that I can create systems and tools that are intuitive and usable for others too.
+                </p>
+            </div>
+        </main>
+
+        <div id = "FooterTarget"></div>
+    </body>
+</html>

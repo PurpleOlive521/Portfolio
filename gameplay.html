@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <title>Portfolio</title>  
+        <title>Gameplay | Oliver Österlund Stare</title>  
 
         <!-- Fonts --> 
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,147 +28,147 @@
 
             <div id = "InPageNavigationTarget"></div>
 
-            <div class = "ImageModal" id = "ImageModal">
-                <div class = "ModalBackground"></div>
-                <span class = "ModalCloseButton" id = "ModalCloseButton">X</span>
-                <img class = "ModalImage">
+            <div id = "ImageModalTarget"></div>
+
+            <div class = "FieldContent InPageNavigationTarget" data-name="Target Locking" id = "TargetLocking">
+
+                <div class="GithubSideTab" title = "Opens the Github for this item">
+                    <img src ="Content/Github.png">
+                </div>
+
+                <h1>Target Locking</h1>
+
+                <div>
+                    <video class = "StandaloneVideo" src = "Content/Videos/TargetLockingVideo.mp4" type="video/mp4" controls muted autoplay loop>
+                </div>
+
+                <h2>What is it?</h2>
+                <p>
+                    An ActorComponent that tracks nearby enemies, locking onto them to keep the screen centered when requested by the player.
+                    Creates MotionWarping targets to help the player target enemies even without input, or corrects their input to stay on target.
+                </p>
+
+                <h2>How did I make it?</h2>
+                <section class = "ContentSwitcher">
+                    <article class = "Switcher">
+                        <button class = "Switch active" data-tab="AimAssist">Aim Assist</button>
+                    </article>
+                    
+                    <article class = "SwitcherContent active" id = "AimAssist">
+                        <video class = "StandaloneVideo" src = "Content/Videos/AimAssistVideo.mp4" type="video/mp4" controls muted autoplay loop>
+                    </article>
+                </section>
+
+                <h3>Switching Targets</h3>
+                <p>
+                    Players can switch targets by inputting a direction on the camera controls.  
+                    While testing, I found that it was more intuitive to pick targets based on their location in screen space, as opposed to distance between targets. 
+                    An input to the right would therefore switch from the current target to the nearest enemy on it's right, as they appear on screen.
+                </p>
+
+                <h3>Aim assist</h3>
+                <p>
+                    To help players aim attacks and actions, aim assist was added to the Target Locking suite. 
+                    Nearby targets are tracked, and when no directional input is used during certain actions, it looks for suitable targets in front of the player to aim towards automatically.
+                    Target locking and user input overrides this, to ensure players are in control when needed. 
+                    If a target is found very close to the direction the player inputs, it will snap to it to ensure the attack is facing the target without taking away player agency.
+                </p>
+
+                <h2>Takeaways</h2>
+                <p>
+                    Text here
+                </p>
             </div>
 
-            <div class = "FieldContent">
-                <section class = "ContentSwitcher InPageNavigationTarget" data-name="First" " id = "uno">
+            <div class = "FieldContent InPageNavigationTarget" data-name="Networked Tanks" id = "NetworkedGame">
+                <h1>Networked Tank Battles</h1>
+
+                <div>
+                    <video class = "StandaloneVideo" src = "Content/Videos/TankBattles.mp4" type="video/mp4" controls muted autoplay loop>
+                </div>
+
+                <h2>What is it?</h2>
+                <p>
+                    As the game was made from the ground up, the game has a multitude of separate systems that I wrote to create the gameplay loop and core functionality. 
+                    The game was designed with a strong separation between different layers of the engine, as seen below, to make development easier. 
+                    A shared library is used for all role-independent implementations, minimising code duplication.
+                    I roll my own network protocol for the game. 
+                    It handles automatic LAN discovery, connecting multiple separate clients, timeouts for unresponsive clients, disconnects and reconnects. 
+                    Packets are sent from the Server 10 times per second, with Client sending input 20 times per second, but can be customised for different game types.
+                </p>
+
+                <h2>How did I make it?</h2>
+                <section class = "ContentSwitcher">
                     <article class = "Switcher">
-                        <button class = "Switch active" data-tab="first">First</button>
-                        <button class = "Switch" data-tab="second">Second</button>
-                        <button class = "Switch" data-tab="third">Third</button>
+                        <button class = "Switch active" data-tab="Server">Server Hierarchy</button>
+                        <button class = "Switch active" data-tab="Client">Client Hierarchy</button>
                     </article>
                     
-                    <article class = "SwitcherContent active" id = "first">
-                        <!-- Code -->
-                        <pre class = "line-numbers"><code class = "lang-cpp"><!--void FEditorAttributeCustomization::CustomizeChildren(TSharedRef<IPropertyHandle> InStructPropertyHandle, IDetailChildrenBuilder& ChildBuilder, IPropertyTypeCustomizationUtils& StructCustomizationUtils) 
-{
-	TSharedPtr<IPropertyHandle> TypePropertyHandle = InStructPropertyHandle->GetChildHandle(GET_MEMBER_NAME_CHECKED(FEditorAttribute, Type));
-	TSharedPtr<IPropertyHandle> BaseValuePropertyHandle = InStructPropertyHandle->GetChildHandle(GET_MEMBER_NAME_CHECKED(FEditorAttribute, BaseValue));
-
-	check(TypePropertyHandle && BaseValuePropertyHandle);
-
-	TArray<void*> RawData;
-	TypePropertyHandle->AccessRawData(RawData);
-
-	EAttributeType AttributeType = EAttributeType::EAT_NONE;
-	if (RawData.Num() > 0)
-	{
-		AttributeType = *static_cast<EAttributeType*>(RawData[0]);
-	}
-
-	const FText FinalRowName = FText::AsCultureInvariant(INVTEXT("Attribute: ").ToString() + UGameplaySystemBlueprintLibrary::ConvertAttributeToDisplayName(AttributeType));
-
-	ChildBuilder.AddCustomRow(INVTEXT("EditorAttribute: "))
-		.NameContent()
-		[
-			SNew(STextBlock)
-				.Text(FinalRowName)
-				.Font(StructCustomizationUtils.GetRegularFont())
-		]
-		.ValueContent()
-		[
-			SNew(SHorizontalBox)
-			+SHorizontalBox::Slot()
-			.AutoWidth()
-			.Padding(5.0f, 3.0f)
-			[
-				SNew(SBox)
-				.MinDesiredWidth(250.0f)
-				.VAlign(EVerticalAlignment::VAlign_Center)
-				[
-					SNew(SVerticalBox)
-					+ SVerticalBox::Slot()
-					.AutoHeight()
-					[
-						TypePropertyHandle->CreatePropertyNameWidget()
-					]
-					+ SVerticalBox::Slot()
-					.AutoHeight()
-					[
-						TypePropertyHandle->CreatePropertyValueWidget()
-					]
-				]
-			]
-
-			+SHorizontalBox::Slot()
-			.AutoWidth()
-			.Padding(5.0f, 3.0f)
-			[
-				SNew(SBox)
-				.MinDesiredWidth(250.0f)
-				.VAlign(EVerticalAlignment::VAlign_Center)
-				[
-					SNew(SVerticalBox)
-					+ SVerticalBox::Slot()
-					.AutoHeight()
-					[
-						BaseValuePropertyHandle->CreatePropertyNameWidget()
-					]
-					+ SVerticalBox::Slot()
-					.AutoHeight()
-					[
-						BaseValuePropertyHandle->CreatePropertyValueWidget()
-					]
-				]
-			]
-		];
-		
-}
---></code></pre>
+                    <article class = "SwitcherContent active" id = "Server">
+                        <img class = "ExpandableImage" src="Content/Work/NetworkingServer.png">
                     </article>
 
-                    <article class = "SwitcherContent" id = "second">
-                        <h1>I am second</h1>
-                    </article>
-
-                    <article class = "SwitcherContent" id = "third">
-                        <h1>I am third</h1>
+                    <article class = "SwitcherContent active" id = "Client">
+                        <img class = "ExpandableImage" src="Content/Work/NetworkingClient.png">
                     </article>
                 </section>
 
-                <section class = "ContentSwitcher InPageNavigationTarget" data-name="Second" id = "dos">
+                <h3>Object-Oriented Design</h3>
+                <p>
+                    The engine supports polymorphic handling of abstract GameObjects, which is the core Super class that all Game entities derive from. 
+                    Objects can then implement multiple functions to expand their functionality, such as signing up to the TimeManager which Ticks objects and handles asynchronous actions and timers.
+                    GameObjects themselves don't handle networking logic, that handled in the Controller class. 
+                    Controllers are assigned to objects on creation, and handle the objects replication & serialization, interpolation and - in the case of PlayerControllers - input.
+                </p>
+
+                <h3>Physics Engine</h3>
+                <p>
+                    Game Entities can also participate in game collision handling. 
+                    Colliders are used to describe physics shapes, which are represented as a collection of convex 2D points. 
+                    Participating entities will receive callbacks when colliding with other entities and receive any generated collision data.
+                    I use Separating Axis Theorem to detect collisions between game-ticks. 
+                    I then collect some initial collision data and resolve each collision separately.
+                    Minimum Translation Vector is used to accurately separate objects with respect to their position and rotation
+                </p>
+
+                <h3>Network Protocol</h3>
+                <p>
+                    I roll my own network protocol for the game. 
+                    It handles automatic LAN discovery, connecting multiple separate clients, timeouts for unresponsive clients, disconnects and reconnects. 
+                    Packets are sent from the Server 10 times per second, with Client sending input 20 times per second, but can be customised for different game types.
+                </p>
+
+                <section class = "ContentSwitcher">
                     <article class = "Switcher">
-                        <button class = "Switch active" data-tab="first">First</button>
-                        <button class = "Switch" data-tab="second">Second</button>
-                        <button class = "Switch" data-tab="third">Third</button>
+                        <button class = "Switch active" data-tab="Server">Server Packet</button>
+                        <button class = "Switch active" data-tab="Client">Client Packet</button>
+
                     </article>
                     
-                    <article class = "SwitcherContent active" id = "first">
-                        <img class = "ExpandableImage" src="Content/AAIcon.jpg">
+                    <article class = "SwitcherContent active" id = "Server">
+                        <img class = "ExpandableImage" src="Content/Work/ServerPacket.png">
                     </article>
 
-                    <article class = "SwitcherContent" id = "second">
-                        <h1>I am second</h1>
-                    </article>
-
-                    <article class = "SwitcherContent" id = "third">
-                        <h1>I am third</h1>
+                    <article class = "SwitcherContent active" id = "Client">
+                        <img class = "ExpandableImage" src="Content/Work/ClientPacket.png">
                     </article>
                 </section>
-				
-                <section class = "ContentSwitcher InPageNavigationTarget" data-name="Third" id = "dos">
-                    <article class = "Switcher">
-                        <button class = "Switch active" data-tab="first">First</button>
-                        <button class = "Switch" data-tab="second">Second</button>
-                        <button class = "Switch" data-tab="third">Third</button>
-                    </article>
-                    
-                    <article class = "SwitcherContent active" id = "first">
-                        <h1>I am first</h1>
-                    </article>
+                
+                <h3>Reliable Messages</h3>
+                <p>
+                    Messages are always guaranteed to be received, and are stored and packed into the leftover empty space in packets.
+                    Each message is tracked, stored and resent in each packet until it is confirmed to be received by the other end. 
+                    An efficient algorithm is used to encode packet-level acknowledges into a uint32, allowing a single packet to describe the acknowledge state of 32 messages with minimal memory footprint.
+                    Some messages will always need to be tracked, such as spawning of player-controlled objects so that connecting Clients can replicate them correctly. 
+                    'Critical' messages are stored and later sent for any newly connected client. 
+                    These can be queried and removed in case the message is no longer valid, such as when a player leaves and their controlled object is removed.
+                </p>
 
-                    <article class = "SwitcherContent" id = "second">
-                        <h1>I am second</h1>
-                    </article>
-
-                    <article class = "SwitcherContent" id = "third">
-                        <h1>I am third</h1>
-                    </article>
-                </section>
+                <h2>Takeaways</h2>
+                <p>
+                    The project allowed me to try my hand at implementing and designing a multitude of systems that we take for granted in the game engines we use today, such as physics, object handling and management, timers and more. 
+                    I also got to learn how networking and net code is implemented in games, the complexities and issues that come with it, and how to address them.
+                </p>
             </div>
         </main>
 

@@ -1,5 +1,5 @@
 
-const imageModal = document.getElementById('ImageModal');
+let imageModal;
 
 export function BindExpandableImageModal()
 {
@@ -14,6 +14,8 @@ export function BindExpandableImageModal()
     {
         image.addEventListener('click', ExpandImage);
     }
+
+    imageModal = document.getElementById('ImageModal');
 }
 
 function OnExpandableImageClosed(event)
