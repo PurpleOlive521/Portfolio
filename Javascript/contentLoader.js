@@ -37,5 +37,5 @@ async function InsertPageElement(id, content, lambda = () => {})
 
 function TransferHRef(target, source)
 {
-    target.children[0].href = source.dataset.href;
+    target.children[0].children[0].href = source.dataset.href;
 }

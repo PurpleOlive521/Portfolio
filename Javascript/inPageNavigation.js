@@ -46,6 +46,7 @@ export function BindToNavigationPoints()
 function OnNavigationClicked(event)
 {
     let scrollTarget = navigationPoints.get(event.target).target;
+
     scrollTarget.scrollIntoView({behavior: "smooth", block: "start"});
 }
 

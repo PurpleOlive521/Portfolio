@@ -559,6 +559,8 @@ footer p
     position: relative;
 
     z-index: 1;
+
+    scroll-margin-top: 8rem;
 }
 
 .FieldContent h1
