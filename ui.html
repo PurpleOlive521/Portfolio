@@ -639,6 +639,126 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
                     Working with an engine like Unreal that's designed to invite other designers like graphics and level design taught me the importance of designing and creating with the team in mind, so that I can create systems and tools that are intuitive and usable for others too.
                 </p>
             </div>
+
+            <div class = "FieldContent InPageNavigationTarget" data-name="UI Customization" id = "UICustomization">
+                <h1>Slate UI Customization</h1>
+
+                <div>
+                    <video class = "StandaloneVideo" src = "Content/Videos/MainMenuUI.mp4" type="video/mp4" controls muted autoplay loop>
+                </div>
+
+                <h2>What is it?</h2>
+                <p>
+                    The Attributes use a custom Struct with it's own handwritten Slate UI. 
+                    Unreals default-generated UI has each entry under a drop-down, making it difficult to gain an overview of the attributes and required more clicks to access.
+                    I addressed this by creating my own Slate UI, where each entry is displayed immediately with a horizontally-aligned setup.
+                </p>
+
+                <h2>How did I make it?</h2>
+                <section class = "ContentSwitcher">
+                    <article class = "Switcher">
+                        <button class = "Switch active" data-tab="OldUI">Old UI</button>
+                        <button class = "Switch" data-tab="CustomUI">New Custom UI</button>
+                        <button class = "Switch" data-tab="SlateCode">Slate Code</button>
+                    </article>
+
+                    <article class = "SwitcherContent active" id = "OldUI">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/OldAttributeUI.png">
+                    </article>
+
+                    <article class = "SwitcherContent" id = "CustomUI">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/CustomAttributeUI.png">
+                    </article>
+
+                    <article class = "SwitcherContent" id = "SlateCode">
+                        <!-- Code -->
+                        <pre class = "line-numbers"><code class = "lang-cpp"><!--void FEditorAttributeCustomization::CustomizeChildren(TSharedRef<IPropertyHandle> InStructPropertyHandle, IDetailChildrenBuilder& ChildBuilder, IPropertyTypeCustomizationUtils& StructCustomizationUtils) 
+{
+	TSharedPtr<IPropertyHandle> TypePropertyHandle = InStructPropertyHandle->GetChildHandle(GET_MEMBER_NAME_CHECKED(FEditorAttribute, Type));
+	TSharedPtr<IPropertyHandle> BaseValuePropertyHandle = InStructPropertyHandle->GetChildHandle(GET_MEMBER_NAME_CHECKED(FEditorAttribute, BaseValue));
+
+	check(TypePropertyHandle && BaseValuePropertyHandle);
+
+	TArray<void*> RawData;
+	TypePropertyHandle->AccessRawData(RawData);
+
+	EAttributeType AttributeType = EAttributeType::EAT_NONE;
+	if (RawData.Num() > 0)
+	{
+		AttributeType = *static_cast<EAttributeType*>(RawData[0]);
+	}
+
+	const FText FinalRowName = FText::AsCultureInvariant(INVTEXT("Attribute: ").ToString() + UGameplaySystemBlueprintLibrary::ConvertAttributeToDisplayName(AttributeType));
+
+	ChildBuilder.AddCustomRow(INVTEXT("EditorAttribute: "))
+		.NameContent()
+		[
+			SNew(STextBlock)
+				.Text(FinalRowName)
+				.Font(StructCustomizationUtils.GetRegularFont())
+		]
+		.ValueContent()
+		[
+			SNew(SHorizontalBox)
+			+SHorizontalBox::Slot()
+			.AutoWidth()
+			.Padding(5.0f, 3.0f)
+			[
+				SNew(SBox)
+				.MinDesiredWidth(250.0f)
+				.VAlign(EVerticalAlignment::VAlign_Center)
+				[
+					SNew(SVerticalBox)
+					+ SVerticalBox::Slot()
+					.AutoHeight()
+					[
+						TypePropertyHandle->CreatePropertyNameWidget()
+					]
+					+ SVerticalBox::Slot()
+					.AutoHeight()
+					[
+						TypePropertyHandle->CreatePropertyValueWidget()
+					]
+				]
+			]
+
+			+SHorizontalBox::Slot()
+			.AutoWidth()
+			.Padding(5.0f, 3.0f)
+			[
+				SNew(SBox)
+				.MinDesiredWidth(250.0f)
+				.VAlign(EVerticalAlignment::VAlign_Center)
+				[
+					SNew(SVerticalBox)
+					+ SVerticalBox::Slot()
+					.AutoHeight()
+					[
+						BaseValuePropertyHandle->CreatePropertyNameWidget()
+					]
+					+ SVerticalBox::Slot()
+					.AutoHeight()
+					[
+						BaseValuePropertyHandle->CreatePropertyValueWidget()
+					]
+				]
+			]
+		];
+		
+}
+--></code></pre>
+                    </article>
+                </section>
+
+                <p>
+                    Text
+                </p>
+				
+                <h2>Takeaways</h2>
+                <p>
+                    Text
+                </p>
+            </div>
         </main>
 
         <div id = "FooterTarget"></div>

@@ -77,6 +77,87 @@
                 </p>
             </div>
 
+            <div class = "FieldContent InPageNavigationTarget" data-name="Gameplay System" id = "GameplaySystem">
+                <div id = "GithubSideTabTarget" data-href = "https://github.com/PurpleOlive521/GameplaySystem"></div>
+
+                <h1>Gameplay System Module</h1>
+
+                <div>
+                    <video class = "StandaloneVideo" src = "Content/Videos/TargetLockingVideo.mp4" type="video/mp4" controls muted autoplay loop>
+                </div>
+
+                <h2>What is the goal?</h2>
+                <p>
+                    I wanted to create a tool that could be used to create many kinds of gameplay, utilising some common types that each would represent systems that games feature. 
+                    This would require a heavily modular set of tools and classes that could then be derived and expanded upon for different games and teams.
+                </p>
+
+                <h2>What is it?</h2>
+                <p>
+                    Throughout development I ended up with four tools, that all can be used to author gameplay elements. 
+                    These are derived from superclasses that define their base functionality and purpose, and allow us to encapsulate gameplay elements into reusable pieces for easier development. 
+                    I took inspiration from Unreal's GameplayAbilitySystem when designing the module.
+                </p>
+
+                <h2>How did I make it?</h2>
+                <section class = "ContentSwitcher">
+                    <article class = "Switcher">
+                        <button class = "Switch active" data-tab="GameplayAbility">GameplayAbility</button>
+                        <button class = "Switch" data-tab="GameplayEffect">GameplayEffect</button>
+                        <button class = "Switch" data-tab="DebugMenu">Debug Menu</button>
+                    </article>
+                    
+                    <article class = "SwitcherContent active" id = "GameplayAbility">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/AbilityExample.png">
+                    </article>
+                    
+                    <article class = "SwitcherContent" id = "GameplayEffect">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/AbilityExample.png">
+                    </article>
+
+                    <article class = "SwitcherContent" id = "DebugMenu">
+                        <img class = "ExpandableImage" src="Content/Work/DebugMenu.png">
+                    </article>
+                </section>
+
+                <h3>GameplayEffects</h3>
+                <p>
+                    Temporary modifiers that can be applied to a GameplaySystem. 
+                    hey can modify attributes or GameplayTags, allowing them to represent buffs, debuffs or game effects such as burning or being poisoned.
+                </p>
+
+                <h3>GameplayTag System</h3>
+                <p>
+                    Tracks the amount of each tag present allowing multiple sources to modify a GameplayTag. 
+                    This allows for more complex game behaviours where a state like 'Poisoned' can be applied multiple times, and require more actions to get rid of.
+                </p>
+
+                <h3>Integrated Debug UI</h3>
+                <p>
+                    The framework features a custom Debug widget that automatically displays key properties of a GameplaySystem. 
+                    It has custom input bindings that allow designers to quickly toggle it on and off during gameplay, switch the displayed page and swap the displayed component. 
+                    It all comes together to ensure that debugging and testing of gameplay elements is easy and visual, without needing to step through code at every step of the way.
+                </p>
+
+                <h3>Abilities</h3>
+                <p>
+                    These represent the actions that can be performed by an character. 
+                    Supports complex activation requirements, cancelling of in-action abilities, cooldowns giving full control over how actions interact with each-other and what they do. 
+                    Used heavily in 'Access Acquired' to drive the hack-and-slash combat.
+                </p>
+
+                <h3>Attributes</h3>
+                <p>
+                    Datasets are used to source entities stats from. These can be anything from health to damage multipliers - whatever is needed for your game. 
+                    These are then loaded by a GameplaySystem which can be queried for their current values.
+                </p>
+
+                <h2>Takeaways</h2>
+                <p>
+                    Text here
+                </p>
+            </div>
+
             <div class = "FieldContent InPageNavigationTarget" data-name="Networked Tanks" id = "NetworkedGame">
                 <div id = "GithubSideTabTarget" data-href = "https://github.com/PurpleOlive521/NetworkedTankBattles"></div>
             
