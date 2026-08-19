@@ -151,19 +151,6 @@ nav a
     max-width: 250px;
 }
 
-@keyframes Bounce
-{
-    from
-    {
-        transform: scale(1)
-    }
-
-    to
-    {
-        transform: scale(1.15)
-    }
-}
-
 .ContactItem
 {
     text-decoration: none;
@@ -172,12 +159,13 @@ nav a
 
     width: var(--contact-radius);
     height: auto;
+
+    transition: transform 0.1s linear;
 }
 
 .ContactItem:hover
 {
-    animation: Bounce 0.25s ease-in-out;
-    animation-fill-mode: both;
+    transform: scale(1.15);
     text-decoration: none;
 }
 
@@ -191,8 +179,6 @@ nav a
     vertical-align: middle;
     display: table-cell;
     text-align: center;
-
-
 }
 
 #CV h1
@@ -273,13 +259,13 @@ footer p
     margin: auto;
     padding-top: 1rem;
 
-    max-width: 80%;
+    max-width: 60%;
 }
 
-.Fields li
+.Fields a
 {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 
@@ -288,11 +274,19 @@ footer p
 
     background-color: var(--bg-card);
     box-shadow: var(--card-shadow);
+    border-radius: 20px;
+}
+
+.Fields img
+{
+    margin-top: 2rem;
+    width: auto;
+    height: 50%;
 }
 
 .Fields h1
 {
-
+    font-size: 2.5rem;
 }
 
 /* --- Projects --- */
@@ -386,6 +380,14 @@ footer p
     border: 4px solid transparent;
 
     padding: 0.4rem;
+
+    transition: transform 0.15s linear;
+}
+
+.OnSteam:active,
+.OnSteam:hover
+{
+    transform: scale(1.075);
 }
 
 .OnSteam h1

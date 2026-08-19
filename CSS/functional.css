@@ -324,6 +324,7 @@
 
     transition: background-color 0.15s ease-in-out;
     transition: border-color 0.1s ease-in-out;
+    transition: width 0.3s ease-in-out;
 }
 
 .GithubSideTab:hover,
@@ -331,6 +332,7 @@
 {
     background-color: var(--github-tab-hover);
     border-color: var(--github-tab-border-hover);
+    width: 140px;
 }
 
 .GithubSideTab img
