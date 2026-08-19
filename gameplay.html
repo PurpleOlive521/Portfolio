@@ -32,8 +32,10 @@
 
             <div class = "FieldContent InPageNavigationTarget" data-name="Target Locking" id = "TargetLocking">
 
-                <div class="GithubSideTab" title = "Opens the Github for this item">
-                    <img src ="Content/Github.png">
+                <div class="GithubSideTabContainer">
+                    <div class="GithubSideTab" title = "Opens the Github for this item">
+                        <img src ="Content/Github.png">
+                    </div>
                 </div>
 
                 <h1>Target Locking</h1>
@@ -101,15 +103,15 @@
                 <section class = "ContentSwitcher">
                     <article class = "Switcher">
                         <button class = "Switch active" data-tab="Server">Server Hierarchy</button>
-                        <button class = "Switch active" data-tab="Client">Client Hierarchy</button>
+                        <button class = "Switch" data-tab="Client">Client Hierarchy</button>
                     </article>
                     
                     <article class = "SwitcherContent active" id = "Server">
-                        <img class = "ExpandableImage" src="Content/Work/NetworkingServer.png">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/NetworkingServer.png">
                     </article>
 
-                    <article class = "SwitcherContent active" id = "Client">
-                        <img class = "ExpandableImage" src="Content/Work/NetworkingClient.png">
+                    <article class = "SwitcherContent" id = "Client">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/NetworkingClient.png">
                     </article>
                 </section>
 
@@ -141,15 +143,15 @@
                 <section class = "ContentSwitcher">
                     <article class = "Switcher">
                         <button class = "Switch active" data-tab="Server">Server Packet</button>
-                        <button class = "Switch active" data-tab="Client">Client Packet</button>
+                        <button class = "Switch" data-tab="Client">Client Packet</button>
 
                     </article>
                     
-                    <article class = "SwitcherContent active" id = "Server">
+                    <article class = "SwitcherContent SwitcherVerticalImage active" id = "Server">
                         <img class = "ExpandableImage" src="Content/Work/ServerPacket.png">
                     </article>
 
-                    <article class = "SwitcherContent active" id = "Client">
+                    <article class = "SwitcherContent SwitcherVerticalImage" id = "Client">
                         <img class = "ExpandableImage" src="Content/Work/ClientPacket.png">
                     </article>
                 </section>
@@ -158,10 +160,10 @@
                 <p>
                     Messages are always guaranteed to be received, and are stored and packed into the leftover empty space in packets.
                     Each message is tracked, stored and resent in each packet until it is confirmed to be received by the other end. 
-                    An efficient algorithm is used to encode packet-level acknowledges into a uint32, allowing a single packet to describe the acknowledge state of 32 messages with minimal memory footprint.
+                    An algorithm is used to encode packet-level acknowledges into a uint32, allowing a single packet to describe the acknowledge state of 32 messages.
                     Some messages will always need to be tracked, such as spawning of player-controlled objects so that connecting Clients can replicate them correctly. 
-                    'Critical' messages are stored and later sent for any newly connected client. 
-                    These can be queried and removed in case the message is no longer valid, such as when a player leaves and their controlled object is removed.
+                    These so called 'Critical' messages are stored and later sent for any newly connected client. 
+                    They can then be queried and removed in case the message is no longer valid, such as when a player leaves and their controlled object is removed.
                 </p>
 
                 <h2>Takeaways</h2>

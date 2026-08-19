@@ -31,5 +31,14 @@ function ExpandImage(event)
     modalImage.src = sourceImage.src;
     modalImage.alt = sourceImage.alt;
 
+    if(sourceImage.dataset.type == "Vertical")
+    {
+        modalImage.classList.add("ModalImageVertical");
+    }
+    else
+    {
+        modalImage.classList.remove("ModalImageVertical");
+    }
+
     imageModal.style.display = "block";
 }

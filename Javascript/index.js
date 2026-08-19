@@ -4,6 +4,7 @@ import * as dropdown from './dropdown.js'
 import * as contentSwitcher from './contentSwitcher.js'
 import * as inPageNavigation from './inPageNavigation.js'
 import * as expandableImages from './expandableImages.js'
+import * as titles from './titles.js'
 
 window.addEventListener('load', main);
 
@@ -20,5 +21,6 @@ function main()
         dropdown.ListenForDisplaySizeChanged();
         inPageNavigation.BindToNavigationPoints();
         expandableImages.BindExpandableImageModal();
+        titles.AddTitlesToElements();
     });
 }

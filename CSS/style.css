@@ -679,6 +679,35 @@ footer p
     background-color: black;
 }
 
+/* Expands in width, with auto height */
+.SwitcherHorizontalImage
+{
+    background-color: black;
+}
+
+.SwitcherHorizontalImage img
+{
+    width: 100%;
+    height: auto;
+
+    margin: auto;
+}
+
+/* Expands in height, with auto width */
+.SwitcherVerticalImage
+{
+    background-color: black;
+
+}
+
+.SwitcherVerticalImage img
+{
+    width: auto;
+    height: 100%;
+
+    margin: auto;
+}
+
 /* =====================
     In-page Navigation
    ===================== */
@@ -732,6 +761,8 @@ footer p
     background-color: var(--bg-card);
     border-radius: 30px;
     padding: 1rem;
+
+    position: relative;
 
     z-index: 1;
 }
@@ -808,7 +839,7 @@ footer p
     display: none; 
     position: fixed;
 
-    z-index: 10000; /* The header is an equally large index, so here we are with a even larger index*/
+    z-index: 10000; /* The header is an already large index, so here we are with a even larger index*/
 
     left: 0;
     top: 0;
@@ -818,7 +849,7 @@ footer p
 
     padding-top: 100px;
 
-    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    background-color: rgba(0, 0, 0, 0.9);
     overflow: hidden;
 }
 
@@ -859,10 +890,40 @@ footer p
 {
     margin: auto;
     display: block;
+
     width: 70%;
+    height: auto;
+
     z-index: 1;
 
     pointer-events: none;
+
+    padding: 1rem;
+    background-color: black;
+    border: 3px solid var(--bg-panel-shadow);
+    border-radius: 15px;
+}
+
+.ModalImageVertical
+{
+    width: auto;
+    height: 90%;
+}
+
+/* =====================
+    Github Tab
+   ===================== */
+
+.GithubSideTabContainer
+{
+    position: absolute;
+    left: 0;
+
+    height: calc(100% - 100px);
+    width: 100%;
+
+    margin: auto;
+    z-index: -1;
 }
 
 .GithubSideTab
@@ -874,7 +935,7 @@ footer p
     position: sticky;
     top: 200px;
 
-    margin-left: calc(100% + 15px);
+    margin-left: calc(100%);
 
     width: 140px;
     height: 120px;

@@ -10,7 +10,7 @@
     --bg-panel-active-shadow: #8775c1;
     --contact-icon: #000000;
 
-    --content-switcher: var(--bg-panel);
+    --content-switcher: var(--bg-panel-active-shadow);
     --content-switcher-outline: var(--bg-panel-shadow);
     --switcher: var(--bg-panel);
     --switcher-active: var(--bg-panel-shadow);
