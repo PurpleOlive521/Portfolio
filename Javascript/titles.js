@@ -1,5 +1,6 @@
 const UNREAL_BLUEPRINT_TITLE = "Right-click and drag to move around in the Blueprint Graph.";
 const PRISM_CODE_BLOCK = "Code can also be found on my Github page for easier viewing :)";
+const EXPANDABLE_IMAGE = "Left-click to expand the image.";
 
 export function AddTitlesToElements()
 {
@@ -8,6 +9,9 @@ export function AddTitlesToElements()
     
     // Blueprint node graphs
     AddTitleToType("iframe", UNREAL_BLUEPRINT_TITLE);
+
+    // Expandable images
+    AddTitleToType(".ExpandableImage", EXPANDABLE_IMAGE);
 } 
 
 function AddTitleToType(type, title)

@@ -192,8 +192,16 @@ nav a
     display: table-cell;
     text-align: center;
 
-    font-weight: 500;
+
+}
+
+#CV h1
+{
     color: var(--contact-icon);
+
+    font-weight: 500;
+    font-size: 1.7rem;
+    line-height: normal;
 }
 
 /* ====================================================================================
@@ -253,6 +261,40 @@ footer p
     padding-top: 3rem;
 }
 
+/* --- Fields --- */
+
+.Fields
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+    margin: auto;
+    padding-top: 1rem;
+
+    max-width: 80%;
+}
+
+.Fields li
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    width: 300px;
+    height: 300px;
+
+    background-color: var(--bg-card);
+    box-shadow: var(--card-shadow);
+}
+
+.Fields h1
+{
+
+}
+
 /* --- Projects --- */
 
 .Projects
@@ -265,7 +307,6 @@ footer p
     margin: auto;
     padding: 0;
     margin-bottom: 3rem;
-    margin-top: 3rem;
 
     max-width: 80%;
 }
@@ -347,10 +388,12 @@ footer p
     padding: 0.4rem;
 }
 
-.OnSteam p
+.OnSteam h1
 {
     font-size: 1.4rem;
     font-weight: 600;
+    line-height: 1.5;
+    
     color: var(--bg); 
 }
 
