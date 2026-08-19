@@ -1,6 +1,8 @@
 /* ----- Variabler ----- */ 
 :root
 {
+    /* ============================ Colors ============================*/
+
     --bg: #fefcf8;
     --bg-card: #c8e2f0;
     --bg-card-shadow: #87b5cd;
@@ -12,39 +14,49 @@
 
     --content-switcher: var(--bg-panel-active-shadow);
     --content-switcher-outline: var(--bg-panel-shadow);
-    --switcher: var(--bg-panel);
-    --switcher-active: var(--bg-panel-shadow);
+    --switcher: var(--bg-panel-shadow);
+    --switcher-active: var(--bg-panel);
     --switcher-hover: #b8a7f0;
 
     --steam-card: #1d2f44;
-    --steam-text-primary: #107cac;
 
     --close-button: var(--bg);
     --close-button-hover: #a0a09f;
-    
+
+    --github-tab-hover: #ac9ae4;
+    --github-tab-border-hover: #9184c1;
+
+    /* ============================ Anything Text ============================ */
+
+    --font: 'Quicksand', system-ui, -apple-system, sans-serif;
+
     --text-primary: #37373b;
     --text-primary-hover: #1d1d27;
-
+    
+    --steam-text-primary: #107cac;
+    
     --in-page-navigation-text: #88878a;
     --in-page-navigation-text-active: #4743c5;
 
-    --font: 'Quicksand', system-ui, -apple-system, sans-serif;
+    /* ============================ Sizes ============================*/
 
     --radius: 12px;
     --radius-sm: 6px;
     
+    --contact-radius: 50px;
+    --contact-outline-width: 2px;
+    
+    /* ============================ Shadows ============================*/
+
     --header-shadow: 0 4px 2px var(--bg-panel-shadow);
     --footer-shadow: 0 -4px 2px var(--bg-panel-shadow);
     --card-shadow: 2px 2px 6px #585874;
     --card-shadow-alt: 5px 5px 1px var(--bg-card-shadow);
 
     --content-switcher-shadow: 4px 4px 3px #8d7bc9;
-    --switcher-shadow: 0px 4px 2px var(--bg-panel-shadow);
-    --switcher-active-shadow: 0px 4px 2px var(--bg-panel-active-shadow);
+    --switcher-shadow: 0px 4px 2px var(--bg-panel-active-shadow);
+    --switcher-active-shadow: 0px 4px 2px var(--bg-panel-shadow);
 
     --github-tab-shadow: 0px 4px 2px var(--bg-panel-shadow);
-
-    --contact-radius: 50px;
-    --contact-outline-width: 2px;
 }
 

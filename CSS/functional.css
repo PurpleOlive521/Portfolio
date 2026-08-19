@@ -132,12 +132,13 @@
     background-color: black;
 }
 
-/* Expands in width, with auto height */
-.SwitcherHorizontalImage
+.SwitcherHorizontalImage,
+.SwitcherVerticalImage
 {
     background-color: black;
 }
 
+/* Expands in width, with auto height */
 .SwitcherHorizontalImage img
 {
     width: 100%;
@@ -146,13 +147,11 @@
     margin: auto;
 }
 
-/* Expands in height, with auto width */
-.SwitcherVerticalImage
 {
     background-color: black;
-
 }
 
+/* Expands in height, with auto width */
 .SwitcherVerticalImage img
 {
     width: auto;
@@ -296,7 +295,9 @@
     position: absolute;
     left: 0;
 
-    height: calc(100% - 100px);
+    top: 4rem;
+
+    height: calc(100% - 7rem);
     width: 100%;
 
     margin: auto;
@@ -314,8 +315,8 @@
 
     margin-left: calc(100%);
 
-    width: 140px;
-    height: 120px;
+    width: 130px;
+    height: 125px;
 
     background-color: var(--bg-panel);
     border-radius: 0px 20px 20px 0px;
@@ -324,6 +325,16 @@
     border-left: 5px solid var(--bg-panel-shadow);    
 
     cursor: pointer;
+
+    transition: background-color 0.15s ease-in-out;
+    transition: border-color 0.1s ease-in-out;
+}
+
+.GithubSideTab:hover,
+.GithubSideTab:active
+{
+    background-color: var(--github-tab-hover);
+    border-color: var(--github-tab-border-hover);
 }
 
 .GithubSideTab img

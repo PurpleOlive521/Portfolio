@@ -5,17 +5,20 @@ export function BindExpandableImageModal()
 {
     let closeButton = document.getElementById("ModalCloseButton");
 
-    closeButton.addEventListener('click', OnExpandableImageClosed);
-    closeButton.parentElement.children[0].addEventListener('click', OnExpandableImageClosed);
-
-    let expandableImages = document.getElementsByClassName("ExpandableImage");
-
-    for(const image of expandableImages)
+    if(closeButton)
     {
-        image.addEventListener('click', ExpandImage);
-    }
+        closeButton.addEventListener('click', OnExpandableImageClosed);
+        closeButton.parentElement.children[0].addEventListener('click', OnExpandableImageClosed);
 
-    imageModal = document.getElementById('ImageModal');
+        let expandableImages = document.getElementsByClassName("ExpandableImage");
+
+        for(const image of expandableImages)
+        {
+            image.addEventListener('click', ExpandImage);
+        }
+
+        imageModal = document.getElementById('ImageModal');
+    }
 }
 
 function OnExpandableImageClosed(event)

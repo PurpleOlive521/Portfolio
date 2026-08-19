@@ -1,30 +1,41 @@
 // Adds the Header and Footer html elements to the page
-export function InsertPageElements()
+export async function InsertPageElements()
 {
     return Promise.all([
         InsertPageElement("#HeaderTarget", 'header.html'),
         InsertPageElement("#FooterTarget", 'footer.html'),
-        InsertPageElement("#InPageNavigationTarget", 'inPageNavigation.html'),
-        InsertPageElement("#ImageModalTarget", 'imagemodal.html')
+        InsertPageElement("#InPageNavigationTarget", 'inpagenavigation.html'),
+        InsertPageElement("#ImageModalTarget", 'imagemodal.html'),
+        InsertPageElement("#GithubSideTabTarget", 'githubsidetab.html', TransferHRef)
     ]);
 }
 
-function InsertPageElement(id, content) 
+async function InsertPageElement(id, content, lambda = () => {}) 
 {
-    const target = document.querySelector(id);
+    const targets = document.querySelectorAll(id);
 
-    if(target)
+    if(targets.length <= 0)
     {
-        return fetch(content)
-            .then(response => response.text())
-            .then(data => 
-            {
-                const element = document.createElement('div');
-                element.innerHTML = data;
-                target.replaceWith(element);
-            });
+        return Promise.resolve();
+    }
 
+    const response = await fetch(content);
+    const data = await response.text();
+
+    for(const target of targets)
+    {
+        const element = document.createElement('div');
+        element.innerHTML = data;
+
+        lambda(element, target);
+
+        target.replaceWith(element);
     }
 
     return Promise.resolve();
+}
+
+function TransferHRef(target, source)
+{
+    target.children[0].href = source.dataset.href;
 }
