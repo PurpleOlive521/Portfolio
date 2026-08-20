@@ -201,7 +201,6 @@ footer
     padding-top: 1rem;
     padding-bottom: 1rem;
     text-align: center;
-
 }
 
 footer p
@@ -730,17 +729,27 @@ footer p
     margin: 1rem;
 }
 
-.AccessAcquired
+.AccessAcquired,
+.KraxCacaw
 {
     padding-top: 2rem;
 
-    background-image: url("/Content/AAIconLarge.png");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
 
     width: 100vw;
+}
+
+.AccessAcquired
+{
+    background-image: url("/Content/AAIconLarge.png");
+}
+
+.KraxCacaw
+{
+    background-image: url("/Content/KraxIcon.jpg");
 }
 
 .Team

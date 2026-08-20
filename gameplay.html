@@ -62,28 +62,73 @@
                     An input to the right would therefore switch from the current target to the nearest enemy on it's right, as they appear on screen.
                 </p>
 
-                <h3>Aim assist</h3>
+                <h3>Camera Tracking</h3>
                 <p>
-                    During playtesting, we found that it could be difficult to keep the players attacks on enemies during the chaotic combat.
-                    To help this, actions that involve movement or require targeting can request MotionWarping points to be placed.
-                    The played animations can then use these points to rotate towards the targets direction.
-
-                    Any Actor with a TargetLockableComponent is tracked within a certain distance. 
+                    A CameraModifier is applied to the owning Actors Camera component, which is responsible for the target tracking and ensures only one tracking modifier is applied at once.
                 </p>
-                
-                <div class = "Tooltip">[?]
-                    <span class="TooltipText"> Hiiii</span>
+
+                <h3>World-Icon</h3>
+                <p>
+                    When a target is locked, a WidgetComponent is enabled and lerped towards targets location.
+                    It queries the targets TargetLockingComponent to allow it to decide the location of the icon
+                    to ensure that different-sized targets all have the icon centered on their body.
+                </p>
+
+                <h3>Aim assist</h3>
+
+                <div class = "TooltipLine">
+                    <p>
+                        During playtesting, we found that it could be difficult to keep the players attacks on enemies during the chaotic combat.
+                        To help this, actions that involve movement or require targeting can request MotionWarping points to be placed.
+                        The played animations can then use these points to rotate towards the targets direction.                  
+                    </p>
+
+                    <div class="Tooltip">[ ? ]
+                        <span class="TooltipText">
+                            The rotation is done at a fixed rate which is adjustable<br>
+                            per animation. This avoids the character rotating to <br>
+                            quickly, which makes it too easy to attack in all directions. <br>
+                            and causes the character to rotate in-place.</span>
+                    </div>
                 </div>
                 
-                <!--<div class = "Tooltip" data-tooltip = "Test" ></div>-->
+                <div class = "TooltipLine">
+                    <p>
+                        <br>
+                        Any Actor with a TargetLockableComponent is tracked within a certain distance.
+                    </p>
+                    <div class="Tooltip">[ ? ]
+                        <span class="TooltipText">
+                            An ActorComponent was used to allow opt-in <br>
+                            for any Actor, not just combat-related ones. <br>
+                            This would allow target-dummies, environmental items <br>
+                            or collectables to later be lockable too, if desired.</span>
+                    </div>
+                </div>
+
                 <p>
-                    Target locking and user input overrides this, to ensure players are in control when needed. 
-                    If a target is found very close to the direction the player inputs, it will snap to it to ensure the attack is facing the target without taking away player agency.
+                    When an action requests a target, one is picked in the following order:
+                    <br> 1. If there is active player movement input beyond a low threshold use the input.
+                    <br> 2. If there is an active Target Lock, use its target.
+                    <br> 3. Find the closest tracked target in the forward direction of the owning Actor.
+                    <br> 4. Don't create a MotionWarping point.
+                    <br><br>
+                </p>
+
+                <p>
+                    The active-input-override was added during the implementation, since I noticed very quickly that whenever the aim assist tried to track a target
+                    my own input would be ignored which just felt frustrating, rather than helpful.
+
+                    <br><br> Finally, while I was at it 
+                    I added an extra feature where whenever a target is found very close to the direction the player inputs,
+                    it will place a MotionWarping point on it to it to ensure the attack is facing the target.
                 </p>
 
                 <h2>Takeaways</h2>
                 <p>
-                    Text here
+                    • Aside from being very satisfying to tweak until it felt just right, it also helped improve game-feel and player agency. <br>
+                    • The screen-space-based selection for targets makes the controls much more intuitive, and is something I recommed more games do. <br>
+                    • Not many players used the Target Locking, so I would focus my time on the aim assist and other features if done again.
                 </p>
             </div>
 
@@ -91,10 +136,6 @@
                 <div id = "GithubSideTabTarget" data-href = "https://github.com/PurpleOlive521/GameplaySystem"></div>
 
                 <h1>Gameplay System Module</h1>
-
-                <div>
-                    <video class = "StandaloneVideo" src = "Content/Videos/TargetLockingVideo.mp4" type="video/mp4" controls muted autoplay loop>
-                </div>
 
                 <h2>What is the goal?</h2>
                 <p>
@@ -104,12 +145,15 @@
 
                 <h2>What is it?</h2>
                 <p>
-                    Throughout development I ended up with four tools, that all can be used to author gameplay elements. 
+                    Throughout development I ended up with four base tools, that all can be used to author gameplay elements. 
                     These are derived from superclasses that define their base functionality and purpose, and allow us to encapsulate gameplay elements into reusable pieces for easier development. 
                     I took inspiration from Unreal's GameplayAbilitySystem when designing the module.
+
+                    <br><br>
+                    This module was used for creating the hack-and-slash combat featured in Access Acquired.
                 </p>
 
-                <h2>How did I make it?</h2>
+                <h2>I want to hear more!</h2>
                 <section class = "ContentSwitcher">
                     <article class = "Switcher">
                         <button class = "Switch active" data-tab="GameplayAbility">GameplayAbility</button>
@@ -130,36 +174,34 @@
                     </article>
                 </section>
 
+                <h3>Abilities</h3>
+                <p>
+                    These represent the actions that can be performed by an character. 
+                    Supports complex activation requirements, cancelling of in-action abilities, cooldowns and more, giving full control over how actions interact with each-other and what they do. 
+                </p>
+
                 <h3>GameplayEffects</h3>
                 <p>
                     Temporary modifiers that can be applied to a GameplaySystem. 
                     hey can modify attributes or GameplayTags, allowing them to represent buffs, debuffs or game effects such as burning or being poisoned.
                 </p>
 
-                <h3>GameplayTag System</h3>
-                <p>
-                    Tracks the amount of each tag present allowing multiple sources to modify a GameplayTag. 
-                    This allows for more complex game behaviours where a state like 'Poisoned' can be applied multiple times, and require more actions to get rid of.
-                </p>
-
                 <h3>Integrated Debug UI</h3>
                 <p>
                     The framework features a custom Debug widget that automatically displays key properties of a GameplaySystem. 
-                    It has custom input bindings that allow designers to quickly toggle it on and off during gameplay, switch the displayed page and swap the displayed component. 
-                    It all comes together to ensure that debugging and testing of gameplay elements is easy and visual, without needing to step through code at every step of the way.
-                </p>
-
-                <h3>Abilities</h3>
-                <p>
-                    These represent the actions that can be performed by an character. 
-                    Supports complex activation requirements, cancelling of in-action abilities, cooldowns giving full control over how actions interact with each-other and what they do. 
-                    Used heavily in 'Access Acquired' to drive the hack-and-slash combat.
+                    It has input bindings that allow designers to quickly toggle it on and off, switch the displayed page and swap the displayed component. 
                 </p>
 
                 <h3>Attributes</h3>
                 <p>
-                    Datasets are used to source entities stats from. These can be anything from health to damage multipliers - whatever is needed for your game. 
-                    These are then loaded by a GameplaySystem which can be queried for their current values.
+                    These can be anything from health to damage multipliers - whatever is needed for your game.
+                    Modifiers can be aggregated and stacked which allows for complicated RPG-like stat chains of mixed types, such as additive, multiplicative or overriding effects. 
+                </p>
+
+                <h3>Levels and experience</h3>
+                <p>
+                    A DataSet can be used to assign level-breakpoints, which will trigger when enough experience is gained.
+                    This can increase attributes and trigger fitting visual effects.
                 </p>
 
                 <h2>Takeaways</h2>
@@ -179,15 +221,12 @@
 
                 <h2>What is it?</h2>
                 <p>
-                    As the game was made from the ground up, the game has a multitude of separate systems that I wrote to create the gameplay loop and core functionality. 
-                    The game was designed with a strong separation between different layers of the engine, as seen below, to make development easier. 
-                    A shared library is used for all role-independent implementations, minimising code duplication.
-                    I roll my own network protocol for the game. 
+                    A fully networked game, ran over the local network with my own network protocol and game engine.
                     It handles automatic LAN discovery, connecting multiple separate clients, timeouts for unresponsive clients, disconnects and reconnects. 
                     Packets are sent from the Server 10 times per second, with Client sending input 20 times per second, but can be customised for different game types.
                 </p>
 
-                <h2>How did I make it?</h2>
+                <h2>I want to hear more!</h2>
                 <section class = "ContentSwitcher">
                     <article class = "Switcher">
                         <button class = "Switch active" data-tab="Server">Server Hierarchy</button>
@@ -206,24 +245,25 @@
                 <h3>Object-Oriented Design</h3>
                 <p>
                     The engine supports polymorphic handling of abstract GameObjects, which is the core Super class that all Game entities derive from. 
-                    Objects can then implement multiple functions to expand their functionality, such as signing up to the TimeManager which Ticks objects and handles asynchronous actions and timers.
-                    GameObjects themselves don't handle networking logic, that handled in the Controller class. 
+                    Objects can then implement multiple functions to expand their functionality, such as signing up to the 
                     Controllers are assigned to objects on creation, and handle the objects replication & serialization, interpolation and - in the case of PlayerControllers - input.
                 </p>
 
                 <h3>Physics Engine</h3>
                 <p>
-                    Game Entities can also participate in game collision handling. 
                     Colliders are used to describe physics shapes, which are represented as a collection of convex 2D points. 
                     Participating entities will receive callbacks when colliding with other entities and receive any generated collision data.
                     I use Separating Axis Theorem to detect collisions between game-ticks. 
-                    I then collect some initial collision data and resolve each collision separately.
-                    Minimum Translation Vector is used to accurately separate objects with respect to their position and rotation
+                    Minimum Translation Vector is used to accurately separate objects with respect to their position and rotation.
+                </p>
+
+                <h3>Ticking and Timers</h3>
+                <p>
+                    TimeManager which Ticks objects and handles asynchronous actions and timers.
                 </p>
 
                 <h3>Network Protocol</h3>
                 <p>
-                    I roll my own network protocol for the game. 
                     It handles automatic LAN discovery, connecting multiple separate clients, timeouts for unresponsive clients, disconnects and reconnects. 
                     Packets are sent from the Server 10 times per second, with Client sending input 20 times per second, but can be customised for different game types.
                 </p>
@@ -246,7 +286,6 @@
                 
                 <h3>Reliable Messages</h3>
                 <p>
-                    Messages are always guaranteed to be received, and are stored and packed into the leftover empty space in packets.
                     Each message is tracked, stored and resent in each packet until it is confirmed to be received by the other end. 
                     An algorithm is used to encode packet-level acknowledges into a uint32, allowing a single packet to describe the acknowledge state of 32 messages.
                     Some messages will always need to be tracked, such as spawning of player-controlled objects so that connecting Clients can replicate them correctly. 

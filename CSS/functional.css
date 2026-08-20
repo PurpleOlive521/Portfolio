@@ -365,7 +365,7 @@
     background-color: var(--tooltip);
     color: var(--bg);
 
-    text-align: center;
+    text-align: left;
 
     padding: 0.5rem;
     margin-left: 0.5rem;
@@ -383,4 +383,34 @@
 {
     opacity: 1;
     visibility: visible;
+}
+
+.TooltipLine
+{
+    width: 80%;
+    margin: auto;
+}
+
+.TooltipLine p
+{
+    display: inline;
+}
+
+.Tooltip
+{
+    display: inline-block;
+    width: 40px;
+    margin-left: 0.25rem;
+    position: relative;
+    vertical-align: baseline;
+}
+
+.TooltipText
+{
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+
+    max-width: 550px;
 }
