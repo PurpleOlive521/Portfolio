@@ -272,7 +272,7 @@ footer p
     width: 300px;
     height: 300px;
 
-    background-color: var(--bg-card);
+    background-color: var(--bg-panel);
     box-shadow: var(--card-shadow);
     border-radius: 20px;
 }
@@ -289,9 +289,9 @@ footer p
     font-size: 2.5rem;
 }
 
-/* --- Projects --- */
+/* --- Game Showcase --- */
 
-.Projects
+.GameShowcase
 {
     display: flex;
     flex-direction: row;
@@ -305,7 +305,7 @@ footer p
     max-width: 80%;
 }
 
-.ProjectItem
+.Game
 {
     width: 30rem;
     height: auto;
@@ -316,7 +316,7 @@ footer p
     position: relative;
 }
 
-.ProjectCard
+.GameCard
 {
     display: block;
     width: 80%;
@@ -333,19 +333,19 @@ footer p
     left: 10%;
 }
 
-.ProjectCard h1
+.GameCard h1
 {
     font-weight: 600;
     font-size: 1.5rem;
     text-align: center;
 }
 
-.ProjectCard p
+.GameCard p
 {
     padding: 0.5rem;
 }
 
-.ProjectCard:before 
+.GameCard:before 
 {
     width: inherit;
     height: inherit;
@@ -356,7 +356,7 @@ footer p
     z-index: -1;
 }
 
-.ProjectType
+.GameEngine
 {
     position: absolute;
 
@@ -417,9 +417,9 @@ footer p
     justify-content: space-between;
 }
 
-/* =====================
+/* ====================================================================================
     About Me
-   ===================== */
+   ==================================================================================== */
 .AboutMePage
 {
     background-color: var(--bg-card);
@@ -503,10 +503,15 @@ footer p
     margin-bottom: 1rem;
 }
 
+.AboutMeDescription h2
+{
+    font-size: 2rem;
+}
+
 .AboutMeDescription p
 {
     font-size: 1.3rem;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 .Qualifications
@@ -530,6 +535,7 @@ footer p
 .Skills ul
 {
     list-style: circle;
+    font-size: 1.3rem;
 }
 
 .Software ul
@@ -555,6 +561,7 @@ footer p
 .Education
 {
     padding-bottom: 2rem;
+    font-size: 1.2rem;
 }
 
 .Education h1
@@ -587,9 +594,9 @@ footer p
     margin-bottom: 0.5rem;
 }
 
-/* =====================
+/* ====================================================================================
     Content
-   ===================== */
+   ==================================================================================== */
 .FieldContent
 {
     width: 60%;
@@ -664,4 +671,91 @@ footer p
     border-radius: 10px;
 
     margin-bottom: 1.5rem;
+}
+
+/* ====================================================================================
+    Game Display
+   ==================================================================================== */
+
+.GameDisplayCard
+{
+    width: 600px;
+    height: 300px;
+
+    display: block;
+    margin: auto;
+
+    background-color: var(--bg-card);
+
+    margin-bottom: 1.5rem;
+    padding: 1.0rem 2.5rem;
+}
+
+.GameDisplayCard h1
+{
+    text-align: center;
+    font-size: 3rem;
+
+    margin-bottom: 1rem;
+}
+
+.GameDisplayCard ul
+{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+
+    margin-top: 2rem;
+
+    font-size: 1.1rem;
+    list-style-type: circle;
+}
+
+.GameDisplayCard li
+{
+    flex: 1 0 50%;
+}
+
+.GameAttachments
+{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    justify-content: center;
+}
+
+.GameAttachments *
+{
+    margin: 1rem;
+}
+
+.AccessAcquired
+{
+    padding-top: 2rem;
+
+    background-image: url("/Content/AAIconLarge.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+
+    width: 100vw;
+}
+
+.Team
+{
+    display: flex;
+    flex-direction: row;
+
+    justify-content: left;
+
+    text-align: left;
+    width: 80%;
+    margin: auto;
+}
+
+.TeamNames
+{
+    font-weight: 500;
 }

@@ -342,3 +342,45 @@
 
     width: auto;
 }
+
+.Tooltip 
+{
+    width: 40px;
+    background-color: var(--bg-card);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--query);
+
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+
+    display: inline-block;
+}
+
+.TooltipText 
+{
+    visibility: hidden;
+
+    background-color: var(--tooltip);
+    color: var(--bg);
+
+    text-align: center;
+
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+
+    border-radius: 6px;
+
+    position: absolute;
+    z-index: 1; 
+
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+}
+
+.Tooltip:hover .TooltipText 
+{
+    opacity: 1;
+    visibility: visible;
+}

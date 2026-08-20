@@ -26,6 +26,8 @@
     --github-tab-hover: #ac9ae4;
     --github-tab-border-hover: #9184c1;
 
+    --tooltip: #555555;
+
     /* ============================ Anything Text ============================ */
 
     --font: 'Quicksand', system-ui, -apple-system, sans-serif;
@@ -34,6 +36,8 @@
     --text-primary-hover: #1d1d27;
     
     --steam-text-primary: #107cac;
+
+    --query: #656e72;
     
     --in-page-navigation-text: #88878a;
     --in-page-navigation-text-active: #4743c5;

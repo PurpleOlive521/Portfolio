@@ -25,7 +25,6 @@
         <div id = "HeaderTarget"></div>
 
         <main>  
-
             <div id = "InPageNavigationTarget"></div>
 
             <div id = "ImageModalTarget"></div>
@@ -41,11 +40,11 @@
 
                 <h2>What is it?</h2>
                 <p>
-                    An ActorComponent that tracks nearby enemies, locking onto them to keep the screen centered when requested by the player.
-                    Creates MotionWarping targets to help the player target enemies even without input, or corrects their input to stay on target.
+                    An ActorComponent that allows the camera to track enemies, locking onto them and keeping the  screen centered when requested by the player.
+                    It creates MotionWarping targets to help the player target enemies even without input, or correct their input to stay on target.
                 </p>
 
-                <h2>How did I make it?</h2>
+                <h2>What does it do?</h2>
                 <section class = "ContentSwitcher">
                     <article class = "Switcher">
                         <button class = "Switch active" data-tab="AimAssist">Aim Assist</button>
@@ -56,7 +55,7 @@
                     </article>
                 </section>
 
-                <h3>Switching Targets</h3>
+                <h3>Switch Targets</h3>
                 <p>
                     Players can switch targets by inputting a direction on the camera controls.  
                     While testing, I found that it was more intuitive to pick targets based on their location in screen space, as opposed to distance between targets. 
@@ -65,8 +64,19 @@
 
                 <h3>Aim assist</h3>
                 <p>
-                    To help players aim attacks and actions, aim assist was added to the Target Locking suite. 
-                    Nearby targets are tracked, and when no directional input is used during certain actions, it looks for suitable targets in front of the player to aim towards automatically.
+                    During playtesting, we found that it could be difficult to keep the players attacks on enemies during the chaotic combat.
+                    To help this, actions that involve movement or require targeting can request MotionWarping points to be placed.
+                    The played animations can then use these points to rotate towards the targets direction.
+
+                    Any Actor with a TargetLockableComponent is tracked within a certain distance. 
+                </p>
+                
+                <div class = "Tooltip">[?]
+                    <span class="TooltipText"> Hiiii</span>
+                </div>
+                
+                <!--<div class = "Tooltip" data-tooltip = "Test" ></div>-->
+                <p>
                     Target locking and user input overrides this, to ensure players are in control when needed. 
                     If a target is found very close to the direction the player inputs, it will snap to it to ensure the attack is facing the target without taking away player agency.
                 </p>
