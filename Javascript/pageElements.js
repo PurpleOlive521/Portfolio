@@ -8,6 +8,22 @@ export function CreatePageNavigationElement(name)
     return root;
 }
 
+export function CreateTooltipElement(text, tooltip)
+{
+    let root = CreateRootElement('div', ['TooltipLine']);
+
+        let p = CreateChildElement(root, 'p');
+            p.innerHTML = text;
+
+        let div = CreateChildElement(root, 'div', ['Tooltip'])
+            div.innerHTML = "[ ? ]";
+
+            let span = CreateChildElement(div, 'span', ['TooltipText']);
+                span.innerHTML = tooltip;
+        
+    return root;
+}
+
 // Creates and returns a DOM element with given classes
 function CreateElementWithClasses(inElement, inClasses = new Array())
 {

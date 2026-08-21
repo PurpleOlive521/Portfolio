@@ -1,3 +1,5 @@
+import * as tooltip from './tooltip.js'
+
 // Adds the Header and Footer html elements to the page
 export async function InsertPageElements()
 {
@@ -6,7 +8,7 @@ export async function InsertPageElements()
         InsertPageElement("#FooterTarget", 'footer.html'),
         InsertPageElement("#InPageNavigationTarget", 'inpagenavigation.html'),
         InsertPageElement("#ImageModalTarget", 'imagemodal.html'),
-        InsertPageElement("#GithubSideTabTarget", 'githubsidetab.html', TransferHRef)
+        InsertPageElement("#GithubSideTabTarget", 'githubsidetab.html', TransferHRef),
     ]);
 }
 
@@ -30,6 +32,26 @@ async function InsertPageElement(id, content, lambda = () => {})
         lambda(element, target);
 
         target.replaceWith(element);
+    }
+
+    return Promise.resolve();
+}
+
+async function BuildPageElement(id, content, lambda = () => {}) 
+{
+    const targets = document.querySelectorAll(id);
+
+    if(targets.length <= 0)
+    {
+        return Promise.resolve();
+    }
+
+    const response = await fetch(content);
+    const data = await response.text();
+
+    for(const target of targets)
+    {
+        lambda(element, target, data);
     }
 
     return Promise.resolve();

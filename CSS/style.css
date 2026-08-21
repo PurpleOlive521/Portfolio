@@ -655,6 +655,11 @@ footer p
     margin: auto;
 }
 
+.FieldContent a
+{
+    text-decoration: underline;
+}
+
 .StandaloneImage,
 .StandaloneVideo
 {
@@ -733,6 +738,9 @@ footer p
 .KraxCacaw
 {
     padding-top: 2rem;
+    padding-bottom: 2rem;
+
+    margin: 0;
 
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -749,7 +757,7 @@ footer p
 
 .KraxCacaw
 {
-    background-image: url("/Content/KraxIcon.jpg");
+    background-image: url("/Content/KraxIconLarge.png");
 }
 
 .Team

@@ -30,6 +30,11 @@
 
             <div id = "ImageModalTarget"></div>
 
+
+            <!-- ====================================================================================
+                Smooth Loading Screen
+            ==================================================================================== -->
+
             <div class = "FieldContent InPageNavigationTarget" data-name="Loading Screen" id = "LoadingScreen">
                 <div id = "GithubSideTabTarget" data-href = "https://github.com/PurpleOlive521/DynamicLoadingScreen"></div>
 
@@ -41,15 +46,14 @@
 
                 <h2>What is it?</h2>
                 <p>
-                    A subsystem that handles the creation and managing of loading screens during gameplay, allows for UMG animations and transition rules.
-                    Hides level transitions and texture streaming.
+                    A subsystem that handles the creation and managing of loading screens during gameplay.
+                    The created widget allows for UMG animations and clean transitions.
                 </p>
 
                 <h2>How did I make it?</h2>
                 <section class = "ContentSwitcher">
                     <article class = "Switcher">
                         <button class = "Switch active" data-tab="Usage">Usage</button>
-                        <button class = "Switch" data-tab="Settings">Settings Page</button>
                         <button class = "Switch" data-tab="Header">LoadingScreen.h</button>
                         <button class = "Switch" data-tab="Cpp">LoadingScreen.cpp</button>
                     </article>
@@ -587,13 +591,77 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
                     By hooking into Core delegates provided by Unreal, we can be alerted when the Engine starts switching levels. 
                     When this happens, we create the specified widget that is then added to the viewport and registered for updates.
                 </p>
-				
+
+                <section class = "ContentSwitcher">
+                    <article class = "Switcher">
+                        <button class = "Switch" data-tab="Settings">Settings Page</button>
+                        <button class = "Switch" data-tab="Optimizations">Optimizations</button>
+                    </article>
+
+                    <article class = "SwitcherContent" id = "Settings">
+                        <img class = "ExpandableImage" src="Content/Work/LoadingScreenSettings.png">
+                    </article>
+
+                    <article class = "SwitcherContent" id = "Optimizations">
+                        <!-- Code -->
+                        <pre class = "line-numbers"><code class = "lang-cpp"><!--void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScreen)
+{
+    UGameInstance* LocalGameInstance = GetGameInstance();
+    UGameViewportClient* GameViewportClient = LocalGameInstance->GetGameViewportClient();
+
+    // Don't bother drawing the 3D world while we're loading
+    GameViewportClient->bDisableWorldRendering = bEnabingLoadingScreen;
+
+    // Make sure to prioritize streaming in levels if the loading screen is up
+    if (UWorld* ViewportWorld = GameViewportClient->GetWorld())
+    {
+        if (AWorldSettings* WorldSettings = ViewportWorld->GetWorldSettings(false, false))
+        {
+            WorldSettings->bHighPriorityLoadingLocal = bEnabingLoadingScreen;
+        }
+    }
+}
+--></code></pre>
+                    </article>
+                </section>
+
+                <h3>Optimizations</h3>
+                <p>
+                    When the screen is fully covered by the loading screen, we can enable a couple optimizations to speed up loading.
+                    These include disabling rendering and prioritizing level streaming. 
+                    We could also tweak the ShaderPipelineCaching to help it further, but that was not done for the project.
+                </p>
+
+                <h3>Transitions</h3>
+
+                <p class = "TooltipTarget"
+                data-tooltip = "While the minimum up-time does risk making the <br>
+                                loading screen stay up longer than needed, it can <br>
+                                be worth it to make the transition seamless for <br>
+                                story-driven games like Access Acquired.">
+                    By allowing designers to explicitly enable the loading screen, we can add transitions to the loading screen to make it more smooth.
+                    This is controlled through the settings, and requires that the loading screen have a minimum uptime which is enforced automatically.
+                </p>
+
+                <p class = "TooltipTarget"
+                data-tooltip = "For example, given a minimum loading screen duration <br>
+                                of 2s, a 0.5s long transition works well. <br>
+                                Longer transitions can be used too, but they risk covering <br>
+                                the loading content for too long which looks unintended.">
+                    <br><br>A callback in the loading screen widget gives the designers a chance to play animations when transitioning in and out of the widget.
+                </p>
+
                 <h2>Takeaways</h2>
                 <p>
-                    The project was an amazing opportunity for working in 3D, where I learned to work with developing AI, designing and creating the exciting player combat and create the overall systems required for UI and level design to be created by my team with ease. 
-                    Working with an engine like Unreal that's designed to invite other designers like graphics and level design taught me the importance of designing and creating with the team in mind, so that I can create systems and tools that are intuitive and usable for others too.
+                    • Making a loading screen was simpler than I thought which is nice for a change. <br>
+                    • Since we have full control over the displayed widget, it could easily be made dynamic to match the game area or loading destination.
+                    • If done again, I would look into more optimizations to get the most out of the guaranteed uptime of the loading screen.
                 </p>
             </div>
+
+            <!-- ====================================================================================
+                Multilayer UI
+            ==================================================================================== -->
 
             <div class = "FieldContent InPageNavigationTarget" data-name="Multilayer UI" id = "MultilayerUI">
                 <h1>Multilayer Game UI</h1>

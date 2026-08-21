@@ -29,6 +29,10 @@
 
             <div id = "ImageModalTarget"></div>
 
+            <!-- ====================================================================================
+                Target Locking 
+            ==================================================================================== -->
+
             <div class = "FieldContent InPageNavigationTarget" data-name="Target Locking" id = "TargetLocking">
                 <div id = "GithubSideTabTarget" data-href = "https://github.com/PurpleOlive521/AccessAcquired/blob/main/AccessAcquired/Public/Components/TargetLockingComponent.h"></div>
 
@@ -76,35 +80,121 @@
 
                 <h3>Aim assist</h3>
 
-                <div class = "TooltipLine">
-                    <p>
-                        During playtesting, we found that it could be difficult to keep the players attacks on enemies during the chaotic combat.
-                        To help this, actions that involve movement or require targeting can request MotionWarping points to be placed.
-                        The played animations can then use these points to rotate towards the targets direction.                  
-                    </p>
+                <p class = "TooltipTarget"
+                data-tooltip =  "The rotation is done at a fixed rate which is adjustable<br>
+                                    per animation. This avoids the character rotating to <br>
+                                    quickly, which makes it too easy to attack in all directions. <br>
+                                    and causes the character to rotate in-place.">
+                    During playtesting, we found that it could be difficult to keep the players attacks on enemies during the chaotic combat.
+                    To help this, actions that involve movement or require targeting can request MotionWarping points to be placed.
+                    The played animations can then use these points to rotate towards the targets direction.  
+                </p>
 
-                    <div class="Tooltip">[ ? ]
-                        <span class="TooltipText">
-                            The rotation is done at a fixed rate which is adjustable<br>
-                            per animation. This avoids the character rotating to <br>
-                            quickly, which makes it too easy to attack in all directions. <br>
-                            and causes the character to rotate in-place.</span>
-                    </div>
-                </div>
+                <section class = "ContentSwitcher">
+                    <article class = "Switcher">
+                        <button class = "Switch active" data-tab="AimAssist">Aim Assist Algorithm</button>
+                    </article>
+                    
+                    <article class = "SwitcherContent active" id = "AimAssist">
+                        <pre class = "line-numbers"><code class = "lang-cpp"><!--void UTargetLockingComponent::TriggerMotionWarp(const FMotionWarpQuery& QueryParams)
+{
+	// No distance is set, don't create a MotionWarpingTarget
+	const float WarpDistance = CalculateWarpDistance(QueryParams);
+	if (WarpDistance <= 0.0f)
+	{
+		return;
+	}
+
+	const FVector OwnerLocation = GetOwner()->GetActorLocation();
+	FVector Target = {};
+	FRotator Rotation = {};
+
+	// We have override direction, use it
+	if (OverrideDirection != FVector::ZeroVector)
+	{
+		Target = OwnerLocation + OverrideDirection * WarpDistance;
+		Rotation = UKismetMathLibrary::FindLookAtRotation(OwnerLocation, Target);
+
+		// Try to find a target that is close to the direction
+		if (AActor* FoundTarget = FindWarpableTarget(DiscoverTargetRadius))
+		{
+			const FVector Direction = (FoundTarget->GetActorLocation() - OwnerLocation).GetSafeNormal();
+			const FVector AssistTarget = OwnerLocation + Direction * WarpDistance;
+			const FRotator AssistRotation = UKismetMathLibrary::FindLookAtRotation(OwnerLocation, AssistTarget);
+
+			const float DirectionDifference = fabs((AssistRotation - Rotation).Yaw);
+
+			// Use the target if its close enough to the input direction, like we do for EWarpSource::EWS_Discovered 
+			if (DirectionDifference <= MaximumAssistedInputDifference)
+			{
+				Target = AssistTarget;
+				Rotation = AssistRotation;
+			}
+		}
+
+		WarpSource = EWarpSource::EWS_OverrideInput;
+	}
+	// We have a targeted Actor, use it
+	else if(AActor* TargetActor = GetTargetedActor())
+	{
+		const FVector Direction = (TargetActor->GetActorLocation() - OwnerLocation).GetSafeNormal();
+		Target = OwnerLocation + Direction * WarpDistance;
+		Rotation = UKismetMathLibrary::FindLookAtRotation(OwnerLocation, Target);
+
+		WarpSource = EWarpSource::EWS_TargetLocking;
+	}
+	// Try to find an target to use
+	else if(AActor* FoundTarget = FindWarpableTarget(DiscoverTargetRadius))
+	{
+		const FVector Direction = (FoundTarget->GetActorLocation() - OwnerLocation).GetSafeNormal();
+		Target = OwnerLocation + Direction * WarpDistance;
+		Rotation = UKismetMathLibrary::FindLookAtRotation(OwnerLocation, Target);
+
+		WarpSource = EWarpSource::EWS_Discovered;
+	}
+	else 
+	{
+		// No target found, don't apply MotionWarping
+		WarpSource = EWarpSource::EWS_None;
+		return;
+	}
+
+	// Note: We discard Z since we don't apply it in the MotionWarping anyways
+	const float Distance = (FVector2D(Target) - FVector2D(OwnerLocation)).Length();
+	if (Distance < WarpTargetRadius)
+	{
+		Target = OwnerLocation;
+	}
+
+	// If there is a blocking body between us and the target, use the blocking hit as our furthest point to travel.
+	FVector OutLocation = {};
+	const bool bIsWarpTargetBlocked = IsWarpTargetBlocked(Target, OutLocation);
+	if (bIsWarpTargetBlocked)
+	{
+		Target = OutLocation;
+	}
+
+	AddOrUpdateWarpTargetFromLocationAndRotation(WarpTargetName, Target, Rotation);
+
+	if (DEBUG_ENABLED)
+	{
+		DrawDebugSphere(GetWorld(), Target, 30, 12, FColor::Green, false, 5.0f);
+		DrawDebugLine(GetWorld(), GetOwner()->GetActorLocation(), Target, FColor::Yellow, false, 5.0f);
+	}
+}
+
+
+--></code></pre>
+                    </article>
+                </section>
                 
-                <div class = "TooltipLine">
-                    <p>
-                        <br>
-                        Any Actor with a TargetLockableComponent is tracked within a certain distance.
-                    </p>
-                    <div class="Tooltip">[ ? ]
-                        <span class="TooltipText">
-                            An ActorComponent was used to allow opt-in <br>
-                            for any Actor, not just combat-related ones. <br>
-                            This would allow target-dummies, environmental items <br>
-                            or collectables to later be lockable too, if desired.</span>
-                    </div>
-                </div>
+                <p class = "TooltipTarget"
+                data-tooltip = "An ActorComponent was used to allow opt-in <br>
+                                for any Actor, not just combat-related ones. <br>
+                                This would allow target-dummies, environmental items <br>
+                                or collectables to later be lockable too, if desired.">
+                    Any Actor with a TargetLockableComponent is tracked within a certain distance.
+                </p>
 
                 <p>
                     When an action requests a target, one is picked in the following order:
@@ -132,6 +222,10 @@
                 </p>
             </div>
 
+            <!-- ====================================================================================
+                Gameplay System Module
+            ==================================================================================== -->
+
             <div class = "FieldContent InPageNavigationTarget" data-name="Gameplay System" id = "GameplaySystem">
                 <div id = "GithubSideTabTarget" data-href = "https://github.com/PurpleOlive521/GameplaySystem"></div>
 
@@ -157,20 +251,15 @@
                 <section class = "ContentSwitcher">
                     <article class = "Switcher">
                         <button class = "Switch active" data-tab="GameplayAbility">GameplayAbility</button>
-                        <button class = "Switch" data-tab="GameplayEffect">GameplayEffect</button>
-                        <button class = "Switch" data-tab="DebugMenu">Debug Menu</button>
+                        <button class = "Switch" data-tab="Usage">Usage</button>
                     </article>
                     
                     <article class = "SwitcherContent active" id = "GameplayAbility">
                         <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/AbilityExample.png">
                     </article>
                     
-                    <article class = "SwitcherContent" id = "GameplayEffect">
-                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/AbilityExample.png">
-                    </article>
-
-                    <article class = "SwitcherContent" id = "DebugMenu">
-                        <img class = "ExpandableImage" src="Content/Work/DebugMenu.png">
+                    <article class = "SwitcherContent" id = "Usage">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/AbilityImplementationExample.png">
                     </article>
                 </section>
 
@@ -180,22 +269,49 @@
                     Supports complex activation requirements, cancelling of in-action abilities, cooldowns and more, giving full control over how actions interact with each-other and what they do. 
                 </p>
 
+                <section class = "ContentSwitcher">
+                    <article class = "Switcher">
+                        <button class = "Switch active" data-tab="GameplayEffect">GameplayEffect</button>
+                        <button class = "Switch" data-tab="Modules">Modules</button>
+                    </article>
+                    
+                    <article class = "SwitcherContent active" id = "GameplayEffect">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/GameplayEffect.png">
+                    </article>
+                    
+                    <article class = "SwitcherContent" id = "Modules">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/GameplayEffectModule.png">
+                    </article>
+                </section>
+
                 <h3>GameplayEffects</h3>
                 <p>
                     Temporary modifiers that can be applied to a GameplaySystem. 
-                    hey can modify attributes or GameplayTags, allowing them to represent buffs, debuffs or game effects such as burning or being poisoned.
+                    They can modify attributes, GameplayTags, be represented in modifier bars, trigger other modifiers, abilities, events and more.
+                    This allows them to any number of modifiers a game might need, and as such also have alot of parameters to tweak the individual behaviours.
+
+                    <br><br>They can also have Modules attached, which allows for further customization.
+                    Modules are UObjects, and can be derived to create unique behaviour for one or more GameplayEffect. 
+                    They are instanced per GameplayEffect, and can as such have properties themselves that are adjustable per GameplayEffect type.
+                    <br><br>
                 </p>
+
+                <img class = "ExpandableImage StandaloneImage" src="Content/Work/DebugMenu.png">
 
                 <h3>Integrated Debug UI</h3>
                 <p>
                     The framework features a custom Debug widget that automatically displays key properties of a GameplaySystem. 
                     It has input bindings that allow designers to quickly toggle it on and off, switch the displayed page and swap the displayed component. 
+                    <br><br>
                 </p>
+
+                <img class = "ExpandableImage StandaloneImage" src="Content/Work/CustomAttributeUI.png">
 
                 <h3>Attributes</h3>
                 <p>
                     These can be anything from health to damage multipliers - whatever is needed for your game.
                     Modifiers can be aggregated and stacked which allows for complicated RPG-like stat chains of mixed types, such as additive, multiplicative or overriding effects. 
+                    You can read more about the custom Slate UI under the <a href = "ui.html">UI section</a>.
                 </p>
 
                 <h3>Levels and experience</h3>
@@ -206,9 +322,15 @@
 
                 <h2>Takeaways</h2>
                 <p>
-                    Text here
+                    • Creating a flexible system and breaking apart gameplay concepts into separate components and modules requires careful planning.  <br>
+                    • Separation of concern, encapsulation, and composition is very important for this type of work. <br>
+                    • While the setup is long and intense, the payoff in terms of quick prototyping this sort of module allows for is can not be understated and something I will use in the future.
                 </p>
             </div>
+
+            <!-- ====================================================================================
+                Networked Tank Battles
+            ==================================================================================== -->
 
             <div class = "FieldContent InPageNavigationTarget" data-name="Networked Tanks" id = "NetworkedGame">
                 <div id = "GithubSideTabTarget" data-href = "https://github.com/PurpleOlive521/NetworkedTankBattles"></div>
@@ -265,7 +387,7 @@
                 <h3>Network Protocol</h3>
                 <p>
                     It handles automatic LAN discovery, connecting multiple separate clients, timeouts for unresponsive clients, disconnects and reconnects. 
-                    Packets are sent from the Server 10 times per second, with Client sending input 20 times per second, but can be customised for different game types.
+                    Packets are sent from the Server 10 times per second, with Client sending input 20 times per second, but this can be customised for different game types.
                 </p>
 
                 <section class = "ContentSwitcher">
@@ -286,17 +408,28 @@
                 
                 <h3>Reliable Messages</h3>
                 <p>
+                    
+                </p>
+
+                <p class = "TooltipTarget"
+                data-tooltip = "While a maximum of 32 acknowledges seems too low, <br>
+                                a loss of more than 32 acknowledges in a row is rare <br>
+                                without extreme packet-loss, and would be easier handled <br>
+                                by forcing client to reconnect instead.">
                     Each message is tracked, stored and resent in each packet until it is confirmed to be received by the other end. 
                     An algorithm is used to encode packet-level acknowledges into a uint32, allowing a single packet to describe the acknowledge state of 32 messages.
                     Some messages will always need to be tracked, such as spawning of player-controlled objects so that connecting Clients can replicate them correctly. 
-                    These so called 'Critical' messages are stored and later sent for any newly connected client. 
+                </p>
+
+                <p>
+                    <br>These so called 'Critical' messages are stored and later sent for any newly connected client. 
                     They can then be queried and removed in case the message is no longer valid, such as when a player leaves and their controlled object is removed.
                 </p>
 
                 <h2>Takeaways</h2>
                 <p>
                     The project allowed me to try my hand at implementing and designing a multitude of systems that we take for granted in the game engines we use today, such as physics, object handling and management, timers and more. 
-                    I also got to learn how networking and net code is implemented in games, the complexities and issues that come with it, and how to address them.
+                    <br>I also got to learn how networking and net code is implemented in games, the complexities and issues that come with it, and how to address them.
                 </p>
             </div>
         </main>

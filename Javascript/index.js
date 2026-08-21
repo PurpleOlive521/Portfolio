@@ -5,6 +5,7 @@ import * as contentSwitcher from './contentSwitcher.js'
 import * as inPageNavigation from './inPageNavigation.js'
 import * as expandableImages from './expandableImages.js'
 import * as titles from './titles.js'
+import * as tooltip from './tooltip.js'
 
 window.addEventListener('load', main);
 
@@ -13,6 +14,7 @@ function main()
     window.removeEventListener('load', main);
 
     contentSwitcher.BindToContentSwitchers();
+    tooltip.MakeTooltips();
 
     contentLoader.InsertPageElements().then(() => 
     {
