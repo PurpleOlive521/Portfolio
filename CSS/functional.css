@@ -414,3 +414,17 @@
 
     max-width: 550px;
 }
+
+.TooltipText::after 
+{
+    content: " ";
+    position: absolute;
+
+    top: 50%; 
+    right: 100%;
+
+    margin-top: -5px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent var(--tooltip) transparent transparent;
+}

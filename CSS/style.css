@@ -60,6 +60,8 @@ p
 /* ====================================================================================
     Header
    ==================================================================================== */
+   
+#HeaderTarget,
 .SiteHeader
 {
     display: flex;
@@ -73,6 +75,11 @@ p
     top: 0;
     z-index: 1000;
     width: 100%;
+}
+
+#HeaderTarget
+{
+    height: 82px;
 }
 
 /* --- Nameplate --- */
@@ -695,6 +702,12 @@ footer p
     padding: 1.0rem 2.5rem;
 }
 
+/* This damn long name keeps being an issue*/
+.KraxDisplayCard
+{
+    height: 370px;
+}
+
 .GameDisplayCard h1
 {
     text-align: center;
@@ -760,6 +773,12 @@ footer p
     background-image: url("/Content/KraxIconLarge.png");
 }
 
+.GameTransition
+{
+    height: 50px;
+    background-color: var(--bg-panel);
+}
+
 .Team
 {
     display: flex;
@@ -770,9 +789,16 @@ footer p
     text-align: left;
     width: 80%;
     margin: auto;
+
+    margin-top: -1rem;
 }
 
 .TeamNames
 {
     font-weight: 500;
+}
+
+.Subtitle
+{
+    font-style: italic;
 }
