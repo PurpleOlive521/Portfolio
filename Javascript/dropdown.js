@@ -27,7 +27,7 @@ function OnDropdownPressed()
 
 function GetNavigationDropdownContent()
 {
-    return document.getElementById("MobileNav");
+    return document.getElementById("MobileNav").children[0];
 }
 
 export function ListenForDisplaySizeChanged()
