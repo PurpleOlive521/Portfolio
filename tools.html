@@ -34,6 +34,8 @@
             ==================================================================================== -->
 
             <div class = "FieldContent InPageNavigationTarget" data-name="Copyright Tool" id = "CopyrightTool">
+                <div id = "GithubSideTabTarget" data-href = "https://github.com/PurpleOlive521/CopyrightReplacementTool/tree/main"></div>
+
                 <h1>Copyright Replacement Tool</h1>
 
                 <h2>What is it?</h2>
@@ -66,7 +68,7 @@ CompatibleFileTypes = []
 
 def Main():
     # Directory of executable 
-    ContainingFolderPath = Path.cwd().parent
+    ContainingFolderPath = Path.cwd()
 
     print(CONSOLE_TOOL_NAME, f": Running tool {CONSOLE_TOOL_NAME} on working directory '{ContainingFolderPath}'.")
 
@@ -166,28 +168,44 @@ if __name__ == "__main__":
                     </article>
                 </section>
                 <p>
-                    The tool relies on two .txt files to receive information from outside the exe, one for the copyright to insert/update and one which 
+                    The tool relies on two text files to receive information from outside the exe, one for the copyright to insert/update and one which 
                     specifies which file types are allowed to search for and replace in. This is opt-in, ensuring that only the desired code files are affected. 
+
+                    <br><br>All folders and subfolders of the directory that the executable is in is iterated through, and any files with a matching extension is collected.
+                    <br>If the first line of a file is a comment, it is replaced with the copyright comment to ensure its at the top of the file.
+                    If however non-comment content is found, the copyright along with empty lines are inserted before to ensure no actual code is affected.
                 </p>
 
                 <h2>How is it used?</h2>
+
+                <section class = "ContentSwitcher">
+                    <article class = "Switcher">
+                        <button class = "Switch active" data-tab="Usage">Usage</button>
+                        <button class = "Switch" data-tab="Result">Result</button>
+                    </article>
+
+                    <article class = "SwitcherContent active" id = "Usage">
+                        <img class = "ExpandableImage" src="Content/Work/CopyrightReplacementTool.png">
+                    </article>
+
+                    <article class = "SwitcherContent" id = "Result">
+                        <img class = "ExpandableImage" src="Content/Work/CopyrightReplacedLine.png">
+                    </article>
+                </section>
+
                 <p class = "TooltipTarget"
-                data-tooltip = "In the case of Unreal, this would most commonly be  <br>
-                                C++ header and source files and any C#<br>
-                                target/build files. <br>
+                data-tooltip = "In the case of Unreal, this files to target would most <br>
+                                commonly be C++ header & source files and any <br>
+                                C# target & build files. <br>
                                 ">
                     It's really simple!
-                    <br> Drop the executable and the accompanying .txt files in a folder, configure the copyright to add/update and the allowed filetypes to edit.
+                    <br> Drop the executable and the accompanying text files in a folder, configure the copyright to add/update and the allowed filetypes to edit.
                     Run the executable and any files in the same folder or subfolders will be searched and fixed!
                 </p>
 
-
                 <h2>Takeaways</h2>
                 <p>
-                    • While Slate's declarative syntax is quite different to working with UMG, most of the UMG-knowledge is easily transferable to the new syntax. <br>
-                    • The UI presentation of the type is greatly improved, making it well and truly worth the effort. <br>
-                    • A drawback is that UI customization requires upkeep - any future property added to the type needs to also be displayed through the Slate code. <br>
-                      As such it might not be fit for types that will change frequently without wanting to go yell at your UI programmer.
+                    • While it definitely took a bit to get familiar with the syntax again, its well worth the time for tools like this.
                 </p>
             </div>
         </main>

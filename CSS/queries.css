@@ -1,5 +1,30 @@
 @import url('properties.css');
 
+@media(max-width: 1500px)
+{
+    .NavItem
+    {
+        font-size: 1.3rem;
+    }
+
+    .Contacts ul
+    {
+        padding: 0;
+    }
+
+    .Contacts
+    {
+        flex: 0 1 15%;
+    }
+    
+    .Fields a
+    {
+        width: 250px;
+        height: 250px;
+    }
+}
+
+
 @media(max-width: 1100px)
 {
 
@@ -12,9 +37,10 @@
     {
         font-size: 0.9rem;
     }
+
 }
 
-@media (max-width: 800px)
+@media (max-width: 1000px)
 { 
     .Projects
     {
@@ -39,6 +65,22 @@
     .IntroCard p
     {
         font-size: 1rem;
+    }
+
+    .IntroCard
+    {
+        margin: 0 3rem;
+        margin-top: 7rem;
+    }
+     
+    .Fields li
+    {
+        margin: 1rem 1rem;
+    }
+
+    .Fields a
+    {
+        margin: auto;
     }
 
     /* ----- About Me ----- */
