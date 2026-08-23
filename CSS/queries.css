@@ -1,5 +1,36 @@
 @import url('properties.css');
 
+@media(max-width: 1700px)
+{
+    .InPageNavigation ul
+    {
+        font-size: 1.5rem;
+    }
+
+    .FieldContent
+    {
+        padding: 1rem 1rem;
+    }
+
+    .FieldContent h2, 
+    .FieldContent h3
+    {
+        width: 90%;
+    }
+
+    .FieldContent p
+    {
+        width: 90%;
+    }
+    
+    .ContentSwitcher
+    {
+        margin-left: 2rem;
+        margin-right: 2rem;
+        height: 600px;
+    }
+}
+
 @media(max-width: 1500px)
 {
     .NavItem
@@ -22,6 +53,12 @@
         width: 250px;
         height: 250px;
     }
+
+    .ContentSwitcher
+    {
+        height: 500px;
+    }
+    
 }
 
 
