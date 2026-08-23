@@ -30,7 +30,6 @@
 
             <div id = "ImageModalTarget"></div>
 
-
             <!-- ====================================================================================
                 Smooth Loading Screen
             ==================================================================================== -->
@@ -648,7 +647,7 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
                                 of 2s, a 0.5s long transition works well. <br>
                                 Longer transitions can be used too, but they risk covering <br>
                                 the loading content for too long which looks unintended.">
-                    <br><br>A callback in the loading screen widget gives the designers a chance to play animations when transitioning in and out of the widget.
+                    <br>A callback in the loading screen widget gives the designers a chance to play animations when transitioning in and out of the widget.
                 </p>
 
                 <h2>Takeaways</h2>
@@ -664,19 +663,174 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
             ==================================================================================== -->
 
             <div class = "FieldContent InPageNavigationTarget" data-name="Multilayer UI" id = "MultilayerUI">
+                <div id = "GithubSideTabTarget" data-href = "https://github.com/PurpleOlive521/AccessAcquired/blob/main/AccessAcquired/Public/Widgets/WidgetMenuStack.h"></div>
+
                 <h1>Multilayer Game UI</h1>
 
-                <div>
-                    <video class = "StandaloneVideo" src = "Content/Videos/MainMenuUI.mp4" type="video/mp4" controls muted autoplay loop>
-                </div>
+                <video class = "StandaloneVideo" src = "Content/Videos/MainMenuUI.mp4" type="video/mp4" controls muted autoplay loop></video>
 
                 <h2>What is it?</h2>
                 <p>
-                    A subsystem that handles the creation and managing of loading screens during gameplay, allows for UMG animations and transition rules.
-                    Hides level transitions and texture streaming.
+                    My approach to giving Access Acquired a system to handle multiple menues and prompts, while keeping implementation and usage simple for designers.
+                    By using three Widget Stacks, we can establish a set hierarchy of layers that define how widgets are prioritised, and how they interact with eachother.
+                </p>
+
+                <h2>A case study</h2>
+                <video class = "StandaloneVideo ContentMarginTop ContentMarginBottomSmall" src = "Content/Videos/ArcRaidersUI.mp4" type="video/mp4" controls muted></video>
+
+                <p class = "TooltipTarget"
+                data-tooltip = "This is just speculation - I don't have proof this is <br>
+                                the actual implementation for Arc Raiders UI layering. <br>
+                                It however seems like a similar solution is used for some <br>
+                                of the widgets.
+                                ">
+                    I wanted to create a solution that would allow us to mix menues and modal widgets. The HUD would not need to be swapped during gameplay for Access Acquired,
+                    but being able to add/remove it whenever would be a plus. I looked at Arc Raiders for inspiration, where a similar layer structure can be seen.
+                </p>
+
+                <p>
+                    <br>I will refer these three layers 'Game', 'Menu' and 'Modal', which is what I called them in Access Acquired. 
+                    The first one would most often be used for the HUD, and similar full-screen in-game content.
+                </p>
+
+                <img class = "ExpandableImage StandaloneImage ContentMarginTop ContentMarginBottomSmall" src="Content/Work/ArcRadiersMenuBase.png">
+                <p class = "TooltipTarget"
+                data-tooltip = "It is also possible that the menu base is just one  <br>
+                                single widget and each submenu swaps out the content<br>
+                                in the widget, or shows a different page of it.
+                                ">
+                    Shown in the image above is the menu base, where navigation starts from and is the first view the player gets of the main in-game menu.
+                    <br>This would be placed in the 'Game' layer, and each submenu (e.g 'Play', 'Workshop', 'Raider', etc.) seems to swap out this widget.
+                </p>
+
+                <img class = "ExpandableImage StandaloneImage ContentMarginTop ContentMarginBottomSmall" src="Content/Work/ArcRadiersMenu.png">
+                <p>
+                    Here we have what seems to be a submenu, as it completely covers the menu base I showed above. 
+                    <br>This would therefore be placed in the 'Menu' layer.
+                    Navigating back sends us back to the menu base as expected while removing the submenu from view, which suggests
+                    that Arc Radiers also use Common UI for navigation handling (or a in-house version if it), which I use for Access Acquired.
+                </p>
+
+                <img class = "ExpandableImage StandaloneImage ContentMarginTop ContentMarginBottomSmall" src="Content/Work/ArcRaidersModal.png">
+                <p>
+                    Finally, when attempting to buy the bundle we get a confirmation popup, which would indicate its handled in the 'Modal' layer
+                    since we can still see the previous menu visible behind it. Any navigation from the modal closes it and shows us the submenu again.
                 </p>
 
                 <h2>How did I make it?</h2>
+
+                <section class = "ContentSwitcher">
+                    <article class = "Switcher">
+                        <button class = "Switch active" data-tab="Stack">Menu Stack</button>
+                        <button class = "Switch" data-tab="Interface">Interface</button>
+                    </article>
+
+                    <article class = "SwitcherContent active" id = "Stack">
+                        <img class = "ExpandableImage" src="Content/Work/MenuStack.png">
+                    </article>
+
+                    <article class = "SwitcherContent" id = "Interface">
+                        <!-- Code -->
+                        <pre class = "line-numbers"><code class = "lang-cpp"><!--UENUM(BlueprintType)
+enum class EWidgetStack : uint8
+{
+	EWS_Game	UMETA(DisplayName = "Game"),
+	EWS_Menu	UMETA(DisplayName = "Menu"),
+	EWS_Modal	UMETA(DisplayName = "Modal"),
+};
+
+/**
+ *  Named WidgetMenuStack to avoid conflicts with Unreals native MenuStack file. 
+ */
+UCLASS(Blueprintable)
+class VERTICALSLICE_API UWidgetMenuStack : public UCommonUserWidget
+{
+	GENERATED_BODY()
+
+public:
+
+	// Pushes the specified class to the Main Stack. Meant for in-game menus and UI, layered under Menu and Modal.
+	// Returns a pointer to the item in the stack.
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, meta = (DisplayName = "Push To Game"), Category = "MenuStack")
+	UCommonActivatableWidget* K2_PushToGame(TSubclassOf<UCommonActivatableWidget> ActivatableWidgetClass);
+
+	// Pushes the specified class to the Menu Stack. Meant for UI menus. Layered below Modal and above Game.
+	// Returns a pointer to the item in the stack.
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, meta = (DisplayName = "Push To Menu"), Category = "MenuStack")
+	UCommonActivatableWidget* K2_PushToMenu(TSubclassOf<UCommonActivatableWidget> ActivatableWidgetClass);
+
+	// Pushes the specified class to the Modal Stack. Meant for popups. Layered above ALL other menus.
+	// Returns a pointer to the item in the stack.
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, meta = (DisplayName = "Push To Modal"), Category = "MenuStack")
+	UCommonActivatableWidget* K2_PushToModal(TSubclassOf<UCommonActivatableWidget> ActivatableWidgetClass);
+
+	// Pushes a widget of the ActivatableWidgetClass type onto the specified Stack.
+	// Returns a pointer to the created ActivatableWidget.
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, meta = (DeterminesOutputType = "ActivatableWidgetClass", DisplayName = "Push To Stack"), Category = "MenuStack")
+	UCommonActivatableWidget* K2_PushToStack(EWidgetStack Stack, TSubclassOf<UCommonActivatableWidget> ActivatableWidgetClass);
+
+	// Clears the widget in all stacks present in this Widget.
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "MenuStack")
+	void ClearAllWidgets();
+
+	// Pushes a Widget of the specified type to the Game Stack. Returns the created widget, or nullptr on failure.
+	// @param T : The type of widget to create and push. Must be a subclass of UCommonActivatableWidget.
+	template<class T>
+	T* PushToGame()
+	{
+		UClass* ClassToInstantiate = T::StaticClass();
+		return static_cast<T*>(K2_PushToGame(ClassToInstantiate));
+	}
+
+	// Pushes a Widget of the specified type to the Game Stack. Returns the created widget, or nullptr on failure.
+	// @param WidgetClass : The class of the widget to create and push. Must derive from UCommonActivatableWidget!
+	// @param T : The type to cast the returned widget object to. 
+	template<class TReturnType>
+	TReturnType* PushToGame(UClass* WidgetClass)
+	{
+		return Cast<TReturnType>(K2_PushToGame(WidgetClass));
+	}
+
+	// Pushes a Widget of the specified type to the Menu Stack. Returns the created widget, or nullptr on failure.
+	// @param T : The type of widget to create and push. Must be a subclass of UCommonActivatableWidget.
+	template<class T>
+	T* PushToMenu()
+	{
+		UClass* ClassToInstantiate = T::StaticClass();
+		return static_cast<T*>(K2_PushToMenu(ClassToInstantiate));
+	}
+
+	// Pushes a Widget of the specified type to the Modal Stack. Returns the created widget, or nullptr on failure.
+	// @param T : The type of widget to create and push. Must be a subclass of UCommonActivatableWidget.
+	template<class T>
+	T* PushToModal()
+	{
+		UClass* ClassToInstantiate = T::StaticClass();
+		return static_cast<T*>(K2_PushToModal(ClassToInstantiate));
+	}
+
+	// Pushes a Widget of the specified type to the Modal Stack. Returns the created widget, or nullptr on failure.
+	// @param WidgetClass : The class of the widget to create and push. Must derive from UCommonActivatableWidget!
+	// @param T : The type to cast the returned widget object to. 
+	template<class TReturnType>
+	TReturnType* PushToModal(UClass* WidgetClass)
+	{
+		return Cast<TReturnType>(K2_PushToModal(WidgetClass));
+	}
+};
+--></code></pre>
+                    </article>
+                </section>
+                <p>
+                    I use a single widget, aptly named MenuStackBase, as the root widget for the viewport.
+                    All other game widgets are added to this through the three layers, 'Game', 'Menu' and 'Modal' through a C++ and blueprint interface.
+                    <br>The CameraFade, debug and CommonBoundActionBar widget have predefined layering and should never be swapped out, and are not part of the stack setup.
+                </p>
+
+                <h3>Access Acquried UI</h3>
+                <p>
+                    Below are more examples of the UI I worked on for Access Acquired, that rely on this multi-layer setup to integrate smoothly with gameplay and other widgets.
+                </p>
                 <section class = "ContentSwitcher">
                     <article class = "Switcher">
                         <button class = "Switch active" data-tab="TerminalMenu">Terminal Menu</button>
@@ -685,62 +839,80 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
                     </article>
 
                     <article class = "SwitcherContent active" id = "TerminalMenu">
-                        <video src = "Content/Videos/TerminalMenuUI.mp4" type="video/mp4" controls muted>
+                        <video src = "Content/Videos/TerminalMenuUI.mp4" type="video/mp4" controls muted></video>
                     </article>
 
                     <article class = "SwitcherContent" id = "SkillTree">
-                        <video src = "Content/Videos/SkillTreeUI.mp4" type="video/mp4" controls muted>
+                        <video src = "Content/Videos/SkillTreeUI.mp4" type="video/mp4" controls muted></video>
                     </article>
 
                     <article class = "SwitcherContent" id = "Dialogue">
-                        <video src = "Content/Videos/DialogueUI.mp4" type="video/mp4" controls muted>
+                        <video src = "Content/Videos/DialogueUI.mp4" type="video/mp4" controls muted></video>
                     </article>
                 </section>
-
-                <p>
-                    I worked on the many widgets and menus used for Access Acquired, both smaller ones present in world such as interaction widgets and HUD elements, and more complex menus like settings and save screens. 
-                    I was also responsible for creating the framework that allowed multi-layered widgets in the form of game HUD, menus and modals such as confirmation popups.
-                    <br><br>I worked together with our artists concepts and layouts, which I then translated into Unreals to make it work on different screen sizes and resolutions, since the game is targeted at both typical desktops and Steamdeck.
-                </p>
 				
                 <h2>Takeaways</h2>
                 <p>
-                    The project was an amazing opportunity for working in 3D, where I learned to work with developing AI, designing and creating the exciting player combat and create the overall systems required for UI and level design to be created by my team with ease. 
-                    Working with an engine like Unreal that's designed to invite other designers like graphics and level design taught me the importance of designing and creating with the team in mind, so that I can create systems and tools that are intuitive and usable for others too.
+                    • While it seems limiting first, splitting up UI into layers helps keep a consistent behaviour that can help users learn the layout more quickly.<br>
+                    • Games can choose to use more or less layers, where a layer could potentially be dedicated to act as backgrounds for other widgets.<br>
+                    • It is not possible to display multiple widgets per layer, so HUD elements still needs to be layered within the widget itself.<br>
                 </p>
             </div>
+
+            <!-- ====================================================================================
+                UI Customization
+            ==================================================================================== -->
 
             <div class = "FieldContent InPageNavigationTarget" data-name="UI Customization" id = "UICustomization">
                 <h1>Slate UI Customization</h1>
 
-                <div>
-                    <video class = "StandaloneVideo" src = "Content/Videos/MainMenuUI.mp4" type="video/mp4" controls muted autoplay loop>
-                </div>
-
                 <h2>What is it?</h2>
                 <p>
-                    The Attributes use a custom Struct with it's own handwritten Slate UI. 
-                    Unreals default-generated UI has each entry under a drop-down, making it difficult to gain an overview of the attributes and required more clicks to access.
-                    I addressed this by creating my own Slate UI, where each entry is displayed immediately with a horizontally-aligned setup.
+                    A simple Slate customization that replaces Unreal's default UI for the type when viewed through the editor. 
+                    <br>This allows the values to be immediately be displayed and viewed when opening any blueprint or DataSet that contains the type.
                 </p>
 
                 <h2>How did I make it?</h2>
+
                 <section class = "ContentSwitcher">
                     <article class = "Switcher">
-                        <button class = "Switch active" data-tab="OldUI">Old UI</button>
-                        <button class = "Switch" data-tab="CustomUI">New Custom UI</button>
-                        <button class = "Switch" data-tab="SlateCode">Slate Code</button>
+                        <button class = "Switch active" data-tab="CustomUI">New Custom UI</button>
+                        <button class = "Switch" data-tab="OldUI">Old UI</button>
                     </article>
-
-                    <article class = "SwitcherContent active" id = "OldUI">
-                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/OldAttributeUI.png">
-                    </article>
-
-                    <article class = "SwitcherContent" id = "CustomUI">
+                    
+                    <article class = "SwitcherContent active" id = "CustomUI">
                         <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/CustomAttributeUI.png">
                     </article>
 
-                    <article class = "SwitcherContent" id = "SlateCode">
+                    <article class = "SwitcherContent" id = "OldUI">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/OldAttributeUI.png">
+                    </article>
+                </section>
+
+                <p class = "TooltipTarget"
+                data-tooltip = "Note that I use my own library function to translate the <br>
+                                EAttributeType enum to a string, instead of using <br>
+                                UEnum::GetDisplayValueAsText which is editor-only. <br>
+                                This makes no difference here, but is important <br>
+                                when working with gameplay- or debugging-tools.
+                                ">
+                    My immediate goal was to solve the core problem: Making the UI horizontally-aligned instead of laid out vertically.
+                    <br><br>I achieve this by creating a row to work in the ChildBuilders AddCustomRow() method.
+                    We can then display the attributes name in the aptly named NameContent(), while the types properties are
+                    displayed in a SHorizontalBox in ValueContent().
+                </p>
+
+                <p>
+                    <br>I use CreatePropertyNameWidget() and CreatePropertyValueWidget() to display the properties together in
+                    a SVerticalBox to place them ontop of eachother, which saves some needed horizontal space.
+                </p>
+
+                <section class = "ContentSwitcher">
+                    <article class = "Switcher">
+                        <button class = "Switch active" data-tab="SlateCode">Slate Code</button>
+                    </article>
+
+                    <article class = "SwitcherContent active" id = "SlateCode">
                         <!-- Code -->
                         <pre class = "line-numbers"><code class = "lang-cpp"><!--void FEditorAttributeCustomization::CustomizeChildren(TSharedRef<IPropertyHandle> InStructPropertyHandle, IDetailChildrenBuilder& ChildBuilder, IPropertyTypeCustomizationUtils& StructCustomizationUtils) 
 {
@@ -820,13 +992,28 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
                     </article>
                 </section>
 
-                <p>
-                    Text
+                <p class = "TooltipTarget"
+                data-tooltip = "This also avoids the need to allocate the property per  <br>
+                                type. Its not a a big deal for one-off types or editor-only  <br>
+                                ones. But if its done often for frequently-used types, <br>
+                                the memory overhead quickly adds up.">
+                    Another benefit of using Slate is that new data can be displayed, without needing it to exist in the types UProperties.
+                    I use this to display the name of the attribute on the left, to allow designers to more quickly search for the wanted property.
+                    <br><br>Adding unique content to the UI this way is much better than the naive solution of simply adding the data as a member to the type,
+                    and updating it through methods or type constructors while letting Unreal handle the rest with its automatic property display.
                 </p>
-				
+
+                <img class = "ExpandableImage StandaloneImage ContentMarginTop ContentMarginBottomSmall" data-type="Vertical" src="Content/Work/CustomEncounterUI.png">
+                <p class = "Subtitle CenteredText">
+                    I've also created some other Slate UI customizations, that I won't dive into deeper here. 
+                </p>
+
                 <h2>Takeaways</h2>
                 <p>
-                    Text
+                    • While Slate's declarative syntax is quite different to working with UMG, most of the UMG-knowledge is easily transferable to the new syntax. <br>
+                    • The UI presentation of the type is greatly improved, making it well and truly worth the effort. <br>
+                    • A drawback is that UI customization requires upkeep - any future property added to the type needs to also be displayed through the Slate code. <br>
+                      As such it might not be fit for types that will change frequently without needing to go yell at your UI programmer to update their code.
                 </p>
             </div>
         </main>

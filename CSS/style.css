@@ -612,7 +612,7 @@ footer p
 
     background-color: var(--bg-card);
     border-radius: 30px;
-    padding: 1rem;
+    padding: 3rem 1rem;
 
     position: relative;
 
@@ -680,8 +680,26 @@ footer p
     box-shadow: var(--content-switcher-shadow);
 
     border-radius: 10px;
+}
 
-    margin-bottom: 1.5rem;
+.ContentMarginTop
+{
+    margin-top: 2rem;
+}
+
+.ContentMarginBottom
+{
+    margin-bottom: 2rem;
+}
+
+.ContentMarginTopSmall
+{
+    margin-top: 1rem;
+}
+
+.ContentMarginBottomSmall
+{
+    margin-bottom: 1rem;
 }
 
 /* ====================================================================================
@@ -801,4 +819,9 @@ footer p
 .Subtitle
 {
     font-style: italic;
+}
+
+.CenteredText
+{
+    text-align: center;
 }
