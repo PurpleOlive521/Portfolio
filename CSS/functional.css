@@ -54,7 +54,9 @@
 .ContentSwitcher
 {
     max-width: 100%;
-    height: 700px;
+    max-height: 700px;
+
+    aspect-ratio: 10 / 6;
     
     margin: 1rem 6rem;
     background-color: var(--content-switcher);
@@ -311,7 +313,7 @@
     position: sticky;
     top: 200px;
 
-    margin-left: calc(100%);
+    margin-left: 100%;
 
     width: 110px;
     height: 105px;
@@ -344,6 +346,10 @@
 
     width: auto;
 }
+
+/* ====================================================================================
+    Tooltip
+   ==================================================================================== */
 
 .Tooltip 
 {
