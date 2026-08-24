@@ -683,6 +683,8 @@ footer p
 .StandaloneImage,
 .StandaloneVideo
 {
+    max-width: 95%;
+
     width: 600px;
     height: fit-content; 
 
@@ -721,8 +723,8 @@ footer p
 
 .GameDisplayCard
 {
-    width: 600px;
-    height: 300px;
+    width: 95%;
+    max-width: 600px;
 
     display: block;
     margin: auto;
@@ -768,7 +770,7 @@ footer p
 {
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: 95%;
 
     justify-content: center;
 }
@@ -791,7 +793,7 @@ footer p
     background-position: center;
     background-size: cover;
 
-    width: 100vw;
+    width: 100%;
 }
 
 .AccessAcquired
@@ -812,21 +814,22 @@ footer p
 
 .Team
 {
-    display: flex;
-    flex-direction: row;
-
-    justify-content: left;
-
     text-align: left;
     width: 80%;
     margin: auto;
 
-    margin-top: -1rem;
+    font-size: 1.2rem;
 }
 
-.TeamNames
+table tr
+{
+    margin-bottom: 0.5rem;
+}
+
+table th
 {
     font-weight: 500;
+    width: 250px;
 }
 
 .Subtitle
