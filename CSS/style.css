@@ -26,7 +26,6 @@ body
 
 main
 {
-    margin-top: 85px;
     min-height: 100%;
 }
 
@@ -676,6 +675,11 @@ footer p
     text-decoration: underline;
 }
 
+.FieldContent a
+{
+    text-underline-offset: 2px;
+}
+
 .StandaloneImage,
 .StandaloneVideo
 {
@@ -792,12 +796,12 @@ footer p
 
 .AccessAcquired
 {
-    background-image: url("/Content/AAIconLarge.png");
+    background-image: url("../Content/AAIconLarge.png");
 }
 
 .KraxCacaw
 {
-    background-image: url("/Content/KraxIconLarge.png");
+    background-image: url("../Content/KraxIconLarge.png");
 }
 
 .GameTransition

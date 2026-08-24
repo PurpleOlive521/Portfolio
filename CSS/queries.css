@@ -46,6 +46,7 @@
     .Contacts ul
     {
         padding: 0;
+        padding-right: 1rem;
     }
 
     .Contacts

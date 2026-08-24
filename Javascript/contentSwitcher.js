@@ -13,8 +13,6 @@ export function BindToContentSwitchers()
 
 function OnContentSwitcherTabClicked(event)
 {
-    const contents = document.querySelectorAll('.SwitcherContent');
-
     let tab = event.target;
 
     SetActiveSwitcherContent(tab);
@@ -35,8 +33,6 @@ function TryRecoverActiveSwitchers()
         let switchers = contentSwitcher.children[0];
         for(const child of switchers.children)
         {
-            let test1 = child.classList.contains("Switch");
-            let test2 = child.dataset.tab == lastActiveSwitcher;
             if(child.classList.contains("Switch") && child.dataset.tab == lastActiveSwitcher)
             {
                 SetActiveSwitcherContent(child);
