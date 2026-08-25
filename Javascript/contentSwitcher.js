@@ -9,6 +9,8 @@ export function BindToContentSwitchers()
     }
 
     TryRecoverActiveSwitchers();
+    
+    PauseAllAutoplaySwitcherVideos();
 }
 
 function OnContentSwitcherTabClicked(event)
@@ -41,6 +43,24 @@ function TryRecoverActiveSwitchers()
     }
 }
 
+function PauseAllAutoplaySwitcherVideos()
+{
+    const switchers = document.querySelectorAll('.ContentSwitcher');
+
+    for(const switcher of switchers)
+    {
+        const videos = switcher.querySelectorAll('video');
+
+        for(const video of videos)
+        {
+            if(video.autoplay && !video.parentElement.classList.contains('active'))    
+            {
+                video.pause();
+            }
+        }
+    }
+}
+
 function SetActiveSwitcherContent(activeSwitcher)
 {
     let switchers = activeSwitcher.parentElement;
@@ -57,14 +77,35 @@ function SetActiveSwitcherContent(activeSwitcher)
     // Mark clicked as active
     activeSwitcher.classList.add('active');
 
+
     // Remove active class from all contents and add one to the clicked ones
     for(const element of root.children)
     {        
         element.classList.remove('active');
 
+        const videos = element.querySelectorAll('video');
+
+        // Find the content we want to activate
         if(element.id == target)
         {
             element.classList.add('active');
+
+            // Start any autoplay video that the new active element has.
+            for(const video of videos)
+            {
+                if(video.autoplay)    
+                {
+                    video.play();
+                }
+            }
+        }
+        else
+        {
+            // Stop any video that we find
+            for(const video of videos)
+            {
+                video.pause();
+            }
         }
     }
 
