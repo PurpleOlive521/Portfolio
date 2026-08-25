@@ -31,7 +31,6 @@
 
     & > ul
     {
-
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
@@ -40,22 +39,21 @@
         position: relative;
         width: 100%;
 
-
         margin: 0;
         background-color: var(--bg-panel);
-    }
 
-    & > li,
-    & > a
-    {
-        height: 100%;
-        width: 100%;
-    }
+        & > li,
+        & > li a
+        {
+            height: 100%;
+            width: 100%;
+        }
 
-    & > a
-    {
-        display: block;
-        text-align: center;
+        & > li a
+        {
+            display: block;
+            text-align: center;
+        }
     }
 }
 

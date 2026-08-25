@@ -231,7 +231,7 @@ footer
     text-align: center;
 
     padding: min(4rem, 10%);
-    margin-top: 4rem;
+    margin-top: 8rem;
     
     box-shadow: var(--card-shadow);
 
@@ -299,7 +299,6 @@ footer
         }
     }
 }
-
 
 /* --- Game Showcase --- */
 

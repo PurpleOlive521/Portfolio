@@ -99,6 +99,7 @@
     }
 }
 
+/* Mobiled display*/
 @media (max-width: 1000px)
 { 
     .Projects
@@ -125,7 +126,7 @@
     {
         padding: min(2rem, 10%);
         margin: 1rem;
-        margin-top: 2rem;
+        margin-top: 6rem;
     }
      
     .Fields li
@@ -174,17 +175,24 @@
 
     .Contacts ul
     {
-
-        width: 50px;
-        height: 50px;
-
         margin: 0.5rem;
-        padding: 0;
     }
 
     .Contacts
     {
         display: none;
+    }
+
+    #CV
+    {
+        width: var(--contact-radius-mobile);
+        height: var(--contact-radius-mobile);
+
+        & > h1
+        {
+            font-weight: 500;
+            font-size: 2.0rem;
+        }
     }
 
     /* ----- Mobile ----- */
@@ -199,17 +207,31 @@
         display: block;
     }
 
+    .ContactItem
+    {
+        width: var(--contact-radius-mobile);
+    }
+
     /* ----- Github Tab ----- */
+
+    .GithubSideTabContainer
+    {
+        top: 0.3rem;
+
+        height: calc(100% - 1rem);
+    }
 
     .GithubSideTab
     {
         border-left: none;
-        border-radius: 50px;
+        border-radius: 50px 0px 0px 50px;
 
         width: 75px;
         height: 75px;
-        
-        margin-left: calc(100% - 37.5px);
+
+        top: 80px;
+
+        margin-left: calc(100% - 65px);
     }
 
     .GithubSideTab img
@@ -229,6 +251,7 @@
 
     .FieldContent
     {
+        margin-top: 5rem;
         padding: 1.5rem 0.25rem;
         width: 95%;
     }
@@ -279,5 +302,31 @@
     .GameDisplayCard h1
     {
         font-size: 2rem;
+    }
+
+    /* ----- Switchers ----- */
+    
+    .Switch
+    {
+        padding: 0.5rem 0.5rem;
+        font-size: 1.0rem;
+    }
+
+    .ContentSwitcher
+    {
+        margin-left: 0.25rem;
+        margin-right: 0.25rem;
+    }
+
+    /* ----- Image Modal ----- */
+
+    .ModalImage
+    {
+        /*
+        transform: rotate(90deg);
+
+        width: 100vh;
+        */
+        padding: 0.25rem;
     }
 }
