@@ -169,12 +169,15 @@
 
     .NavItem
     {
-        width: 100%;
-        line-height: 100px;
+        font-size: 2rem;
     }
 
-    .Contacts ul 
+    .Contacts ul
     {
+
+        width: 50px;
+        height: 50px;
+
         margin: 0.5rem;
         padding: 0;
     }
@@ -194,24 +197,6 @@
     .MobileSpacer
     {
         display: block;
-    }
-
-        .MobileNavigation
-    {
-        height: 95%;
-        font-size: 1rem;
-        justify-content: start;
-    }
-
-    .MobileNavigation li
-    {
-        height: 100%;
-        width: 100%;
-    }
-
-    .MobileNavigation a
-    {
-        margin: auto;
     }
 
     /* ----- Github Tab ----- */
@@ -295,6 +280,4 @@
     {
         font-size: 2rem;
     }
-
-
 }

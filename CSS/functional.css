@@ -24,27 +24,39 @@
     width: 100%;
     top: 68px;
 
+    height: 95%;
+    justify-content: start;
+
     z-index: 1000;
-}
 
-.MobileNavigation ul
-{
-    position: relative;
-    flex-direction: column;
-    width: 100%;
+    & > ul
+    {
 
-    align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
 
-    margin: 0;
-    background-color: var(--bg-panel);
-}
+        position: relative;
+        width: 100%;
 
-.MobileContacts ul
-{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
+
+        margin: 0;
+        background-color: var(--bg-panel);
+    }
+
+    & > li,
+    & > a
+    {
+        height: 100%;
+        width: 100%;
+    }
+
+    & > a
+    {
+        display: block;
+        text-align: center;
+    }
 }
 
 /* ====================================================================================
@@ -87,53 +99,53 @@
     color: var(--text-primary);
 
     z-index: 1;
-}
 
-.Switch:first-child
-{
-    border-radius: 4px 0px 0px 0px; 
-}
+    &:first-child
+    {
+        border-radius: 4px 0px 0px 0px; 
+    }
 
-.Switch:last-child
-{
-    border-radius: 0px 4px 0px 0px; 
-}
+    &:last-child
+    {
+        border-radius: 0px 4px 0px 0px; 
+    }
 
-.Switch:hover 
-{
-    background: var(--switcher-hover);
-    color: var(--text-primary-hover);
-    box-shadow: var(--switcher-active-shadow);
-}
+    &:hover
+    {
+        background: var(--switcher-hover);
+        color: var(--text-primary-hover);
+        box-shadow: var(--switcher-active-shadow);
+    }
 
-.Switch.active 
-{
-    background: var(--switcher-active);
-    color: var(--text-primary-hover);
-    box-shadow: var(--switcher-active-shadow);
-    text-decoration: none;
+    &.active
+    {
+        background: var(--switcher-active);
+        color: var(--text-primary-hover);
+        box-shadow: var(--switcher-active-shadow);
+        text-decoration: none;
+    }
 }
 
 .SwitcherContent 
 {
     display: none;
-}
 
-.SwitcherContent.active 
-{
-    display: block;
-    text-decoration: none;
-    height: 95%;
+    &.active
+    {
+        display: block;
+        text-decoration: none;
+        height: 95%;
 
-    overflow: hidden;
-}
+        overflow: hidden;
+    }
 
-.SwitcherContent video
-{
-    width: 100%;
-    height: 100%;    
+    & > video
+    {
+        width: 100%;
+        height: 100%;    
 
-    background-color: black;
+        background-color: black;
+    }
 }
 
 .SwitcherHorizontalImage,
@@ -169,14 +181,14 @@
     position:fixed;
     top: 35%;
     right: 0px;
-}
 
-.InPageNavigation ul
-{
-    list-style-type: circle;
-    direction: rtl;
-    text-align: right;
-    font-size: 2rem;
+    & > ul
+    {
+        list-style-type: circle;
+        direction: rtl;
+        text-align: right;
+        font-size: 2rem;
+    }
 }
 
 .SideNavButton
@@ -192,12 +204,12 @@
     font-weight: 600;
 
     transition: 0.5s linear;
-}
 
-.SideNavButton.active
-{
-    text-decoration: none;
-    color: var(--in-page-navigation-text-active);
+    &.active
+    {
+        text-decoration: none;
+        color: var(--in-page-navigation-text-active);
+    }
 }
 
 /* ====================================================================================
@@ -252,14 +264,14 @@
     transition: 0.3s;
 
     z-index: 1;
-}
 
-.ModalCloseButton:hover,
-.ModalCloseButton:focus 
-{
-    text-decoration: none;
-    cursor: pointer;
-    color: var(--close-button-hover);
+    &:hover,
+    &:focus
+    {
+        text-decoration: none;
+        cursor: pointer;
+        color: var(--close-button-hover);
+    }
 }
 
 .ModalImage
@@ -329,22 +341,22 @@
     transition: background-color 0.15s ease-in-out;
     transition: border-color 0.1s ease-in-out;
     transition: width 0.3s ease-in-out;
-}
 
-.GithubSideTab:hover,
-.GithubSideTab:active
-{
-    background-color: var(--github-tab-hover);
-    border-color: var(--github-tab-border-hover);
-    width: 140px;
-}
+    &:hover,
+    &:active
+    {
+        background-color: var(--github-tab-hover);
+        border-color: var(--github-tab-border-hover);
+        width: 140px;
+    }
 
-.GithubSideTab img
-{
-    height: 100%;
-    padding: 0.5rem;
+    & > img
+    {
+        height: 100%;
+        padding: 0.5rem;
 
-    width: auto;
+        width: auto;
+    }
 }
 
 /* ====================================================================================
@@ -363,7 +375,15 @@
     display: inline-block;
     cursor: pointer;
 
-    display: inline-block;
+    width: 40px;
+    margin-left: 0.25rem;
+    vertical-align: baseline;
+
+    &:hover .TooltipText 
+    {
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 .TooltipText 
@@ -385,54 +405,36 @@
 
     opacity: 0;
     transition: opacity 0.25s ease-in-out;
-}
 
-.Tooltip:hover .TooltipText 
-{
-    opacity: 1;
-    visibility: visible;
-}
-
-.TooltipLine
-{
-    width: 80%;
-    margin: auto;
-}
-
-.TooltipLine p
-{
-    display: inline;
-}
-
-.Tooltip
-{
-    display: inline-block;
-    width: 40px;
-    margin-left: 0.25rem;
-    position: relative;
-    vertical-align: baseline;
-}
-
-.TooltipText
-{
     left: 100%;
     top: 50%;
     transform: translateY(-50%);
     white-space: nowrap;
 
     max-width: 550px;
+
+    &::after 
+    {
+        content: " ";
+        position: absolute;
+
+        top: 50%; 
+        right: 100%;
+
+        margin-top: -5px;
+        border-width: 10px;
+        border-style: solid;
+        border-color: transparent var(--tooltip) transparent transparent;
+    }
 }
 
-.TooltipText::after 
+.TooltipLine
 {
-    content: " ";
-    position: absolute;
+    width: 80%;
+    margin: auto;
 
-    top: 50%; 
-    right: 100%;
-
-    margin-top: -5px;
-    border-width: 10px;
-    border-style: solid;
-    border-color: transparent var(--tooltip) transparent transparent;
+    & > p
+    {
+        display: inline;
+    }
 }

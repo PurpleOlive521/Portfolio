@@ -60,9 +60,7 @@ function ParseURLDirective()
             point.target.scrollIntoView({behavior: "instant", block: "start"});
 
             const url = window.location.origin + window.location.pathname
-            window.history.replaceState(null, '', url);
-            
-            //window.location.search = window.location.search.replace(destination, "");
+            window.history.replaceState(null, '', url);            
         }
     }
 }
