@@ -443,11 +443,13 @@ footer
 
 .AboutMeBanner
 {
+    margin-top: 4rem;
+
     width: 100%;
     padding: 4rem;
+    padding-top: 5rem;
 
     background-image: url(../Content/sky.jpg);
-    
 }
 
 .AboutMeCard
@@ -455,10 +457,9 @@ footer
     display: flex;
     flex-direction: row;
 
-    background-color: var(--bg-card);
     margin: auto;
 
-    width: 50%;
+    width: max(900px, 50%);
 }
 
 .AboutMeCard img
@@ -499,9 +500,10 @@ footer
 
 .AboutMeContent
 {
+    background-color: var(--bg-card);
+
     width: 100%;
-    margin: 4rem;
-    margin-top: 6rem;
+    padding: 4rem;
 }
 
 .AboutMeContent p
@@ -533,7 +535,6 @@ footer
 
 .Qualifications
 {
-
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;

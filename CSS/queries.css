@@ -163,7 +163,25 @@
 
     .AboutMeDescription
     {
-        padding: 0.25rem;
+        padding: 1rem;
+        padding-top: 2rem;
+    }
+
+    .Qualifications
+    {
+        flex-direction: column;
+    }
+
+    .AboutMeCard
+    {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .AboutMeContent
+    {
+        padding: 1rem;
+        margin: 0;
     }
 
     /* ----- Navigation ----- */
@@ -216,6 +234,24 @@
     .ContactItem
     {
         width: var(--contact-radius-mobile);
+    }
+
+    .Education
+    {
+        padding: 1rem;
+        padding-bottom: 3rem;
+    }
+
+    .EducationContent
+    {
+        flex-direction: column;
+        
+
+        & > p
+        {
+            margin-top: 1rem;
+
+        }
     }
 
     /* ----- Github Tab ----- */
