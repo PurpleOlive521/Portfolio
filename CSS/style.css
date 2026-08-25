@@ -90,18 +90,18 @@ p
 
     justify-content: center;
     align-items: center;
-}
 
-.Nameplate h1
-{
-    font-size: 1.5rem;
-    font-weight: 700;
-}
+    & > h1
+    {
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
 
-.Nameplate h2
-{
-    font-size: 1.2rem;
-    font-weight: 400;
+    & > h2
+    {
+        font-size: 1.2rem;
+        font-weight: 400;
+    }
 }
 
 .Nameplate,
@@ -170,12 +170,12 @@ nav a
     height: auto;
 
     transition: transform 0.1s linear;
-}
 
-.ContactItem:hover
-{
-    transform: scale(1.15);
-    text-decoration: none;
+    &:hover
+    {
+        transform: scale(1.15);
+        text-decoration: none;
+    }
 }
 
 #CV
@@ -188,15 +188,15 @@ nav a
     vertical-align: middle;
     display: table-cell;
     text-align: center;
-}
 
-#CV h1
-{
-    color: var(--contact-icon);
+    & > h1
+    {
+        color: var(--contact-icon);
 
-    font-weight: 500;
-    font-size: 1.7rem;
-    line-height: normal;
+        font-weight: 500;
+        font-size: 1.7rem;
+        line-height: normal;
+    }
 }
 
 /* ====================================================================================
@@ -210,11 +210,11 @@ footer
     padding-top: 1rem;
     padding-bottom: 1rem;
     text-align: center;
-}
 
-footer p
-{
-    font-size: 1rem;
+    & > p
+    {
+        font-size: 1rem;
+    }
 }
 
 /* ====================================================================================
@@ -234,17 +234,16 @@ footer p
     margin-top: 4rem;
     
     box-shadow: var(--card-shadow);
-}
 
-.IntroCard h1
-{
-    font-size: 2.5rem;
+    & > h1
+    {
+        font-size: 2.5rem;
+    }
 
-}
-
-.IntroCard p
-{
-    font-weight: 500;
+    & > p
+    {
+        font-weight: 500;
+    }
 }
 
 .Primer
@@ -272,34 +271,35 @@ footer p
 
     padding-left: 1rem;
     padding-right: 1rem;
+    
+    & > li a
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        width: 300px;
+        height: 300px;
+
+        background-color: var(--bg-panel);
+        box-shadow: var(--card-shadow);
+        border-radius: 20px;
+
+        & > img
+        {
+            margin-top: 2rem;
+            width: auto;
+            height: 50%;
+        }
+
+        & > h1
+        {
+            font-size: 2.5rem;
+        }
+    }
 }
 
-.Fields a
-{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    width: 300px;
-    height: 300px;
-
-    background-color: var(--bg-panel);
-    box-shadow: var(--card-shadow);
-    border-radius: 20px;
-}
-
-.Fields img
-{
-    margin-top: 2rem;
-    width: auto;
-    height: 50%;
-}
-
-.Fields h1
-{
-    font-size: 2.5rem;
-}
 
 /* --- Game Showcase --- */
 
@@ -343,29 +343,29 @@ footer p
 
     bottom: -30%;
     left: 10%;
-}
 
-.GameCard h1
-{
-    font-weight: 600;
-    font-size: 1.5rem;
-    text-align: center;
-}
+    & > h1
+    {
+        font-weight: 600;
+        font-size: 1.5rem;
+        text-align: center;
+    }
 
-.GameCard p
-{
-    padding: 0.5rem;
-}
+    & > p
+    {
+        padding: 0.5rem;
+    }
 
-.GameCard:before 
-{
-    width: inherit;
-    height: inherit;
+    &:before 
+    {
+        width: inherit;
+        height: inherit;
 
-    transform: scale(2);
+        transform: scale(2);
 
-    background-color: var(--card-shadow-alt);
-    z-index: -1;
+        background-color: var(--card-shadow-alt);
+        z-index: -1;
+    }
 }
 
 .GameEngine
@@ -394,39 +394,42 @@ footer p
     padding: 0.4rem;
 
     transition: transform 0.15s linear;
-}
 
-.OnSteam:active,
-.OnSteam:hover
-{
-    transform: scale(1.075);
-}
+    &:active,
+    &:hover
+    {
+        transform: scale(1.075);
+    }
 
-.OnSteam h1
-{
-    font-size: 1.4rem;
-    font-weight: 600;
-    line-height: 1.5;
-    
-    color: var(--bg); 
-}
+    & > a
+    {
+        & > h1
+        {
+            font-size: 1.4rem;
+            font-weight: 600;
+            line-height: 1.5;
+            
+            color: var(--bg); 
+        }
 
-.OnSteam img
-{
-    width: 35px;
-    height: 35px;
+        & > img
+        {
+            width: 35px;
+            height: 35px;
 
-    margin-top: auto;
-    margin-bottom: auto;
-}
+            margin-top: auto;
+            margin-bottom: auto;
+        }
 
-.OnSteam a
-{
-    width: 100%;
+        & > a
+        {
+            width: 100%;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
 }
 
 /* ====================================================================================
