@@ -686,7 +686,8 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
 
                 <h1>Multilayer Game UI</h1>
 
-                <video class = "StandaloneVideo DisplayContent" src = "Content/Videos/MainMenuUI.mp4" type="video/mp4" controls muted autoplay loop></video>
+                <video class = "StandaloneVideo DisplayContent ContentMarginBottomSmall" src = "Content/Videos/GeneralUI2.mp4" type="video/mp4" controls muted autoplay loop></video>
+                <p class = "Subtitle CenteredText">The text on the top of the video denotes which layer the upper-most visible widget is part of.</p>
 
                 <h2>What is it?</h2>
                 <p>
@@ -697,12 +698,12 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
                 <h2>A case study</h2>
                 <p class = "TooltipTarget"
                 data-tooltip = "This is just speculation - I don't have proof this is <br>
-                                the actual implementation for Arc Raiders UI layering. <br>
+                                the actual implementation for ARC Raiders UI layering. <br>
                                 It however seems like a similar solution is used for some <br>
                                 of the widgets.
                                 ">
                     I wanted to create a solution that would allow us to mix menues and modal widgets. The HUD would not need to be swapped during gameplay for <a href = "games.html">Access Acquired</a>,
-                    but being able to add/remove it whenever would be a plus. I looked at Arc Raiders for inspiration, where a similar layer structure can be seen.
+                    but being able to add/remove it whenever would be a plus. I looked at ARC Raiders for inspiration, where a similar layer structure can be seen.
                 </p>
 
                 <video class = "StandaloneVideo ContentMarginTop ContentMarginBottomSmall" src = "Content/Videos/ArcRaidersUI.mp4" type="video/mp4" controls muted></video>
@@ -727,7 +728,7 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
                     Here we have what seems to be a submenu, as it completely covers the menu base I showed above. 
                     <br>This would therefore be placed in the 'Menu' layer.
                     Navigating back sends us back to the menu base as expected while removing the submenu from view, which suggests
-                    that Arc Radiers also use Common UI for navigation handling (or a in-house version if it), which I use for <a href = "games.html">Access Acquired</a>.
+                    that ARC Radiers also use Common UI for navigation handling (or a in-house version if it), which I use for <a href = "games.html">Access Acquired</a>.
                 </p>
 
                 <img class = "ExpandableImage StandaloneImage ContentMarginTop ContentMarginBottomSmall" src="Content/Work/ArcRaidersModal.png">
@@ -841,9 +842,14 @@ public:
                     </article>
                 </section>
                 <p>
-                    I use a single widget, aptly named MenuStackBase, as the root widget for the viewport.
-                    All other game widgets are added to this through the three layers, 'Game', 'Menu' and 'Modal' through a C++ and blueprint interface.
-                    <br>The CameraFade, debug and CommonBoundActionBar widget have predefined layering and should never be swapped out, and are not part of the stack setup.
+                    By using multiple Common Activatable Widget Stacks (CAWS) as the layers we can get the desired behaviour, where the CAWS pool the widgets for us and ensured that only one widget is visible at a time, per layer.
+                    <br>When a widget in the CAWS is removed it's popped from the stack and the next widget in the stack (if any) is displayed automatically.
+                    <br><br>All other game widgets are added and displayed through the three layers, 'Game', 'Menu' and 'Modal' through a C++ and blueprint interface.
+                    <br><br>The CameraFade, debug and CommonBoundActionBar widget have predefined layering and should never be swapped out, and are not part of the stack setup.
+                </p>
+
+                <p>
+                    
                 </p>
 
                 <h3>Access Acquried UI</h3>
@@ -852,9 +858,14 @@ public:
                 </p>
                 <section class = "ContentSwitcher">
                     <article class = "Switcher">
-                        <button class = "Switch active" data-tab="TerminalMenu">Terminal Menu</button>
+                        <button class = "Switch active" data-tab="MainMenu">Main Menu</button>
+                        <button class = "Switch" data-tab="TerminalMenu">Terminal</button>
                         <button class = "Switch" data-tab="SkillTree">Skill Tree</button>
                         <button class = "Switch" data-tab="Dialogue">Dialogue</button>
+                    </article>
+            
+                    <article class = "SwitcherContent active" id = "MainMenu">
+                        <video src = "Content/Videos/MainMenuUI.mp4" type="video/mp4" autoplay controls muted></video>
                     </article>
 
                     <article class = "SwitcherContent active" id = "TerminalMenu">
