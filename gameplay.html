@@ -38,9 +38,7 @@
 
                 <h1>Target Locking</h1>
 
-                <div>
-                    <video class = "StandaloneVideo" src = "Content/Videos/TargetLockingVideo.mp4" type="video/mp4" controls muted autoplay loop>
-                </div>
+                <video class = "StandaloneVideo DisplayContent" src = "Content/Videos/TargetLockingVideo.mp4" type="video/mp4" controls muted autoplay loop></video>
 
                 <h2>What is it?</h2>
                 <p>
@@ -200,13 +198,13 @@
                 </p>
 
                 <p>
-                    When an action requests a target, one is picked in the following order:
+                    When an action requests a target, one the first successful option is picked:
                 </p>
 
                 <p class = "TextIndent">
-                    <br>    Option 1. If there is active player movement input beyond a low threshold use the input.
-                    <br>    Option 2. If there is an active Target Lock, use its target.
-                    <br>    Option 3. Find the closest tracked target in the forward direction of the owning Actor.
+                    <br>    Option 1. If there is active player movement input beyond a low threshold use the input to create a MotionWarping point.
+                    <br>    Option 2. If there is an active Target Lock, use its target as the MotionWarping point.
+                    <br>    Option 3. Find the closest tracked target in the forward direction of the owning Actor. If one exists use it as the MotionWarping point.
                     <br>    Option 4. Don't create a MotionWarping point.
                 </p>
 
@@ -222,11 +220,12 @@
                 <h2>Takeaways</h2>
                 <ul class = "Takeaways">
                     <li>
-                        Aside from being very satisfying to tweak until it felt just right, it also helped improve game-feel and player agency.
+                        The target locking, and especially the soft aim assist helped improve game-feel and player agency, without being too noticable 
+                        to players.
                     </li>
                                         
                     <li>
-                        The screen-space-based selection for targets makes the controls much more intuitive, and is something I recommed more games do.
+                        The screen-space-based selection for targets makes the controls much more intuitive, and is something I recommend more games do.
                     </li>                    
                     <li>
                         Not many players used the Target Locking, so I would focus my time on the aim assist and other features if done again.
@@ -247,11 +246,13 @@
                 <p>
                     I wanted to create a tool that could be used to create many kinds of gameplay, utilising some common types that each would represent systems that games feature. 
                     This would require a heavily modular set of tools and classes that could then be derived and expanded upon for different games and teams.
+
+                    <br><br> This module was developed as part of my research into modular gameplay systems for my <a href = "gameplay.html?Thesis">Bachelors Thesis</a>.
                 </p>
 
                 <h2>What is it?</h2>
                 <p>
-                    Throughout development I ended up with four base tools, that all can be used to author gameplay elements. 
+                    Throughout development I ended up with four base tools, GameplayAbilities, GameplayEffects, GameplayEvents & Attributes, that all can be used to author gameplay elements. 
                     These are derived from superclasses that define their base functionality and purpose, and allow us to encapsulate gameplay elements into reusable pieces for easier development. 
                     I took inspiration from Unreal's GameplayAbilitySystem when designing the module.
 
@@ -260,10 +261,13 @@
                 </p>
 
                 <h2>I want to hear more!</h2>
+
+                <h3 class = "CenteredText">GameplayAbilities</h3>
                 <section class = "ContentSwitcher">
                     <article class = "Switcher">
                         <button class = "Switch active" data-tab="GameplayAbility">GameplayAbility</button>
                         <button class = "Switch" data-tab="Usage">Usage</button>
+                        <button class = "Switch" data-tab="Activation">Activation</button>
                     </article>
                     
                     <article class = "SwitcherContent active" id = "GameplayAbility">
@@ -273,14 +277,44 @@
                     <article class = "SwitcherContent" id = "Usage">
                         <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/AbilityImplementationExample.png" alt = "Example of a blueprint implementation of a action as a GameplayAbility.">
                     </article>
+
+                    <article class = "SwitcherContent" id = "Activation">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/AbilityActivation.png" alt = "Example of a blueprint activation of a GameplayAbility.">
+                    </article>
                 </section>
 
-                <h3>Abilities</h3>
                 <p>
                     These represent the actions that can be performed by an character. 
                     Supports complex activation requirements, cancelling of in-action abilities, cooldowns and more, giving full control over how actions interact with each-other and what they do. 
                 </p>
 
+                <h3 class = "CenteredText">GameplayEvents</h3>
+                <section class = "ContentSwitcher">
+                    <article class = "Switcher">
+                        <button class = "Switch active" data-tab="GameplayEvent">GameplayEvent</button>
+                        <button class = "Switch" data-tab="Usage">Usage</button>
+                        <button class = "Switch" data-tab="Activation">Activation</button>
+                    </article>
+                    
+                    <article class = "SwitcherContent active" id = "GameplayEvent">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/GameplayEventExample.png" alt = "In-editor view of the GameplayEvent blueprint and its properties.">
+                    </article>
+                    
+                    <article class = "SwitcherContent" id = "Usage">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/EventImplementationExample.png" alt = "Example of a blueprint implementation of a set of VFX work as a GameplayEvent.">
+                    </article>
+
+                    <article class = "SwitcherContent" id = "Activation">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/GameplayEventActivation.png" alt = "Example of a blueprint activation of a GameplayEvent.">
+                    </article>
+                </section>
+
+                <p>
+                    These encapsulate any VFX, SFX and other visual or game feel work into reusable events.
+                    Features global or per-actor uniqueness, DeltaTime syncing options, blocking and ending rules enforced through GameplayTags, can share lifetime with their activator and more.
+                </p>
+
+                <h3 class = "CenteredText">GameplayEffects</h3>
                 <section class = "ContentSwitcher">
                     <article class = "Switcher">
                         <button class = "Switch active" data-tab="GameplayEffect">GameplayEffect</button>
@@ -292,11 +326,10 @@
                     </article>
                     
                     <article class = "SwitcherContent" id = "Modules">
-                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/GameplayEffectModule.png" alt = "Example of a setup of different Modules and its properties that are used for a GameplayEffect">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/GameplayEffectModule.png" alt = "Example of a setup of different Modules and its properties that are used for a GameplayEffect.">
                     </article>
                 </section>
 
-                <h3>GameplayEffects</h3>
                 <p>
                     Temporary modifiers that can be applied to a GameplaySystem. 
                     They can modify attributes, GameplayTags, be represented in modifier bars, trigger other modifiers, abilities, events and more.
@@ -308,18 +341,9 @@
                     <br><br>
                 </p>
 
-                <img class = "ExpandableImage StandaloneImage" src="Content/Work/DebugMenu.png" alt = "Screenshot of the debug view in action, with the properties it displays.">
-
-                <h3>Integrated Debug UI</h3>
-                <p>
-                    The framework features a custom Debug widget that automatically displays key properties of a GameplaySystem. 
-                    It has input bindings that allow designers to quickly toggle it on and off, switch the displayed page and swap the displayed component. 
-                    <br><br>
-                </p>
-
+                <h3 class = "CenteredText">Attributes</h3>
                 <img class = "ExpandableImage StandaloneImage" src="Content/Work/CustomAttributeUI.png" alt = "In-editor view of a set of Attributes and their values.">
 
-                <h3>Attributes</h3>
                 <p>
                     These can be anything from health to damage multipliers - whatever is needed for your game.
                     Modifiers can be aggregated and stacked which allows for complicated RPG-like stat chains of mixed types, such as additive, multiplicative or overriding effects. 
@@ -330,6 +354,15 @@
                 <p>
                     A DataSet can be used to assign level-breakpoints, which will trigger when enough experience is gained.
                     This can increase attributes and trigger fitting visual effects.
+                </p>
+
+                <img class = "ExpandableImage StandaloneImage" src="Content/Work/DebugMenu.png" alt = "Screenshot of the debug view in action, with the properties it displays.">
+
+                <h3>Integrated Debug UI</h3>
+                <p>
+                    The framework features a custom Debug widget that automatically displays key properties of a GameplaySystem. 
+                    It has input bindings that allow designers to quickly toggle it on and off, switch the displayed page and swap the displayed component. 
+                    <br><br>
                 </p>
 
                 <h2>Takeaways</h2>
@@ -356,9 +389,7 @@
             
                 <h1>Networked Tank Battles</h1>
 
-                <div>
-                    <video class = "StandaloneVideo" src = "Content/Videos/TankBattles.mp4" type="video/mp4" controls muted autoplay loop>
-                </div>
+                <video class = "StandaloneVideo DisplayContent" src = "Content/Videos/TankBattles.mp4" type="video/mp4" controls muted autoplay loop></video>
 
                 <h2>What is it?</h2>
                 <p>
@@ -451,6 +482,19 @@
                         I also got to learn how networking and net code is implemented in games, the complexities and issues that come with it, and how to address them.
                     </li>                    
                 </ul>
+            </div>
+
+            <div class = "FieldContent InPageNavigationTarget" data-name="Thesis" id = "Thesis">            
+                <h1>Bachelors Thesis</h1>
+
+                <img class = "StandaloneImage ExpandableImage" data-type="Vertical" src="Content/Work/Thesis.png" alt = "Picture of the front page on my Thesis.">
+
+                <h2>What is it?</h2>
+                <p>
+                    A fully networked game, ran over the local network with my own network protocol and game engine.
+                    It handles automatic LAN discovery, connecting multiple separate clients, timeouts for unresponsive clients, disconnects and reconnects. 
+                    Packets are sent from the Server 10 times per second, with Client sending input 20 times per second, but can be customised for different game types.
+                </p>
             </div>
         </main>
 

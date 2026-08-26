@@ -39,9 +39,7 @@
 
                 <h1>Smooth Loading Screen</h1>
 
-                <div>
-                    <video class = "StandaloneVideo" src = "Content/Videos/LoadingScreen.mp4" type="video/mp4" controls muted autoplay loop>
-                </div>
+                <video class = "StandaloneVideo DisplayContent" src = "Content/Videos/LoadingScreen.mp4" type="video/mp4" controls muted autoplay loop></video>
 
                 <h2>What is it?</h2>
                 <p>
@@ -675,7 +673,7 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
 
                 <h1>Multilayer Game UI</h1>
 
-                <video class = "StandaloneVideo" src = "Content/Videos/MainMenuUI.mp4" type="video/mp4" controls muted autoplay loop></video>
+                <video class = "StandaloneVideo DisplayContent" src = "Content/Videos/MainMenuUI.mp4" type="video/mp4" controls muted autoplay loop></video>
 
                 <h2>What is it?</h2>
                 <p>
@@ -684,8 +682,6 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
                 </p>
 
                 <h2>A case study</h2>
-                <video class = "StandaloneVideo ContentMarginTop ContentMarginBottomSmall" src = "Content/Videos/ArcRaidersUI.mp4" type="video/mp4" controls muted></video>
-
                 <p class = "TooltipTarget"
                 data-tooltip = "This is just speculation - I don't have proof this is <br>
                                 the actual implementation for Arc Raiders UI layering. <br>
@@ -695,6 +691,8 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
                     I wanted to create a solution that would allow us to mix menues and modal widgets. The HUD would not need to be swapped during gameplay for <a href = "games.html">Access Acquired</a>,
                     but being able to add/remove it whenever would be a plus. I looked at Arc Raiders for inspiration, where a similar layer structure can be seen.
                 </p>
+
+                <video class = "StandaloneVideo ContentMarginTop ContentMarginBottomSmall" src = "Content/Videos/ArcRaidersUI.mp4" type="video/mp4" controls muted></video>
 
                 <p>
                     <br>I will refer these three layers 'Game', 'Menu' and 'Modal', which is what I called them in <a href = "games.html">Access Acquired</a>. 

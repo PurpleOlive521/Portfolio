@@ -838,7 +838,7 @@ table th
 
 .CenteredText
 {
-    text-align: center;
+    text-align: center !important; 
 }
 
 .GameSpacer
@@ -856,4 +856,9 @@ table th
     list-style-type: disc;
 
     font-size: 1.2rem;
+}
+
+.DisplayContent
+{
+    width: 800px;
 }
