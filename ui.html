@@ -651,11 +651,19 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
                 </p>
 
                 <h2>Takeaways</h2>
-                <p>
-                    • Making a loading screen was simpler than I thought which is nice for a change. <br>
-                    • Since we have full control over the displayed widget, it could easily be made dynamic to match the game area or loading destination.<br>
-                    • If done again, I would look into more optimizations to get the most out of the guaranteed uptime of the loading screen.
-                </p>
+                <ul class = "Takeaways">
+                    <li>
+                        Making a loading screen was simpler than I thought which is nice for a change.
+                    </li>
+                                        
+                    <li>
+                        Since we have full control over the displayed widget, it could easily be made dynamic to match the game area or loading destination.
+                    </li>     
+
+                    <li>
+                        If done again, I would look into more optimizations to get the most out of the guaranteed uptime of the loading screen.
+                    </li>  
+                </ul>
             </div>
 
             <!-- ====================================================================================
@@ -852,11 +860,19 @@ public:
                 </section>
 				
                 <h2>Takeaways</h2>
-                <p>
-                    • While it seems limiting first, splitting up UI into layers helps keep a consistent behaviour that can help users learn the layout more quickly.<br>
-                    • Games can choose to use more or less layers, where a layer could potentially be dedicated to act as backgrounds for other widgets.<br>
-                    • It is not possible to display multiple widgets per layer, so HUD elements still needs to be layered within the widget itself.<br>
-                </p>
+                <ul class = "Takeaways">
+                    <li>
+                        While it seems limiting first, splitting up UI into layers helps keep a consistent behaviour that can help users learn the layout more quickly.
+                    </li>
+                                        
+                    <li>
+                        Games can choose to use more or less layers, where a layer could potentially be dedicated to act as backgrounds for other widgets.
+                    </li>     
+
+                    <li>
+                        It is not possible to display multiple widgets per layer, so HUD elements still needs to be layered within the widget itself.
+                    </li>  
+                </ul>
             </div>
 
             <!-- ====================================================================================
@@ -1009,12 +1025,20 @@ public:
                 </p>
 
                 <h2>Takeaways</h2>
-                <p>
-                    • While Slate's declarative syntax is quite different to working with UMG, most of the UMG-knowledge is easily transferable to the new syntax. <br>
-                    • The UI presentation of the type is greatly improved, making it well and truly worth the effort. <br>
-                    • A drawback is that UI customization requires upkeep - any future property added to the type needs to also be displayed through the Slate code. <br>
-                      As such it might not be fit for types that will change frequently without needing to go yell at your UI programmer to update their code.
-                </p>
+                <ul class = "Takeaways">
+                    <li>
+                        While Slate's declarative syntax is quite different to working with UMG, most of the UMG-knowledge is easily transferable to the new syntax.
+                    </li>
+                                        
+                    <li>
+                        The UI presentation of the type is greatly improved, making it well and truly worth the effort.
+                    </li>     
+
+                    <li>
+                        A drawback is that UI customization requires upkeep - any future property added to the type needs to also be displayed through the Slate code. <br>
+                        As such it might not be fit for types that will change frequently without needing to go yell at your UI programmer to update their code.
+                    </li>  
+                </ul>
             </div>
         </main>
 

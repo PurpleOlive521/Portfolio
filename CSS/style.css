@@ -625,7 +625,7 @@ footer
 
     background-color: var(--bg-card);
     border-radius: 30px;
-    padding: 3rem 1rem;
+    padding: 1rem 8rem;
 
     position: relative;
 
@@ -643,8 +643,6 @@ footer
 .FieldContent h3
 {
     text-align: left;
-    width: 80%;
-    margin: auto;
 }
 
 .FieldContent h1
@@ -669,10 +667,7 @@ footer
 
 .FieldContent p
 {
-    width: 80%;
-
     font-size: 1.2rem;
-    margin: auto;
 }
 
 .FieldContent a
@@ -821,8 +816,6 @@ footer
 .Team
 {
     text-align: left;
-    width: 80%;
-    margin: auto;
 
     font-size: 1.2rem;
 }
@@ -851,4 +844,16 @@ table th
 .GameSpacer
 {
     margin-top: 8rem;
+}
+
+.TextIndent
+{
+    white-space: pre;
+}
+
+.Takeaways
+{
+    list-style-type: disc;
+
+    font-size: 1.2rem;
 }

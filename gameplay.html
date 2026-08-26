@@ -55,7 +55,7 @@
                     </article>
                     
                     <article class = "SwitcherContent active" id = "AimAssist">
-                        <video class = "StandaloneVideo" src = "Content/Videos/AimAssistVideo.mp4" type="video/mp4" controls muted autoplay loop>
+                        <video src = "Content/Videos/AimAssistVideo.mp4" type="video/mp4" controls muted autoplay loop>
                     </article>
                 </section>
 
@@ -184,6 +184,9 @@
 }
 
 
+
+
+
 --></code></pre>
                     </article>
                 </section>
@@ -198,11 +201,13 @@
 
                 <p>
                     When an action requests a target, one is picked in the following order:
-                    <br> 1. If there is active player movement input beyond a low threshold use the input.
-                    <br> 2. If there is an active Target Lock, use its target.
-                    <br> 3. Find the closest tracked target in the forward direction of the owning Actor.
-                    <br> 4. Don't create a MotionWarping point.
-                    <br><br>
+                </p>
+
+                <p class = "TextIndent">
+                    <br>    Option 1. If there is active player movement input beyond a low threshold use the input.
+                    <br>    Option 2. If there is an active Target Lock, use its target.
+                    <br>    Option 3. Find the closest tracked target in the forward direction of the owning Actor.
+                    <br>    Option 4. Don't create a MotionWarping point.
                 </p>
 
                 <p>
@@ -215,11 +220,18 @@
                 </p>
 
                 <h2>Takeaways</h2>
-                <p>
-                    • Aside from being very satisfying to tweak until it felt just right, it also helped improve game-feel and player agency. <br>
-                    • The screen-space-based selection for targets makes the controls much more intuitive, and is something I recommed more games do. <br>
-                    • Not many players used the Target Locking, so I would focus my time on the aim assist and other features if done again.
-                </p>
+                <ul class = "Takeaways">
+                    <li>
+                        Aside from being very satisfying to tweak until it felt just right, it also helped improve game-feel and player agency.
+                    </li>
+                                        
+                    <li>
+                        The screen-space-based selection for targets makes the controls much more intuitive, and is something I recommed more games do.
+                    </li>                    
+                    <li>
+                        Not many players used the Target Locking, so I would focus my time on the aim assist and other features if done again.
+                    </li>
+                </ul>
             </div>
 
             <!-- ====================================================================================
@@ -321,11 +333,18 @@
                 </p>
 
                 <h2>Takeaways</h2>
-                <p>
-                    • Creating a flexible system and breaking apart gameplay concepts into separate components and modules requires careful planning.  <br>
-                    • Separation of concern, encapsulation, and composition is very important for this type of work. <br>
-                    • While alot of setup is needed, the payoff in terms of quick prototyping this sort of module allows for is can not be understated and something I will use in the future.
-                </p>
+                <ul class = "Takeaways">
+                    <li>
+                        Creating a flexible system and breaking apart gameplay concepts into separate components and modules requires careful planning.
+                    </li>
+                                        
+                    <li>
+                        Separation of concern, encapsulation, and composition is very important for this type of work.
+                    </li>                    
+                    <li>
+                        While alot of setup is needed, the payoff in terms of quick prototyping this sort of module allows for is can not be understated and something I will use in the future.
+                    </li>
+                </ul>
             </div>
 
             <!-- ====================================================================================
@@ -423,10 +442,15 @@
                 </p>
 
                 <h2>Takeaways</h2>
-                <p>
-                    • The project allowed me to try my hand at implementing and designing a multitude of systems that we take for granted in the game engines we use today, such as physics, object handling and management, timers and more. <br>
-                    • I also got to learn how networking and net code is implemented in games, the complexities and issues that come with it, and how to address them.<br>
-                </p>
+                <ul class = "Takeaways">
+                    <li>
+                        The project allowed me to try my hand at implementing and designing a multitude of systems that we take for granted in the game engines we use today, such as physics, object handling and management, timers and more.
+                    </li>
+                                        
+                    <li>
+                        I also got to learn how networking and net code is implemented in games, the complexities and issues that come with it, and how to address them.
+                    </li>                    
+                </ul>
             </div>
         </main>
 

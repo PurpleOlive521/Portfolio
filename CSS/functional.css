@@ -432,9 +432,6 @@
 
 .TooltipLine
 {
-    width: 80%;
-    margin: auto;
-
     & > p
     {
         display: inline;

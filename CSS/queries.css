@@ -9,28 +9,12 @@
 
     .FieldContent
     {
-        padding: 1rem 1rem;
-    }
-
-    .FieldContent h2, 
-    .FieldContent h3
-    {
-        width: 90%;
-    }
-
-    .FieldContent p
-    {
-        width: 90%;
+        padding: 1.5rem 4rem;
     }
 
     .TooltipLine
     {
         width: 90%;
-    }
-
-    .Team
-    {
-        width: 90%
     }
     
     .ContentSwitcher
@@ -246,7 +230,6 @@
     {
         flex-direction: column;
         
-
         & > p
         {
             margin-top: 1rem;
@@ -294,7 +277,7 @@
     .FieldContent
     {
         margin-top: 5rem;
-        padding: 1.5rem 0.25rem;
+        padding: 1.5rem 2rem;
         width: 95%;
 
         & > h1
