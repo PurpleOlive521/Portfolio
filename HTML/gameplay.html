@@ -158,8 +158,8 @@
                                 process the damage event for targeting or <br>
                                 target prioritisation, which would not be possible <br>
                                 if the health was lowered directly.">
-                    <br>Changing the health attribute of Actor directly is ofcourse possible, but this 
-                    will sidestep the entire damage system, which is usually not desired. By using a Module, we let the GameplayEffect generate 
+                    <br>Changing the health attribute directly is ofcourse possible, but it would 
+                    sidestep the entire damage system, which is usually not desired. By using a Module, we let the GameplayEffect generate 
                     a damage event that can be resolved normally. 
                     <br>This is especially important for the player, since they typically have unique feedback associated with taking damage
                     (screen effects, sound effects, haptic feedback) which is vital to preserve when taking damage.
