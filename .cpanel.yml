@@ -1,16 +1,12 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/oliveqevx/public_html/
-
-    # Directories
+    - export DEPLOYPATH=/home/olivqevx/public_html/
     - /bin/cp -R Content $DEPLOYPATH
     - /bin/cp -R CSS $DEPLOYPATH
     - /bin/cp -R HTML $DEPLOYPATH
     - /bin/cp -R Javascript $DEPLOYPATH
     - /bin/cp -R Prism $DEPLOYPATH
-
-    # Standalone files
     - /bin/cp index.html $DEPLOYPATH
 
 
