@@ -30,6 +30,185 @@
             <div id = "ImageModalTarget"></div>
 
             <!-- ====================================================================================
+                Gameplay System Module
+            ==================================================================================== -->
+
+            <div class = "FieldContent InPageNavigationTarget" data-name="Gameplay System" id = "GameplaySystem">
+                <div id = "GithubSideTabTarget" data-href = "https://github.com/PurpleOlive521/GameplaySystem"></div>
+
+                <h1>Gameplay System Module</h1>
+
+                <h2>What is the goal?</h2>
+                <p>
+                    I wanted to create a tool that could be used to create many kinds of gameplay, utilising some common types that each would represent systems that games feature. 
+                    This would require a heavily modular set of tools and classes that could then be derived and expanded upon for different games and teams.
+
+                    <br><br> This module was developed as part of my research into modular gameplay systems for my <a href = "gameplay.html?Thesis">Bachelors Thesis</a>.
+                </p>
+
+                <h2>What is it?</h2>
+                <p>
+                    Throughout development I ended up with four base tools, GameplayAbilities, GameplayEffects, GameplayEvents & Attributes, that all can be used to author gameplay elements. 
+                    These are derived from superclasses that define their base functionality and purpose, and allow us to encapsulate gameplay elements into reusable pieces for easier development. 
+                    I took inspiration from Unreal's GameplayAbilitySystem when designing the module.
+
+                    <br><br>
+                    This module was used for creating the hack-and-slash combat featured in <a href = "games.html">Access Acquired</a>.
+                </p>
+
+                <h2>I want to hear more!</h2>
+
+                <h3 class = "CenteredText">GameplayAbilities</h3>
+                <section class = "ContentSwitcher">
+                    <article class = "Switcher">
+                        <button class = "Switch active" data-tab="GameplayAbility">GameplayAbility</button>
+                        <button class = "Switch" data-tab="Usage">Usage</button>
+                        <button class = "Switch" data-tab="Activation">Activation</button>
+                    </article>
+                    
+                    <article class = "SwitcherContent active" id = "GameplayAbility">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/AbilityExample.png" alt = "In-editor view of the GameplayAbility blueprint and its properties.">
+                    </article>
+                    
+                    <article class = "SwitcherContent" id = "Usage">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/AbilityImplementationExample.png" alt = "Example of a blueprint implementation of a action as a GameplayAbility.">
+                    </article>
+
+                    <article class = "SwitcherContent" id = "Activation">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/AbilityActivation.png" alt = "Example of a blueprint activation of a GameplayAbility.">
+                    </article>
+                </section>
+
+                <p>
+                    These represent the actions that can be performed by an character. 
+                    Supports complex activation requirements, cancelling of in-action abilities, cooldowns and more, giving full control over how actions interact with each-other and what they do. 
+                </p>
+
+                <h3 class = "CenteredText">GameplayEvents</h3>
+                <section class = "ContentSwitcher">
+                    <article class = "Switcher">
+                        <button class = "Switch active" data-tab="GameplayEvent">GameplayEvent</button>
+                        <button class = "Switch" data-tab="Usage">Usage</button>
+                        <button class = "Switch" data-tab="Activation">Activation</button>
+                    </article>
+                    
+                    <article class = "SwitcherContent active" id = "GameplayEvent">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/GameplayEventExample.png" alt = "In-editor view of the GameplayEvent blueprint and its properties.">
+                    </article>
+                    
+                    <article class = "SwitcherContent" id = "Usage">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/EventImplementationExample.png" alt = "Example of a blueprint implementation of a set of VFX work as a GameplayEvent.">
+                    </article>
+
+                    <article class = "SwitcherContent" id = "Activation">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/GameplayEventActivation.png" alt = "Example of a blueprint activation of a GameplayEvent.">
+                    </article>
+                </section>
+
+                <p>
+                    These encapsulate any VFX, SFX and other visual or game feel work into reusable events.
+                    Features global or per-actor uniqueness, DeltaTime syncing options, blocking and ending rules enforced through GameplayTags, can share lifetime with their activator and more.
+                </p>
+
+                <h3 class = "CenteredText">GameplayEffects</h3>
+                <section class = "ContentSwitcher">
+                    <article class = "Switcher">
+                        <button class = "Switch active" data-tab="GameplayEffect">GameplayEffect</button>
+                        <button class = "Switch" data-tab="Modules">Modules</button>
+                    </article>
+                    
+                    <article class = "SwitcherContent active" id = "GameplayEffect">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/GameplayEffect.png" alt = "In-editor view of the GameplayEffect blueprint and its properties.">
+                    </article>
+                    
+                    <article class = "SwitcherContent" id = "Modules">
+                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/GameplayEffectModule.png" alt = "Example of a setup of different Modules and its properties that are used for a GameplayEffect.">
+                    </article>
+                </section>
+
+                <p>
+                    Temporary modifiers that can be applied to a GameplaySystem. 
+                    They can modify attributes, GameplayTags, be represented in modifier bars, trigger other modifiers, abilities, events and more.
+                    This allows them to any number of modifiers a game might need, and as such also have alot of parameters to tweak the individual behaviours.
+                </p>
+
+                <h3> Modules </h3>
+
+                <p>
+                    GameplayEffects can also utilise Modules which allows for further customization.
+                    Modules are UObjects, and can be derived to create any effect and behaviour that the existing properties can't make.
+                    <br>They are instanced per GameplayEffect, and can as such have properties themselves that are adjustable per GameplayEffect.
+
+                    <br><br>
+                    There are three types of modules, that each affect a part of the GameplayEffects behaviour:
+                    <br>Executors - Changes the application, reapplication and removal procedure
+                    <br>Conditions - Changes the application and reapplication conditions
+                    <br>Stackers - Changes the stacking behaviour of GameplayEffects with stacking enabled
+                </p>
+
+                <img class = "ExpandableImage StandaloneImage ContentMarginTop ContentMarginBottomSmall" src="Content/Work/Modules.png" alt = "Example of a TakeDamage module in use.">
+                <p class = "CenteredText Subtitle">Example of a TakeDamage Executor module used to deal damage.</p>
+
+                <p>
+                    
+                </p>
+
+                <p class = "TooltipTarget"
+                data-tooltip =  "It can also be important for AI, to let them<br>
+                                process the damage event for targeting or <br>
+                                target prioritisation, which would not be possible <br>
+                                if the health was lowered directly.">
+                    <br>Changing the health attribute of Actor directly is ofcourse possible, but this 
+                    will sidestep the entire damage system, which is usually not desired. By using a Module, we let the GameplayEffect generate 
+                    a damage event that can be resolved normally. 
+                    <br>This is especially important for the player, since they typically have unique feedback associated with taking damage
+                    (screen effects, sound effects, haptic feedback) which is vital to preserve when taking damage.
+                </p>
+
+                <h3 class = "CenteredText">Attributes</h3>
+                <img class = "ExpandableImage StandaloneImage ContentMarginTopSmall ContentMarginBottomSmall" src="Content/Work/CustomAttributeUI.png" alt = "In-editor view of a set of Attributes and their values.">
+
+                <p>
+                    These can be anything from health to damage multipliers - whatever is needed for your game.
+                    Modifiers can be aggregated and stacked which allows for complicated RPG-like stat chains of mixed types, such as additive, multiplicative or overriding effects. 
+                    You can read more about the custom Slate UI under the <a href = "ui.html?UICustomization">UI section</a>.
+                </p>
+
+                <h3>Levels and experience</h3>
+                <p>
+                    A DataSet can be used to assign level-breakpoints, which will trigger when enough experience is gained.
+                    This can increase attributes and trigger fitting visual effects.
+                </p>
+
+                <img class = "ExpandableImage StandaloneImage ContentMarginTopSmall" src="Content/Work/DebugMenu.png" alt = "Screenshot of the debug view in action, with the properties it displays.">
+
+                <h3>Integrated Debug UI</h3>
+                <p>
+                    The framework features a custom Debug widget that automatically displays key properties of a GameplaySystem. 
+                    It has input bindings that allow designers to quickly toggle it on and off, switch the displayed page and swap the displayed component. 
+                    <br><br>
+                </p>
+
+                <h2>Takeaways</h2>
+                <ul class = "Takeaways">
+                    <li>
+                        Creating a flexible system and breaking apart gameplay concepts into separate components and modules requires careful planning.
+                        <br>Separation of concern, encapsulation, and composition is very important for this type of work.
+                    </li>
+                                        
+                    <li>
+                        I've found its important to collaborate closely with the people the tool is made for, to more quickly identify shortcomings or areas where more attention is needed. 
+                        For example, it was quickly found that a way to safely delay execution for GameplayEvents was needed, which was noticed when a Tech Artist sat down and tried to use the tools
+                        I created.
+                    </li>
+
+                    <li>
+                        While alot of setup is needed, the payoff in terms of quick prototyping this sort of module allows for is can not be understated and something I will use in the future.
+                    </li>
+                </ul>
+            </div>
+
+            <!-- ====================================================================================
                 Target Locking 
             ==================================================================================== -->
 
@@ -229,157 +408,6 @@
                     </li>                    
                     <li>
                         Not many players used the Target Locking, so I would focus my time on the aim assist and other features if done again.
-                    </li>
-                </ul>
-            </div>
-
-            <!-- ====================================================================================
-                Gameplay System Module
-            ==================================================================================== -->
-
-            <div class = "FieldContent InPageNavigationTarget" data-name="Gameplay System" id = "GameplaySystem">
-                <div id = "GithubSideTabTarget" data-href = "https://github.com/PurpleOlive521/GameplaySystem"></div>
-
-                <h1>Gameplay System Module</h1>
-
-                <h2>What is the goal?</h2>
-                <p>
-                    I wanted to create a tool that could be used to create many kinds of gameplay, utilising some common types that each would represent systems that games feature. 
-                    This would require a heavily modular set of tools and classes that could then be derived and expanded upon for different games and teams.
-
-                    <br><br> This module was developed as part of my research into modular gameplay systems for my <a href = "gameplay.html?Thesis">Bachelors Thesis</a>.
-                </p>
-
-                <h2>What is it?</h2>
-                <p>
-                    Throughout development I ended up with four base tools, GameplayAbilities, GameplayEffects, GameplayEvents & Attributes, that all can be used to author gameplay elements. 
-                    These are derived from superclasses that define their base functionality and purpose, and allow us to encapsulate gameplay elements into reusable pieces for easier development. 
-                    I took inspiration from Unreal's GameplayAbilitySystem when designing the module.
-
-                    <br><br>
-                    This module was used for creating the hack-and-slash combat featured in <a href = "games.html">Access Acquired</a>.
-                </p>
-
-                <h2>I want to hear more!</h2>
-
-                <h3 class = "CenteredText">GameplayAbilities</h3>
-                <section class = "ContentSwitcher">
-                    <article class = "Switcher">
-                        <button class = "Switch active" data-tab="GameplayAbility">GameplayAbility</button>
-                        <button class = "Switch" data-tab="Usage">Usage</button>
-                        <button class = "Switch" data-tab="Activation">Activation</button>
-                    </article>
-                    
-                    <article class = "SwitcherContent active" id = "GameplayAbility">
-                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/AbilityExample.png" alt = "In-editor view of the GameplayAbility blueprint and its properties.">
-                    </article>
-                    
-                    <article class = "SwitcherContent" id = "Usage">
-                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/AbilityImplementationExample.png" alt = "Example of a blueprint implementation of a action as a GameplayAbility.">
-                    </article>
-
-                    <article class = "SwitcherContent" id = "Activation">
-                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/AbilityActivation.png" alt = "Example of a blueprint activation of a GameplayAbility.">
-                    </article>
-                </section>
-
-                <p>
-                    These represent the actions that can be performed by an character. 
-                    Supports complex activation requirements, cancelling of in-action abilities, cooldowns and more, giving full control over how actions interact with each-other and what they do. 
-                </p>
-
-                <h3 class = "CenteredText">GameplayEvents</h3>
-                <section class = "ContentSwitcher">
-                    <article class = "Switcher">
-                        <button class = "Switch active" data-tab="GameplayEvent">GameplayEvent</button>
-                        <button class = "Switch" data-tab="Usage">Usage</button>
-                        <button class = "Switch" data-tab="Activation">Activation</button>
-                    </article>
-                    
-                    <article class = "SwitcherContent active" id = "GameplayEvent">
-                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/GameplayEventExample.png" alt = "In-editor view of the GameplayEvent blueprint and its properties.">
-                    </article>
-                    
-                    <article class = "SwitcherContent" id = "Usage">
-                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/EventImplementationExample.png" alt = "Example of a blueprint implementation of a set of VFX work as a GameplayEvent.">
-                    </article>
-
-                    <article class = "SwitcherContent" id = "Activation">
-                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/GameplayEventActivation.png" alt = "Example of a blueprint activation of a GameplayEvent.">
-                    </article>
-                </section>
-
-                <p>
-                    These encapsulate any VFX, SFX and other visual or game feel work into reusable events.
-                    Features global or per-actor uniqueness, DeltaTime syncing options, blocking and ending rules enforced through GameplayTags, can share lifetime with their activator and more.
-                </p>
-
-                <h3 class = "CenteredText">GameplayEffects</h3>
-                <section class = "ContentSwitcher">
-                    <article class = "Switcher">
-                        <button class = "Switch active" data-tab="GameplayEffect">GameplayEffect</button>
-                        <button class = "Switch" data-tab="Modules">Modules</button>
-                    </article>
-                    
-                    <article class = "SwitcherContent active" id = "GameplayEffect">
-                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/GameplayEffect.png" alt = "In-editor view of the GameplayEffect blueprint and its properties.">
-                    </article>
-                    
-                    <article class = "SwitcherContent" id = "Modules">
-                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/GameplayEffectModule.png" alt = "Example of a setup of different Modules and its properties that are used for a GameplayEffect.">
-                    </article>
-                </section>
-
-                <p>
-                    Temporary modifiers that can be applied to a GameplaySystem. 
-                    They can modify attributes, GameplayTags, be represented in modifier bars, trigger other modifiers, abilities, events and more.
-                    This allows them to any number of modifiers a game might need, and as such also have alot of parameters to tweak the individual behaviours.
-
-                    <br><br>They can also have Modules attached, which allows for further customization.
-                    Modules are UObjects, and can be derived to create unique behaviour for one or more GameplayEffect. 
-                    They are instanced per GameplayEffect, and can as such have properties themselves that are adjustable per GameplayEffect type.
-                    <br><br>
-                </p>
-
-                <h3 class = "CenteredText">Attributes</h3>
-                <img class = "ExpandableImage StandaloneImage" src="Content/Work/CustomAttributeUI.png" alt = "In-editor view of a set of Attributes and their values.">
-
-                <p>
-                    These can be anything from health to damage multipliers - whatever is needed for your game.
-                    Modifiers can be aggregated and stacked which allows for complicated RPG-like stat chains of mixed types, such as additive, multiplicative or overriding effects. 
-                    You can read more about the custom Slate UI under the <a href = "ui.html?UICustomization">UI section</a>.
-                </p>
-
-                <h3>Levels and experience</h3>
-                <p>
-                    A DataSet can be used to assign level-breakpoints, which will trigger when enough experience is gained.
-                    This can increase attributes and trigger fitting visual effects.
-                </p>
-
-                <img class = "ExpandableImage StandaloneImage" src="Content/Work/DebugMenu.png" alt = "Screenshot of the debug view in action, with the properties it displays.">
-
-                <h3>Integrated Debug UI</h3>
-                <p>
-                    The framework features a custom Debug widget that automatically displays key properties of a GameplaySystem. 
-                    It has input bindings that allow designers to quickly toggle it on and off, switch the displayed page and swap the displayed component. 
-                    <br><br>
-                </p>
-
-                <h2>Takeaways</h2>
-                <ul class = "Takeaways">
-                    <li>
-                        Creating a flexible system and breaking apart gameplay concepts into separate components and modules requires careful planning.
-                        <br>Separation of concern, encapsulation, and composition is very important for this type of work.
-                    </li>
-                                        
-                    <li>
-                        I've found its important to collaborate closely with the people the tool is made for, to more quickly identify shortcomings or areas where more attention is needed. 
-                        For example, it was quickly found that a way to safely delay execution for GameplayEvents was needed, which was noticed when a Tech Artist sat down and tried to use the tools
-                        I created.
-                    </li>
-
-                    <li>
-                        While alot of setup is needed, the payoff in terms of quick prototyping this sort of module allows for is can not be understated and something I will use in the future.
                     </li>
                 </ul>
             </div>
