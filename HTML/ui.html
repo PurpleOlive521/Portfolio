@@ -13,12 +13,12 @@
         <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap">
 
-        <link rel="stylesheet" href="CSS/style.css">    
-        <link rel="stylesheet" href="CSS/queries.css">    
-        <link rel="stylesheet" href="Prism/prism.css">
+        <link rel="stylesheet" href="/CSS/style.css">    
+        <link rel="stylesheet" href="/CSS/queries.css">    
+        <link rel="stylesheet" href="/Prism/prism.css">
 
-        <script src="Javascript/index.js" type = "module"></script> 
-        <script src="Prism/prism.js"></script>
+        <script src="/Javascript/index.js" type = "module"></script> 
+        <script src="/Prism/prism.js"></script>
     </head>
 
     <body>
@@ -39,7 +39,7 @@
 
                 <h1>Smooth Loading Screen</h1>
 
-                <video class = "StandaloneVideo DisplayContent" src = "Content/Videos/LoadingScreen.mp4" type="video/mp4" controls muted autoplay loop></video>
+                <video class = "StandaloneVideo DisplayContent" src = "/Content/Videos/LoadingScreen.mp4" type="video/mp4" controls muted autoplay loop></video>
 
                 <h2>What is it?</h2>
                 <p>
@@ -60,7 +60,7 @@
                     </article>
 
                     <article class = "SwitcherContent" id = "Settings">
-                        <img class = "ExpandableImage" src="Content/Work/LoadingScreenSettings.png">
+                        <img class = "ExpandableImage" src="/Content/Work/LoadingScreenSettings.png">
                     </article>
                     <article class = "SwitcherContent" id = "Header">
                         <!-- Code -->
@@ -596,7 +596,7 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
                     </article>
 
                     <article class = "SwitcherContent active" id = "Settings">
-                        <img class = "ExpandableImage" src="Content/Work/LoadingScreenSettings.png">
+                        <img class = "ExpandableImage" src="/Content/Work/LoadingScreenSettings.png">
                     </article>
 
                     <article class = "SwitcherContent" id = "Optimizations">
@@ -657,7 +657,7 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
                                 to begin with for our game, which helps even more! <br>
                                 ">
                     While implementing the loading screen, I quickly realised that having it enabled for in-editor testing would get annoying very quickly, even more so 
-                    if the minimum up-time is a value above 0.5 seconds like for <a href = "games.html">Access Acquired</a>.
+                    if the minimum up-time is a value above 0.5 seconds like for <a href = "/HTML/games.html">Access Acquired</a>.
                     <br><br>To remedy this, I added the 'Show Loading Screen Additional Seconds In Editor' boolean that will keep it visible for the shortest possible time
                     when the loading screen is triggered. This made everyone in the team very happy to hear.
                 </p>
@@ -687,12 +687,12 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
 
                 <h1>Multilayer Game UI</h1>
 
-                <video class = "StandaloneVideo DisplayContent ContentMarginBottomSmall" src = "Content/Videos/GeneralUI2.mp4" type="video/mp4" controls muted autoplay loop></video>
+                <video class = "StandaloneVideo DisplayContent ContentMarginBottomSmall" src = "/Content/Videos/GeneralUI2.mp4" type="video/mp4" controls muted autoplay loop></video>
                 <p class = "Subtitle CenteredText">The text on the top of the video denotes which layer the upper-most visible widget is part of.</p>
 
                 <h2>What is it?</h2>
                 <p>
-                    My approach to giving <a href = "games.html">Access Acquired</a> a system to handle multiple menues and prompts, while keeping implementation and usage simple for designers.
+                    My approach to giving <a href = "/HTML/games.html">Access Acquired</a> a system to handle multiple menues and prompts, while keeping implementation and usage simple for designers.
                     By using three Widget Stacks, we can establish a set hierarchy of layers that define how widgets are prioritised, and how they interact with eachother.
                 </p>
 
@@ -703,18 +703,18 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
                                 It however seems like a similar solution is used for some <br>
                                 of the widgets.
                                 ">
-                    I wanted to create a solution that would allow us to mix menues and modal widgets. The HUD would not need to be swapped during gameplay for <a href = "games.html">Access Acquired</a>,
+                    I wanted to create a solution that would allow us to mix menues and modal widgets. The HUD would not need to be swapped during gameplay for <a href = "/HTML/games.html">Access Acquired</a>,
                     but being able to add/remove it whenever would be a plus. I looked at ARC Raiders for inspiration, where a similar layer structure can be seen.
                 </p>
 
-                <video class = "StandaloneVideo ContentMarginTop ContentMarginBottomSmall" src = "Content/Videos/ArcRaidersUI.mp4" type="video/mp4" controls muted></video>
+                <video class = "StandaloneVideo ContentMarginTop ContentMarginBottomSmall" src = "/Content/Videos/ArcRaidersUI.mp4" type="video/mp4" controls muted></video>
 
                 <p>
-                    <br>I will refer these three layers 'Game', 'Menu' and 'Modal', which is what I called them in <a href = "games.html">Access Acquired</a>. 
+                    <br>I will refer these three layers 'Game', 'Menu' and 'Modal', which is what I called them in <a href = "/HTML/games.html">Access Acquired</a>. 
                     The first one would most often be used for the HUD, and similar full-screen in-game content.
                 </p>
 
-                <img class = "ExpandableImage StandaloneImage ContentMarginTop ContentMarginBottomSmall" src="Content/Work/ArcRadiersMenuBase.png">
+                <img class = "ExpandableImage StandaloneImage ContentMarginTop ContentMarginBottomSmall" src="/Content/Work/ArcRadiersMenuBase.png">
                 <p class = "TooltipTarget"
                 data-tooltip = "It is also possible that the menu base is just one  <br>
                                 single widget and each submenu swaps out the content<br>
@@ -724,15 +724,15 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
                     <br>This would be placed in the 'Game' layer, and each submenu (e.g 'Play', 'Workshop', 'Raider', etc.) seems to swap out this widget.
                 </p>
 
-                <img class = "ExpandableImage StandaloneImage ContentMarginTop ContentMarginBottomSmall" src="Content/Work/ArcRadiersMenu.png">
+                <img class = "ExpandableImage StandaloneImage ContentMarginTop ContentMarginBottomSmall" src="/Content/Work/ArcRadiersMenu.png">
                 <p>
                     Here we have what seems to be a submenu, as it completely covers the menu base I showed above. 
                     <br>This would therefore be placed in the 'Menu' layer.
                     Navigating back sends us back to the menu base as expected while removing the submenu from view, which suggests
-                    that ARC Radiers also use Common UI for navigation handling (or a in-house version if it), which I use for <a href = "games.html">Access Acquired</a>.
+                    that ARC Radiers also use Common UI for navigation handling (or a in-house version if it), which I use for <a href = "/HTML/games.html">Access Acquired</a>.
                 </p>
 
-                <img class = "ExpandableImage StandaloneImage ContentMarginTop ContentMarginBottomSmall" src="Content/Work/ArcRaidersModal.png">
+                <img class = "ExpandableImage StandaloneImage ContentMarginTop ContentMarginBottomSmall" src="/Content/Work/ArcRaidersModal.png">
                 <p>
                     Finally, when attempting to buy the bundle we get a confirmation popup, which would indicate its handled in the 'Modal' layer
                     since we can still see the previous menu visible behind it. Any navigation from the modal closes it and shows us the submenu again.
@@ -747,7 +747,7 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
                     </article>
 
                     <article class = "SwitcherContent active" id = "Stack">
-                        <img class = "ExpandableImage" src="Content/Work/MenuStack.png">
+                        <img class = "ExpandableImage" src="/Content/Work/MenuStack.png">
                     </article>
 
                     <article class = "SwitcherContent" id = "Interface">
@@ -851,7 +851,7 @@ public:
 
                 <h3>Access Acquried UI</h3>
                 <p>
-                    Below are more examples of the UI I worked on for <a href = "games.html">Access Acquired</a>, that rely on this multi-layer setup to integrate smoothly with gameplay and other widgets.
+                    Below are more examples of the UI I worked on for <a href = "/HTML/games.html">Access Acquired</a>, that rely on this multi-layer setup to integrate smoothly with gameplay and other widgets.
                 </p>
                 <section class = "ContentSwitcher">
                     <article class = "Switcher">
@@ -862,19 +862,19 @@ public:
                     </article>
             
                     <article class = "SwitcherContent active" id = "MainMenu">
-                        <video src = "Content/Videos/MainMenuUI.mp4" type="video/mp4" autoplay controls muted></video>
+                        <video src = "/Content/Videos/MainMenuUI.mp4" type="video/mp4" autoplay controls muted></video>
                     </article>
 
                     <article class = "SwitcherContent active" id = "TerminalMenu">
-                        <video src = "Content/Videos/TerminalMenuUI.mp4" type="video/mp4" autoplay controls muted></video>
+                        <video src = "/Content/Videos/TerminalMenuUI.mp4" type="video/mp4" autoplay controls muted></video>
                     </article>
 
                     <article class = "SwitcherContent" id = "SkillTree">
-                        <video src = "Content/Videos/SkillTreeUI.mp4" type="video/mp4" autoplay controls muted></video>
+                        <video src = "/Content/Videos/SkillTreeUI.mp4" type="video/mp4" autoplay controls muted></video>
                     </article>
 
                     <article class = "SwitcherContent" id = "Dialogue">
-                        <video src = "Content/Videos/DialogueUI.mp4" type="video/mp4" autoplay controls muted></video>
+                        <video src = "/Content/Videos/DialogueUI.mp4" type="video/mp4" autoplay controls muted></video>
                     </article>
                 </section>
 				
@@ -908,7 +908,7 @@ public:
                 </p>
 
                 <h2 class = "CenteredText">The problem</h2>
-                <img class = "StandaloneImage ExpandableImage ContentMarginBottomSmall" data-type="Vertical" src="Content/Work/OldAttributeUI.png">
+                <img class = "StandaloneImage ExpandableImage ContentMarginBottomSmall" data-type="Vertical" src="/Content/Work/OldAttributeUI.png">
                 <p>
                     The UI generated by Unreal for blueprint-exposed properties has one major flaw - they are always vertically-aligned and try to display
                     content in rows, with each row representing one property. This works well for most applications, but not as well for structs in array-like containers.
@@ -925,11 +925,11 @@ public:
                     </article>
                     
                     <article class = "SwitcherContent active" id = "CustomUI">
-                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/CustomAttributeUI.png">
+                        <img class = "ExpandableImage" data-type="Vertical" src="/Content/Work/CustomAttributeUI.png">
                     </article>
 
                     <article class = "SwitcherContent" id = "OldUI">
-                        <img class = "ExpandableImage" data-type="Vertical" src="Content/Work/OldAttributeUI.png">
+                        <img class = "ExpandableImage" data-type="Vertical" src="/Content/Work/OldAttributeUI.png">
                     </article>
                 </section>
 
@@ -1047,7 +1047,7 @@ public:
                     and updating it through methods or type constructors while letting Unreal handle the rest with its automatic property display.
                 </p>
 
-                <img class = "ExpandableImage StandaloneImage ContentMarginTop ContentMarginBottomSmall" data-type="Vertical" src="Content/Work/CustomEncounterUI.png">
+                <img class = "ExpandableImage StandaloneImage ContentMarginTop ContentMarginBottomSmall" data-type="Vertical" src="/Content/Work/CustomEncounterUI.png">
                 <p class = "Subtitle CenteredText">
                     I've also created some other Slate UI customizations, that I won't dive into deeper here. 
                 </p>

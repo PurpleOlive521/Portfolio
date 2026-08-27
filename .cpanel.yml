@@ -1,0 +1,16 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/example/public_html/
+
+    # Directories
+    - /bin/cp -R Content $DEPLOYPATH
+    - /bin/cp -R CSS $DEPLOYPATH
+    - /bin/cp -R HTML $DEPLOYPATH
+    - /bin/cp -R Javascript $DEPLOYPATH
+    - /bin/cp -R Prism $DEPLOYPATH
+
+    # Standalone files
+    - /bin/cp index.html $DEPLOYPATH
+
+

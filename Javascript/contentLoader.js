@@ -1,14 +1,12 @@
-import * as tooltip from './tooltip.js'
-
 // Adds the Header and Footer html elements to the page
 export async function InsertPageElements()
 {
     return Promise.all([
-        InsertPageElement("#HeaderTarget", 'header.html'),
-        InsertPageElement("#FooterTarget", 'footer.html'),
-        InsertPageElement("#InPageNavigationTarget", 'inpagenavigation.html'),
-        InsertPageElement("#ImageModalTarget", 'imagemodal.html'),
-        InsertPageElement("#GithubSideTabTarget", 'githubsidetab.html', TransferHRef),
+        InsertPageElement("#HeaderTarget", '/HTML/header.html'),
+        InsertPageElement("#FooterTarget", '/HTML/footer.html'),
+        InsertPageElement("#InPageNavigationTarget", '/HTML/inpagenavigation.html'),
+        InsertPageElement("#ImageModalTarget", '/HTML/imagemodal.html'),
+        InsertPageElement("#GithubSideTabTarget", '/HTML/githubsidetab.html', TransferHRef),
     ]);
 }
 
