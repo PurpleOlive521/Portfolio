@@ -146,7 +146,7 @@
                     <br>Stackers - Changes the stacking behaviour of GameplayEffects with stacking enabled
                 </p>
 
-                <img class = "ExpandableImage StandaloneImage ContentMarginTop ContentMarginBottomSmall" src="Content/Work/Modules.png" alt = "Example of a TakeDamage module in use.">
+                <img class = "ExpandableImage StandaloneImage  ContentMarginTop ContentMarginBottomSmall" data-type="Vertical" src="Content/Work/Modules.png" alt = "Example of a TakeDamage module in use.">
                 <p class = "CenteredText Subtitle">Example of a TakeDamage Executor module used to deal damage.</p>
 
                 <p>
@@ -166,7 +166,7 @@
                 </p>
 
                 <h3 class = "CenteredText">Attributes</h3>
-                <img class = "ExpandableImage StandaloneImage ContentMarginTopSmall ContentMarginBottomSmall" src="Content/Work/CustomAttributeUI.png" alt = "In-editor view of a set of Attributes and their values.">
+                <img class = "ExpandableImage StandaloneImage ContentMarginTopSmall ContentMarginBottomSmall" data-type="Vertical" src="Content/Work/CustomAttributeUI.png" alt = "In-editor view of a set of Attributes and their values.">
 
                 <p>
                     These can be anything from health to damage multipliers - whatever is needed for your game.
@@ -186,7 +186,6 @@
                 <p>
                     The framework features a custom Debug widget that automatically displays key properties of a GameplaySystem. 
                     It has input bindings that allow designers to quickly toggle it on and off, switch the displayed page and swap the displayed component. 
-                    <br><br>
                 </p>
 
                 <h2>Takeaways</h2>
@@ -528,9 +527,29 @@
 
                 <h2>What is it?</h2>
                 <p>
-                    A fully networked game, ran over the local network with my own network protocol and game engine.
-                    It handles automatic LAN discovery, connecting multiple separate clients, timeouts for unresponsive clients, disconnects and reconnects. 
-                    Packets are sent from the Server 10 times per second, with Client sending input 20 times per second, but can be customised for different game types.
+                    In the paper I explore how the <a href = "gameplay.html?GameplaySystem">Gameplay System</a> can be used to facilitate game feel in
+                    game development. 
+                    The <a href = "gameplay.html?GameplaySystem">Gameplay System</a> was created throughout the development of the 3D hack and slash game <a href = "games.html">Access Acquired</a>.
+
+                    <br><br>From my experience as the sole programmer on the team of <a href = "games.html">Access Acquired</a>, I noticed the need for
+                    generic solutions to common game concepts. By finding an approach that would allow
+                    delegation of the implementation to the designers themselves, I would be able to focus on
+                    other technically complex areas of game development that require my skillset instead. This
+                    approach could possibly benefit other teams with limited resources, be it time or programmers.
+                </p>
+
+                <h2>I want to read it!</h2>
+                <p>
+                    The full text is available in the link below, which gives a different perspective into the development of the <a href = "gameplay.html?GameplaySystem">Gameplay System</a>
+                    and its goals. 
+                    There you can also read my co-authors, <a href = "https://www.linkedin.com/in/meikelenting/" target = "_blank" title = "Open Meike's LinkedIn">Meike Lenting's</a> 
+                    and <a href = "https://www.artstation.com/minuvix/" target = "_blank" title = "Open Jamie's ArtStation">Jamie Braad Sernbo's</a>,
+                    work in their respective area of <a href = "games.html">Access Acquired</a>.
+                    
+                    <br><br>
+                    You can find my individual thesis on page 30.
+                    <br><a href = "https://urn.kb.se/resolve?urn=urn:nbn:se:uu:diva-591715" target = "_blank" title = "Open the Thesis in DiVA.">Click me for thesis!</a>
+                    <br><br>
                 </p>
             </div>
         </main>
