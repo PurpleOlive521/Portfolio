@@ -83,6 +83,20 @@
     }
 }
 
+@media (min-width: 1000px)
+{
+    .GithubSideTab
+    {
+        &:hover,
+        &:active
+        {
+            background-color: var(--github-tab-hover);
+            border-color: var(--github-tab-border-hover);
+            width: 140px;
+        }
+    }
+}
+
 /* Mobiled display*/
 @media (max-width: 1000px)
 { 
@@ -116,6 +130,12 @@
         padding: min(2rem, 10%);
         margin: 1rem;
         margin-top: 6rem;
+    }
+
+    .Fields li a
+    {
+        width: 225px;
+        height: 225px;
     }
      
     .Fields li
@@ -166,6 +186,15 @@
     {
         padding: 1rem;
         margin: 0;
+    }
+
+    .EducationLabel
+    {
+
+        & > *
+        {
+            text-align: center;
+        }
     }
 
     /* ----- Navigation ----- */
@@ -264,12 +293,15 @@
         padding: 0.25rem;
     }
 
-    .GithubSideTab:hover,
-    .GithubSideTab:active
-    {
-        transform: scale(1.1);
 
-        width: 100px;
+    .GithubSideTab
+    {
+        &:hover,
+        &:active
+        {
+            background-color: var(--github-tab-hover);
+            border-color: var(--github-tab-border-hover);
+        }
     }
 
     /* ----- Content ----- */
@@ -294,6 +326,14 @@
         & > p
         {
             font-size: 1.1rem;
+        }
+
+        & > .StandaloneImage,
+        & > .StandaloneVideo
+        {
+            max-width: calc(100% + 3rem);
+            margin-left: -1.5rem;
+            margin-right: -1.5rem;
         }
     }
 
@@ -396,8 +436,9 @@
 
     .ContentSwitcher
     {
-        margin-left: 0.25rem;
-        margin-right: 0.25rem;
+        max-width: fit-content;
+        margin-left: -1.5rem;
+        margin-right: -1.5rem;
     }
 
     /* ----- Image Modal ----- */

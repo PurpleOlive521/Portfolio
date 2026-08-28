@@ -58,10 +58,10 @@
     --card-shadow: 2px 2px 6px #585874;
     --card-shadow-alt: 5px 5px 1px var(--bg-card-shadow);
 
-    --content-switcher-shadow: 4px 4px 3px #8d7bc9;
-    --switcher-shadow: 0px 4px 2px var(--bg-panel-active-shadow);
-    --switcher-active-shadow: 0px 4px 2px var(--bg-panel-shadow);
+    --content-switcher-shadow: 3px 3px 2px #8d7bc9;
+    --switcher-shadow: 0px 4px 1px var(--bg-panel-active-shadow);
+    --switcher-active-shadow: 0px 4px 1px var(--bg-panel-shadow);
 
-    --github-tab-shadow: 0px 4px 2px var(--bg-panel-shadow);
+    --github-tab-shadow: 0px 3px 1px var(--bg-panel-shadow);
 }
 
