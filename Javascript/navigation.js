@@ -9,9 +9,10 @@ export function SetActiveItem()
 
         for(const item of items)
         {
-            let href = item.getAttribute('href');
-            href = href.split("/").pop();
-            if(item.getAttribute('href') === currentPage)
+            let target = item.getAttribute('href');
+            target = target.split("/").pop();
+
+            if(target == currentPage)
             {
                 item.classList.add('active');
             }
