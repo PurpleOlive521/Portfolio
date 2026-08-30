@@ -453,13 +453,30 @@
 
     .ModalImage
     {
-        /*
-        transform: rotate(90deg);
 
-        width: 100vh;
-        */
         padding: 0.25rem;
     }
+
+    .ModalImageVertical
+    {
+        width: auto;
+        max-width: 95%;
+
+        height: auto;
+    }
+
+    .ModalImage,
+    .ModalImageVertical
+    {
+        /*
+        transform: rotate(90deg);
+        width: 90vh ;
+        max-width: unset;
+        */
+
+
+    }
+
 }
 
 @media (max-width: 500px)
