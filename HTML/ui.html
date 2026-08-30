@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <title>UI | Oliver Österlund Stare</title>  
+        <link rel="icon" type="image/x-icon" href = "/Content/Icons/WebsiteIcon.png">
 
         <!-- Fonts --> 
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1066,6 +1067,184 @@ public:
                         A drawback is that UI customization requires upkeep - any future property added to the type needs to also be displayed through the Slate code. <br>
                         As such it might not be fit for types that will change frequently without needing to go yell at your UI programmer to update their code.
                     </li>  
+                </ul>
+            </div>
+
+             <!-- ====================================================================================
+                Portfolio
+            ==================================================================================== -->
+
+            <div class = "FieldContent InPageNavigationTarget" data-name="Portfolio" id = "Portfolio">
+                <div id = "GithubSideTabTarget" data-href = "https://github.com/PurpleOlive521/Portfolio"></div>
+
+                <h1>Portfolio</h1>
+
+                <h2>What is it?</h2>
+                <p>
+                    It's this website! I made it from scratch using HTML, CSS and Javascript to create the design, layouts, elements, functionality and ofcourse
+                    the written content and information.
+                </p>
+
+                <img class = "StandaloneImage ExpandableImage ContentMarginTop ContentMarginBottomSmall" src="/Content/Work/PortfolioImage.png">
+
+                <h2>Show me some cool stuff!</h2>
+                <p>
+                    Since HTML lacks both preprocessor directives and macros, its difficult to avoid copying elements around when creating
+                    site-wide dynamic behaviour. I solve this for my site by relying on two techniques:
+                </p>
+
+                <h3>DOM Injection</h3>
+                <section class = "ContentSwitcher">
+                    <article class = "Switcher">
+                        <button class = "Switch active" data-tab="DOM">Slate-like syntax</button>
+                    </article>
+                    
+                    <article class = "SwitcherContent active" id = "DOM">
+                        <!-- Code -->
+                        <pre class = "line-numbers"><code class = "lang-js"><!--export function CreateTooltipElement(text, tooltip)
+{
+    let root = CreateRootElement('div', ['TooltipLine']);
+
+        let p = CreateChildElement(root, 'p');
+            p.innerHTML = text;
+
+        let div = CreateChildElement(root, 'div', ['Tooltip'])
+            div.innerHTML = "[ ? ]";
+
+            let span = CreateChildElement(div, 'span', ['TooltipText']);
+                span.innerHTML = tooltip;
+        
+    return root;
+}
+
+// Creates and returns a DOM element with given classes
+function CreateElementWithClasses(inElement, inClasses = new Array())
+{
+    let element = document.createElement(inElement);
+
+    for(const inClass of inClasses)
+    {
+        element.classList.add(inClass)
+    }
+
+    return element;
+}
+
+// Wrapper for the above function which makes it slightly clearer what the purpose is
+function CreateRootElement(inElement, inClasses = new Array())
+{
+    return CreateElementWithClasses(inElement, inClasses);
+}
+
+// Creates and returns a DOM element with given classes, as a child of the given element.
+function CreateChildElement(element, inElement, inClasses = new Array())
+{
+    let childElement = CreateElementWithClasses(inElement, inClasses);
+
+    element.appendChild(childElement);
+
+    return childElement;
+}
+--></code></pre>
+                    </article>
+                </section>
+
+                <p>
+                    Using my own declarative syntax I can create DOM elements on the fly, that are then inserted into the DOM structure at runtime.
+                    The syntax was inspired by Unreal's Slate system which also relies on declarative syntax, albeit alot more sophisticated than mine. 
+                </p>
+
+                <h3>HTML Injection</h3>
+                <section class = "ContentSwitcher">
+                    <article class = "Switcher">
+                        <button class = "Switch active" data-tab="HTML">Injection</button>
+                    </article>
+                    
+                    <article class = "SwitcherContent active" id = "HTML">
+                        <pre class = "line-numbers"><code class = "lang-js"><!--export async function InsertPageElements()
+{
+    return Promise.all([
+        InsertPageElement("#HeaderTarget", '/HTML/header.html'),
+        InsertPageElement("#FooterTarget", '/HTML/footer.html'),
+        InsertPageElement("#InPageNavigationTarget", '/HTML/inpagenavigation.html'),
+        InsertPageElement("#ImageModalTarget", '/HTML/imagemodal.html'),
+        InsertPageElement("#GithubSideTabTarget", '/HTML/githubsidetab.html', TransferHRef),
+    ]);
+}
+
+async function InsertPageElement(id, content, lambda = () => {}) 
+{
+    const targets = document.querySelectorAll(id);
+
+    if(targets.length <= 0)
+    {
+        return Promise.resolve();
+    }
+
+    const response = await fetch(content);
+    const data = await response.text();
+
+    for(const target of targets)
+    {
+        const element = document.createElement('div');
+        element.innerHTML = data;
+
+        lambda(element, target);
+
+        target.replaceWith(element);
+    }
+
+    return Promise.resolve();
+}
+
+async function BuildPageElement(id, content, lambda = () => {}) 
+{
+    const targets = document.querySelectorAll(id);
+
+    if(targets.length <= 0)
+    {
+        return Promise.resolve();
+    }
+
+    const response = await fetch(content);
+    const data = await response.text();
+
+    for(const target of targets)
+    {
+        lambda(element, target, data);
+    }
+
+    return Promise.resolve();
+}
+
+function TransferHRef(target, source)
+{
+    target.children[0].children[0].href = source.dataset.href;
+}
+--></code></pre>
+                    </article>
+                </section>
+
+                <p>
+                    For some elements I instead utilize HTML injection, where an HTML files content is inserted into a empty element to allow any kind
+                    of content to be added. This is typically easier since you still write in HTML, whereas DOM injection requires a non-html syntax.
+                </p>
+
+                <h2>Takeaways</h2>
+                <ul class = "Takeaways">
+                    <li>
+                        Web development has a lot in common with UMG or Slate, with box using their own take on the box-model for layout and design.
+                    </li>
+                                        
+                    <li>
+                        Going from C++ to Javacript is quite the change, especially for a larger project as this. The lack of explicit types, outside
+                        of what the Typescript libraries give you, is challenging to work with when starting out.
+                    </li>     
+
+                    <li>
+                        If I had more experience with web-dev, I would have liked to try to do the content injection only on the server-side 
+                        HTML, and then send the complete HTML to clients to avoid stutters and the extra delay that the injection incurs.
+                    </li>     
                 </ul>
             </div>
         </main>

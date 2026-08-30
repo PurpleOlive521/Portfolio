@@ -227,6 +227,8 @@ footer
     width: fit-content;
     margin: auto;
 
+    position: relative;
+
     background-color: var(--bg-card);
     text-align: center;
 
@@ -242,7 +244,21 @@ footer
 
     & > p
     {
+        margin-top: 1rem;
         font-weight: 500;
+    }
+
+    & > img
+    {
+        width: 15vw;
+        min-width: 200px;
+        height: auto;
+
+        position: absolute;
+        top: 5%;
+        right: -20%;
+
+        transform: rotate(20deg);
     }
 }
 
@@ -345,7 +361,7 @@ footer
     padding: 0.5rem;
     padding-bottom: 2rem;
 
-    bottom: -30%;
+    bottom: -75px;
     left: 10%;
 
     & > h1
@@ -729,25 +745,32 @@ footer
     display: block;
     margin: auto;
 
+    position: relative;
+
     background-color: var(--bg-card);
 
     margin-top: 2rem;
     margin-bottom: 3rem;
     padding: 1.0rem 2.5rem;
+
+    & > h1
+    {
+        text-align: center;
+        font-size: 3rem;
+
+        margin-bottom: 1rem;
+    }
+
+    & > .OnSteam
+    {
+        top: -35px;
+    }
 }
 
 /* This damn long name keeps being an issue*/
 .KraxDisplayCard
 {
     height: 370px;
-}
-
-.GameDisplayCard h1
-{
-    text-align: center;
-    font-size: 3rem;
-
-    margin-bottom: 1rem;
 }
 
 .GameDisplayCard ul

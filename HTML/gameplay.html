@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <title>Gameplay | Oliver Österlund Stare</title>  
+        <link rel="icon" type="image/x-icon" href = "/Content/Icons/WebsiteIcon.png">
 
         <!-- Fonts --> 
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -489,10 +490,10 @@
                 
                 <h3>Reliable Messages</h3>
                 <p class = "TooltipTarget"
-                data-tooltip = "While a maximum of 32 acknowledges seems too low, <br>
+                data-tooltip = "Max 32 acknowledges might seem low, but <br>
                                 a loss of more than 32 acknowledges in a row is rare <br>
-                                without extreme packet-loss, and would be easier handled <br>
-                                by forcing client to reconnect instead.">
+                                without extreme packet-loss, and would then be easier <br>
+                                handled by forcing client to reconnect instead.">
                     Each message is tracked, stored and resent in each packet until it is confirmed to be received by the other end. 
                     An algorithm is used to encode packet-level acknowledges into a uint32, allowing a single packet to describe the acknowledge state of 32 messages.
                     Some messages will always need to be tracked, such as spawning of player-controlled objects so that connecting Clients can replicate them correctly. 
@@ -548,7 +549,7 @@
                     
                     <br><br>
                     You can find my individual thesis on page 30.
-                    <br><a href = "https://urn.kb.se/resolve?urn=urn:nbn:se:uu:diva-591715" target = "_blank" title = "Open the Thesis in DiVA.">Click me for thesis!</a>
+                    <br><br><a href = "https://urn.kb.se/resolve?urn=urn:nbn:se:uu:diva-591715" target = "_blank" title = "Open the Thesis in DiVA.">Click me for thesis!</a>
                     <br><br>
                 </p>
             </div>

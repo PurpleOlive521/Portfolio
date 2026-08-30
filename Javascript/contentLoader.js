@@ -1,4 +1,3 @@
-// Adds the Header and Footer html elements to the page
 export async function InsertPageElements()
 {
     return Promise.all([

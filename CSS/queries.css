@@ -92,7 +92,7 @@
         {
             background-color: var(--github-tab-hover);
             border-color: var(--github-tab-border-hover);
-            width: 140px;
+            width: 120px;
         }
     }
 }
@@ -120,22 +120,34 @@
         padding-top: 0.5rem;
     }
     
-    .IntroCard h1
-    {
-        font-size: 1.5rem;
-    }
-    
     .IntroCard
     {
         padding: min(2rem, 10%);
-        margin: 1rem;
+        margin-bottom: 1rem;
         margin-top: 6rem;
+        max-width: 90%;
+
+        & > h1
+        {
+            font-size: 1.5rem;
+        }
+
+        & > img
+        {
+            top: 0;
+            right: -5%;
+        }
     }
 
     .Fields li a
     {
-        width: 225px;
-        height: 225px;
+        width: 175px;
+        height: 175px;
+
+        & > h1
+        {
+            font-size: 1.9rem;
+        }
     }
      
     .Fields li
@@ -359,7 +371,6 @@
     .GameShowcase
     {
         padding-top: 1rem;
-        max-width: 100%;
     }
 
     .GameDisplayCard
@@ -399,8 +410,6 @@
 
     .GameCard
     {
-        bottom: -50%;
-
         & > h1
         {
             font-size: 1.2rem;
@@ -450,5 +459,20 @@
         width: 100vh;
         */
         padding: 0.25rem;
+    }
+}
+
+@media (max-width: 500px)
+{ 
+    .GameCard
+    {
+        width: 90%;
+        bottom: -50%;
+        left: 5%;
+    }
+
+    .GameShowcase
+    {
+        max-width: 100%;
     }
 }
