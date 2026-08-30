@@ -348,6 +348,14 @@
         }
     }
 
+    .TextList,
+    .TooltipText,
+    .TooltipLine p,
+    .Takeaways
+    {
+        font-size: 1.1rem;
+    }
+
     .Team
     {
         font-size: 1.0rem;
@@ -464,19 +472,6 @@
 
         height: auto;
     }
-
-    .ModalImage,
-    .ModalImageVertical
-    {
-        /*
-        transform: rotate(90deg);
-        width: 90vh ;
-        max-width: unset;
-        */
-
-
-    }
-
 }
 
 @media (max-width: 500px)

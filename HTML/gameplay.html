@@ -380,12 +380,20 @@
                     When an action requests a target, one the first successful option is picked:
                 </p>
 
-                <p class = "TextIndent">
-                    <br>    Option 1. If there is active player movement input beyond a low threshold use the input to create a MotionWarping point.
-                    <br>    Option 2. If there is an active Target Lock, use its target as the MotionWarping point.
-                    <br>    Option 3. Find the closest tracked target in the forward direction of the owning Actor. If one exists use it as the MotionWarping point.
-                    <br>    Option 4. Don't create a MotionWarping point.
-                </p>
+                <ul class = "TextList">
+                    <li>
+                        Option 1. If there is active player movement input beyond a low threshold use the input to create a MotionWarping point.
+                    </li>
+                    <li>
+                        Option 2. If there is an active Target Lock, use its target as the MotionWarping point.
+                    </li>
+                    <li>
+                        Option 3. Find the closest tracked target in the forward direction of the owning Actor. If one exists use it as the MotionWarping point.
+                    </li>
+                    <li>
+                        Option 4. Don't create a MotionWarping point.
+                    </li>
+                </ul>
 
                 <p>
                     The active-input-override was added during the implementation, since I noticed very quickly that whenever the aim assist tried to track a target
