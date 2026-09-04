@@ -6,6 +6,7 @@ import * as inPageNavigation from './inPageNavigation.js'
 import * as expandableImages from './expandableImages.js'
 import * as titles from './titles.js'
 import * as tooltip from './tooltip.js'
+import * as scrollableAutoplay from './scrollableAutoplay.js'
 
 
 const START_EVENT = 'DOMContentLoaded';
@@ -18,6 +19,7 @@ function main()
 
     contentSwitcher.BindToContentSwitchers();
     tooltip.MakeTooltips();
+    scrollableAutoplay.BindToScrollableAutoplays();
 
     contentLoader.InsertPageElements().then(() => 
     {

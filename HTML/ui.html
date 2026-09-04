@@ -40,7 +40,7 @@
 
                 <h1>Smooth Loading Screen</h1>
 
-                <video class = "StandaloneVideo DisplayContent" src = "/Content/Videos/LoadingScreen.mp4" type="video/mp4" controls muted autoplay loop></video>
+                <video class = "StandaloneVideo DisplayContent ScrollableAutoplay" src = "/Content/Videos/LoadingScreen.mp4" type="video/mp4" controls muted loop></video>
 
                 <h2>What is it?</h2>
                 <p>
@@ -688,7 +688,7 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
 
                 <h1>Multilayer Game UI</h1>
 
-                <video class = "StandaloneVideo DisplayContent ContentMarginBottomSmall" src = "/Content/Videos/GeneralUI2.mp4" type="video/mp4" controls muted autoplay loop></video>
+                <video class = "StandaloneVideo DisplayContent ScrollableAutoplay ContentMarginBottomSmall" src = "/Content/Videos/GeneralUI2.mp4" type="video/mp4" controls muted loop></video>
                 <p class = "Subtitle CenteredText">The text on the top of the video denotes which layer the upper-most visible widget is part of.</p>
 
                 <h2>What is it?</h2>
@@ -708,7 +708,7 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
                     but being able to add/remove it whenever would be a plus. I looked at ARC Raiders for inspiration, where a similar layer structure can be seen.
                 </p>
 
-                <video class = "StandaloneVideo ContentMarginTop ContentMarginBottomSmall" src = "/Content/Videos/ArcRaidersUI.mp4" type="video/mp4" controls muted></video>
+                <video class = "StandaloneVideo ScrollableAutoplay ContentMarginTop ContentMarginBottomSmall" src = "/Content/Videos/ArcRaidersUI.mp4" type="video/mp4" controls muted></video>
 
                 <p>
                     <br>I will refer these three layers 'Game', 'Menu' and 'Modal', which is what I called them in <a href = "/HTML/games.html">Access Acquired</a>. 
@@ -863,19 +863,19 @@ public:
                     </article>
             
                     <article class = "SwitcherContent active" id = "MainMenu">
-                        <video src = "/Content/Videos/MainMenuUI.mp4" type="video/mp4" autoplay controls muted></video>
+                        <video src = "/Content/Videos/MainMenuUI.mp4" class = "ScrollableAutoplay" type="video/mp4" controls muted></video>
                     </article>
 
                     <article class = "SwitcherContent active" id = "TerminalMenu">
-                        <video src = "/Content/Videos/TerminalMenuUI.mp4" type="video/mp4" autoplay controls muted></video>
+                        <video src = "/Content/Videos/TerminalMenuUI.mp4" class = "ScrollableAutoplay" type="video/mp4" controls muted></video>
                     </article>
 
                     <article class = "SwitcherContent" id = "SkillTree">
-                        <video src = "/Content/Videos/SkillTreeUI.mp4" type="video/mp4" autoplay controls muted></video>
+                        <video src = "/Content/Videos/SkillTreeUI.mp4" class = "ScrollableAutoplay" type="video/mp4" controls muted></video>
                     </article>
 
                     <article class = "SwitcherContent" id = "Dialogue">
-                        <video src = "/Content/Videos/DialogueUI.mp4" type="video/mp4" autoplay controls muted></video>
+                        <video src = "/Content/Videos/DialogueUI.mp4" class = "ScrollableAutoplay" type="video/mp4" controls muted></video>
                     </article>
                 </section>
 				

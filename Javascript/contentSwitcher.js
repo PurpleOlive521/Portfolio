@@ -1,3 +1,4 @@
+import * as scrollableAutoplay from './scrollableAutoplay.js'
 
 export function BindToContentSwitchers()
 {
@@ -95,6 +96,7 @@ function SetActiveSwitcherContent(activeSwitcher)
             {
                 if(video.autoplay)    
                 {
+                    video.classList.remove(scrollableAutoplay.FORBID_SCROLLABLE_AUTOPLAY);
                     video.play();
                 }
             }
@@ -105,6 +107,7 @@ function SetActiveSwitcherContent(activeSwitcher)
             for(const video of videos)
             {
                 video.pause();
+                video.classList.add(scrollableAutoplay.FORBID_SCROLLABLE_AUTOPLAY);
             }
         }
     }
