@@ -78,7 +78,6 @@ function SetActiveSwitcherContent(activeSwitcher)
     // Mark clicked as active
     activeSwitcher.classList.add('active');
 
-
     // Remove active class from all contents and add one to the clicked ones
     for(const element of root.children)
     {        
@@ -94,7 +93,7 @@ function SetActiveSwitcherContent(activeSwitcher)
             // Start any autoplay video that the new active element has.
             for(const video of videos)
             {
-                if(video.autoplay)    
+                if(video.classList.contains(scrollableAutoplay.SCROLLABLE_AUTOPLAY))    
                 {
                     video.classList.remove(scrollableAutoplay.FORBID_SCROLLABLE_AUTOPLAY);
                     video.play();

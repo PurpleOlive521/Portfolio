@@ -449,6 +449,26 @@ footer
     }
 }
 
+.GameMedia
+{
+    position: relative;
+
+    & > img
+    {
+        transition: opacity 0.5s ease-in-out;
+    }
+}
+
+.AccessAcquiredVideo,
+.KraxVideo
+{
+    display: none;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 /* ====================================================================================
     About Me
    ==================================================================================== */
@@ -610,6 +630,8 @@ footer
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+
+    margin-bottom: 1.5rem;
 }
 
 .EducationContent > *
