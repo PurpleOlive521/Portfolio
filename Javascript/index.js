@@ -7,6 +7,7 @@ import * as expandableImages from './expandableImages.js'
 import * as titles from './titles.js'
 import * as tooltip from './tooltip.js'
 import * as scrollableAutoplay from './scrollableAutoplay.js'
+import * as imageWithVideo from './imageWithVideo.js'
 
 
 const START_EVENT = 'DOMContentLoaded';
@@ -20,6 +21,7 @@ function main()
     contentSwitcher.BindToContentSwitchers();
     tooltip.MakeTooltips();
     scrollableAutoplay.BindToScrollableAutoplays();
+    imageWithVideo.BindToImageWithVideos();
 
     contentLoader.InsertPageElements().then(() => 
     {

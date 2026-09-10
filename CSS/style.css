@@ -452,21 +452,36 @@ footer
 .GameMedia
 {
     position: relative;
-
+    
     & > img
     {
-        transition: opacity 0.5s ease-in-out;
     }
+
+    & > video
+    {
+        z-index: 0;
+    }
+}
+
+.HideGameImage
+{
+    opacity: 0;
+}
+
+.ShowGameImage
+{
+    opacity: 1;
 }
 
 .AccessAcquiredVideo,
 .KraxVideo
 {
-    display: none;
-
     position: absolute;
     top: 0;
     left: 0;
+
+    width: 0;
+    height: 0;
 }
 
 /* ====================================================================================
