@@ -1,5 +1,4 @@
-const HIDE_IMAGE_CLASS = "HideGameImage";
-const SHOW_IMAGE_CLASS = "ShowGameImage";
+const SHOW_VIDEO_CLASS = "ShowGameVideo";
 
 export function BindToImageWithVideos()
 {
@@ -21,22 +20,20 @@ function OnImageWithVideoHovered(event, bEntered)
 {
     let target = event.target;
 
-    let video = target.children[0];
-    let image = target.children[1];
+    let video = target.querySelector('video');
+    let image = target.querySelector('img');
 
     if(bEntered)
     {
-        image.classList.add(HIDE_IMAGE_CLASS);
-        image.classList.remove(SHOW_IMAGE_CLASS);
+        video.classList.add(SHOW_VIDEO_CLASS);
         video.style.width = image.clientWidth + "px";
         video.style.height = image.clientHeight + "px";
         
         video.play();
     }
     else
-        {
-        image.classList.remove(HIDE_IMAGE_CLASS);
-        image.classList.add(SHOW_IMAGE_CLASS);
+    {
+        video.classList.remove(SHOW_VIDEO_CLASS);
         video.pause();
     }
 

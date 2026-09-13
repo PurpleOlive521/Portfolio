@@ -313,6 +313,14 @@ footer
         {
             font-size: 2.5rem;
         }
+
+        transition: transform 0.1s ease-in;
+
+        &:active,
+        &:hover
+        {
+            transform: scale(1.025);
+        }
     }
 }
 
@@ -413,7 +421,7 @@ footer
 
     padding: 0.4rem;
 
-    transition: transform 0.15s linear;
+    transition: transform 0.15s ease-in;
 
     &:active,
     &:hover
@@ -453,35 +461,25 @@ footer
 {
     position: relative;
     
-    & > img
-    {
-    }
-
     & > video
     {
-        z-index: 0;
+        opacity: 0;
+        transition: opacity 0.25s ease-in-out;
+        
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 0;
+        height: 0;
+
+        background-color: black;
     }
 }
 
-.HideGameImage
+.ShowGameVideo
 {
-    opacity: 0;
-}
-
-.ShowGameImage
-{
-    opacity: 1;
-}
-
-.AccessAcquiredVideo,
-.KraxVideo
-{
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 0;
-    height: 0;
+    opacity: 1 !important;
 }
 
 /* ====================================================================================
