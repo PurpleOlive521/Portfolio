@@ -634,29 +634,23 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
                 <h3>Transitions</h3>
 
                 <p class = "TooltipTarget"
-                data-tooltip = "While the minimum up-time does risk making the <br>
-                                loading screen stay up longer than needed, it can <br>
-                                be worth it to make the transition seamless for <br>
-                                story-driven games like Access Acquired.">
+                data-tooltip = "While the minimum up-time does risk making the loading screen stay up longer than needed, it can
+                                be worth it to make the transition seamless for immersive games like Access Acquired.">
                     By allowing designers to explicitly enable the loading screen, we can add transitions to the loading screen to make it more smooth.
                     This is controlled through the settings, and requires that the loading screen have a minimum uptime which is enforced automatically.
                 </p>
 
                 <p class = "TooltipTarget"
-                data-tooltip = "For example, given a minimum loading screen duration <br>
-                                of 2s, a 0.5s long transition works well. <br>
-                                Longer transitions can be used too, but they risk covering <br>
-                                the loading content for too long which looks unintended.">
+                data-tooltip = "For example, given a minimum loading screen duration of 2s, a 0.5s long transition works well.
+                                Longer transitions can be used too, but they risk covering the loading content for too long which looks unintended.">
                     <br>A callback in the loading screen widget gives the designers a chance to play animations when transitioning in and out of the widget.
                 </p>
 
                 <h3>Hidden in-editor</h3>
 
                 <p class = "TooltipTarget"
-                data-tooltip = "This would usually remove the loading screen <br>
-                                entirely from view, since the load times aren't long<br>
-                                to begin with for our game, which helps even more! <br>
-                                ">
+                data-tooltip = "This would usually completely hide the loading screen from view, since the load times aren't long
+                                to begin with for our game.">
                     While implementing the loading screen, I quickly realised that having it enabled for in-editor testing would get annoying very quickly, even more so 
                     if the minimum up-time is a value above 0.5 seconds like for <a href = "/HTML/games.html">Access Acquired</a>.
                     <br><br>To remedy this, I added the 'Show Loading Screen Additional Seconds In Editor' boolean that will keep it visible for the shortest possible time
@@ -699,11 +693,8 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
 
                 <h2>A case study</h2>
                 <p class = "TooltipTarget"
-                data-tooltip = "This is just speculation - I don't have proof this is <br>
-                                the actual implementation for ARC Raiders UI layering. <br>
-                                It however seems like a similar solution is used for some <br>
-                                of the widgets.
-                                ">
+                data-tooltip = "This is just speculation - I don't have proof this is the actual implementation for ARC Raiders UI layering.
+                                It however seems like a similar solution is used for some of the widgets.">
                     I wanted to create a solution that would allow us to mix menues and modal widgets. The HUD would not need to be swapped during gameplay for <a href = "/HTML/games.html">Access Acquired</a>,
                     but being able to add/remove it whenever would be a plus. I looked at ARC Raiders for inspiration, where a similar layer structure can be seen.
                 </p>
@@ -717,10 +708,8 @@ void ULoadingScreenSubsystem::ChangePerformanceSettings(bool bEnabingLoadingScre
 
                 <img class = "ExpandableImage StandaloneImage ContentMarginTop ContentMarginBottomSmall" src="/Content/Work/ArcRadiersMenuBase.png">
                 <p class = "TooltipTarget"
-                data-tooltip = "It is also possible that the menu base is just one  <br>
-                                single widget and each submenu swaps out the content<br>
-                                in the widget, or shows a different page of it.
-                                ">
+                data-tooltip = "It is also possible that the menu base is just one single widget and each submenu swaps out the content
+                                in the widget, or shows a different page of it.">
                     Shown in the image above is the menu base, where navigation starts from and is the first view the player gets of the main in-game menu.
                     <br>This would be placed in the 'Game' layer, and each submenu (e.g 'Play', 'Workshop', 'Raider', etc.) seems to swap out this widget.
                 </p>
@@ -935,12 +924,9 @@ public:
                 </section>
 
                 <p class = "TooltipTarget"
-                data-tooltip = "Note that I use my own library function to translate the <br>
-                                EAttributeType enum to a string, instead of using <br>
-                                UEnum::GetDisplayValueAsText which is editor-only. <br>
-                                This makes no difference here, but is important <br>
-                                when working with gameplay- or debugging-tools.
-                                ">
+                data-tooltip = "Note that I use my own library function to translate the EAttributeType enum to a string, instead of using
+                                UEnum::GetDisplayValueAsText which is editor-only. This makes no difference here, but is important
+                                when working with gameplay- or debugging-tools.">
                     My immediate goal was to solve the core problem: Making the UI horizontally-aligned instead of laid out vertically.
                     <br><br>I achieve this by creating a row to work in the ChildBuilders AddCustomRow() method.
                     We can then display the attributes name in the aptly named NameContent(), while the types properties are
@@ -1038,10 +1024,8 @@ public:
                 </section>
 
                 <p class = "TooltipTarget"
-                data-tooltip = "This also avoids the need to allocate the property per  <br>
-                                type. Its not a a big deal for one-off types or editor-only  <br>
-                                ones. But if its done often for frequently-used types, <br>
-                                the memory overhead quickly adds up.">
+                data-tooltip = "This also avoids the need to allocate the property per type. Its not a a big deal for one-off types or editor-only 
+                                ones. But if its done often for frequently-used types, the memory overhead quickly adds up.">
                     Another benefit of using Slate is that new data can be displayed, without needing it to exist in the types UProperties.
                     I use this to display the name of the attribute on the left, to allow designers to more quickly search for the wanted property.
                     <br><br>Adding unique content to the UI this way is much better than the naive solution of simply adding the data as a member to the type,
@@ -1243,7 +1227,7 @@ function TransferHRef(target, source)
 
                     <li>
                         If I had more experience with web-dev, I would have liked to try to do the content injection only on the server-side 
-                        HTML, and then send the complete HTML to clients to avoid stutters and the extra delay that the injection incurs.
+                        HTML, and then send the complete HTML to clients to avoid stutters and the extra delay that the injection creates.
                     </li>     
                 </ul>
             </div>
